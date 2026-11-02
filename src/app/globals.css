@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  /* AUREL brand palette — see PROJECT_REQUIREMENTS.md §2. Fixed brand theme,
+     not a user togglable light/dark mode: sections deliberately alternate
+     between the midnight and ivory surfaces below. */
+  --color-midnight: #0b1220;
+  --color-charcoal: #151c2b;
+  --color-ivory: #f5f1e8;
+  --color-gold: #c6a66b;
+  --color-gold-soft: #d9c197;
+  --color-slate: #8792a2;
+}
+
+@theme inline {
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+
+  --color-midnight: var(--color-midnight);
+  --color-charcoal: var(--color-charcoal);
+  --color-ivory: var(--color-ivory);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
+  --color-slate: var(--color-slate);
+
+  --breakpoint-xs: 22.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-ivory);
+    color: var(--color-midnight);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-midnight);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-serif-display {
+    font-family: var(--font-serif);
+    font-feature-settings: "ss01" 1;
+  }
+}
