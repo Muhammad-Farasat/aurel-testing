@@ -13,7 +13,7 @@ export function ContactForm() {
   if (state.success) {
     return (
       <div className="border border-emerald-200 bg-emerald-50 p-6 text-emerald-800">
-        Thank you — your message has been sent. We will reply shortly.
+        Thank you. Your message has been sent and we will reply shortly.
       </div>
     );
   }

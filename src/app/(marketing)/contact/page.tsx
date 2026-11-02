@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { getContactSettings } from "@/server/services/settings-service";
+import { Reveal } from "@/components/ui/reveal";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = { title: "Contact" };
@@ -18,7 +19,7 @@ export default async function ContactPage() {
       </section>
 
       <section className="bg-ivory px-6 py-20 lg:px-12">
-        <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1fr_1.2fr]">
+        <Reveal className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1fr_1.2fr]">
           <div className="space-y-8">
             <ContactDetail icon={Mail} label="Email" value={contact.contactEmail} />
             <ContactDetail icon={Phone} label="Phone" value={contact.contactPhone} />
@@ -29,7 +30,7 @@ export default async function ContactPage() {
           </div>
 
           <ContactForm />
-        </div>
+        </Reveal>
       </section>
     </>
   );
