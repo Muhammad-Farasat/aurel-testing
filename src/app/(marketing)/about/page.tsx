@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { SplitFeature } from "@/components/ui/split-feature";
-import { NumberedRow } from "@/components/ui/numbered-row";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { MARKETING_IMAGES } from "@/lib/marketing-images";
@@ -44,31 +43,26 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-ivory px-6 pb-24 lg:px-12">
-        <Reveal className="mx-auto max-w-5xl">
-          <div className="max-w-xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-slate">What we hold to</p>
-            <h2 className="mt-4 font-serif text-3xl text-midnight sm:text-4xl">
-              Three commitments
-            </h2>
-          </div>
+        <Reveal className="mx-auto max-w-3xl">
+          <p className="text-xs uppercase tracking-[0.3em] text-slate">What we hold to</p>
+          <h2 className="mt-4 font-serif text-3xl text-midnight sm:text-4xl">Three commitments</h2>
 
-          <div className="mt-14">
-            <NumberedRow
-              index="01"
-              title="Privacy by default"
-              description="Trip details stay between you and your chauffeur. Nothing about a booking is shared beyond what's needed to complete it."
-            />
-            <NumberedRow
-              index="02"
-              title="One point of contact"
-              description="Your assigned chauffeur sees the trip through from pickup to drop-off, not a rotating pool of drivers."
-            />
-            <NumberedRow
-              index="03"
-              title="Consistent, not occasional"
-              description="The same standard applies whether it's a single transfer or a fully chauffeured day."
-            />
-            <div className="border-t border-midnight/10" />
+          <div className="mt-10 space-y-6 text-lg leading-relaxed text-midnight/90">
+            <p>
+              <span className="font-serif text-xl text-midnight">Privacy by default.</span> Trip
+              details stay between you and your chauffeur, and nothing about a booking is shared
+              beyond what&rsquo;s needed to complete it.
+            </p>
+            <p>
+              <span className="font-serif text-xl text-midnight">One point of contact.</span> Your
+              assigned chauffeur sees the trip through from pickup to drop-off, not a rotating pool
+              of drivers.
+            </p>
+            <p>
+              <span className="font-serif text-xl text-midnight">Consistent, not occasional.</span>{" "}
+              The same standard applies whether it&rsquo;s a single transfer or a fully chauffeured
+              day.
+            </p>
           </div>
         </Reveal>
       </section>
@@ -78,7 +72,7 @@ export default function AboutPage() {
           <p className="mx-auto max-w-2xl text-balance font-serif text-2xl leading-relaxed text-ivory sm:text-3xl">
             Composed, private, and precisely on time. That&rsquo;s the whole idea.
           </p>
-          <div className="mt-10 flex justify-center gap-4">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button href="/register" size="lg">
               Create an Account
             </Button>

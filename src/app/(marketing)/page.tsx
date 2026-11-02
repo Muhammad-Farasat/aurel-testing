@@ -5,56 +5,64 @@ import { ArrowRight } from "lucide-react";
 import { db } from "@/db/client";
 import { vehicleCategories, vehicles } from "@/db/schema";
 import { Button } from "@/components/ui/button";
-import { NumberedRow } from "@/components/ui/numbered-row";
+import { PhotoTile } from "@/components/ui/photo-tile";
 import { Reveal } from "@/components/ui/reveal";
 import { Testimonials } from "@/components/marketing/testimonials";
+import { ProcessTimeline } from "@/components/marketing/process-timeline";
 import { MARKETING_IMAGES } from "@/lib/marketing-images";
 
-const SERVICES = [
+const SERVICE_LINKS = [
+  { name: "Point-to-Point Transfer", href: "/services#point-to-point" },
+  { name: "Airport Transfer", href: "/services#airport-transfer" },
+  { name: "Hourly Chauffeur", href: "/services#hourly" },
+  { name: "Full-Day Chauffeur", href: "/services#full-day" },
+];
+
+const SERVICE_TILES = [
   {
-    index: "01",
-    name: "Point-to-Point Transfer",
-    description: "One pickup, one destination. Ideal for meetings, events, and personal travel.",
     href: "/services#point-to-point",
+    title: "Point-to-Point Transfer",
+    description: "One pickup, one destination, arranged around your schedule.",
+    image: MARKETING_IMAGES.heroNightCar,
+    aspect: "aspect-[21/9]",
   },
   {
-    index: "02",
-    name: "Airport Transfer",
-    description: "Flight-tracked pickups and drop-offs, with optional meet-and-greet.",
     href: "/services#airport-transfer",
+    title: "Airport Transfer",
+    description: "Flight-tracked pickups, with meet-and-greet available.",
+    image: MARKETING_IMAGES.airportTransfer,
+    aspect: "aspect-[4/5]",
   },
   {
-    index: "03",
-    name: "Hourly Chauffeur",
-    description: "Reserve a chauffeur for a block of hours, on your schedule.",
     href: "/services#hourly",
+    title: "Hourly Chauffeur",
+    description: "A chauffeur on call for a block of hours.",
+    image: MARKETING_IMAGES.driverSeatDetail,
+    aspect: "aspect-[4/5]",
   },
   {
-    index: "04",
-    name: "Full-Day Chauffeur",
-    description: "A dedicated vehicle and driver for the entire day.",
     href: "/services#full-day",
+    title: "Full-Day Chauffeur",
+    description: "One vehicle and driver, for the entire day.",
+    image: MARKETING_IMAGES.businessDistrictSedan,
+    aspect: "aspect-[4/5]",
   },
 ];
 
 const PROCESS = [
   {
-    index: "01",
     title: "Select a service",
     description: "Point-to-point, airport, hourly, or full-day, chosen around how you're moving.",
   },
   {
-    index: "02",
     title: "Enter journey details",
     description: "Pickup, destination, timing, and passenger count. Flight details for airport transfers.",
   },
   {
-    index: "03",
     title: "Choose your vehicle",
     description: "Only vehicles with the capacity for your trip are shown, with pricing up front.",
   },
   {
-    index: "04",
     title: "Confirm and pay",
     description: "A clear price breakdown before you confirm, then a booking reference and driver details.",
   },
@@ -118,7 +126,7 @@ export default async function HomePage() {
           {/* Quick service selector. The booking entry point lives in the hero itself. */}
           <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-ivory/15 pt-8">
             <span className="mr-2 text-xs uppercase tracking-wider text-ivory/50">Travel by</span>
-            {SERVICES.map((service) => (
+            {SERVICE_LINKS.map((service) => (
               <Link
                 key={service.href}
                 href={service.href}
@@ -145,25 +153,40 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      {/* Services, as numbered editorial rows */}
+      {/* Services, as a flex-grid of photographic tiles: one wide, three half,
+          proportion doing the work a numeral used to do. */}
       <section className="bg-ivory px-6 pb-24 lg:px-12">
-        <div className="mx-auto max-w-5xl">
-          <Reveal>
-            {SERVICES.map((service) => (
-              <NumberedRow
-                key={service.href}
-                index={service.index}
-                title={service.name}
-                description={service.description}
-                href={service.href}
-              />
+        <Reveal className="mx-auto max-w-6xl">
+          <div className="mb-10 flex items-end justify-between gap-6">
+            <h2 className="font-serif text-3xl text-midnight sm:text-4xl">
+              Arranged around how you move
+            </h2>
+            <Link
+              href="/services"
+              className="hidden shrink-0 items-center gap-2 text-sm text-slate hover:text-[#8a6c35] sm:flex"
+            >
+              All services <ArrowRight className="size-4" strokeWidth={1.75} />
+            </Link>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            {SERVICE_TILES.map((tile, i) => (
+              <div key={tile.href} className={i === 0 ? "sm:col-span-3" : "sm:col-span-1"}>
+                <PhotoTile
+                  href={tile.href}
+                  imageSrc={tile.image}
+                  imageAlt={tile.title}
+                  title={tile.title}
+                  description={tile.description}
+                  aspect={tile.aspect}
+                />
+              </div>
             ))}
-            <div className="border-t border-midnight/10" />
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </section>
 
-      {/* Featured vehicles: horizontal scroll strip, deliberately not a card grid */}
+      {/* Featured vehicles: tall portrait carousel, deliberately not a card grid */}
       {featuredVehicles.length > 0 && (
         <section className="bg-charcoal py-24">
           <Reveal className="mx-auto max-w-7xl px-6 lg:px-12">
@@ -183,35 +206,28 @@ export default async function HomePage() {
             </div>
           </Reveal>
 
-          <div className="mt-12 flex gap-6 overflow-x-auto px-6 pb-4 [scrollbar-width:none] lg:px-12 [&::-webkit-scrollbar]:hidden">
+          <div
+            className="mt-12 flex gap-6 overflow-x-auto px-6 pb-4 [mask-image:linear-gradient(to_right,black_92%,transparent_100%)] [scrollbar-width:none] lg:px-12 [&::-webkit-scrollbar]:hidden"
+          >
             {featuredVehicles.map((vehicle) => (
-              <Link
-                key={vehicle.id}
-                href="/fleet"
-                className="group w-[78vw] shrink-0 snap-start sm:w-[420px]"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
+              <Link key={vehicle.id} href="/fleet" className="group w-[70vw] shrink-0 sm:w-[320px]">
+                <div className="relative aspect-[3/4] overflow-hidden">
                   <Image
                     src={VEHICLE_IMAGES[vehicle.categoryKey] ?? MARKETING_IMAGES.businessClassVehicle}
                     alt={vehicle.name}
                     fill
-                    sizes="(min-width: 640px) 420px, 78vw"
+                    sizes="(min-width: 640px) 320px, 70vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="mt-4 flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-wider text-gold">{vehicle.categoryName}</p>
-                    <p className="mt-1 font-serif text-xl text-ivory">{vehicle.name}</p>
-                    <p className="mt-1 text-sm text-ivory/50">
-                      {vehicle.passengerCapacity} passengers · {vehicle.luggageCapacity} luggage
-                    </p>
-                  </div>
-                  {vehicle.startingPrice && (
-                    <p className="shrink-0 text-sm text-ivory/70">
-                      From ${(vehicle.startingPrice / 100).toFixed(0)}
-                    </p>
-                  )}
+                <div className="mt-4">
+                  <p className="text-xs uppercase tracking-wider text-gold">{vehicle.categoryName}</p>
+                  <p className="mt-1 font-serif text-xl text-ivory">{vehicle.name}</p>
+                  <span aria-hidden className="mt-2 block h-px w-8 bg-ivory/20" />
+                  <p className="mt-2 text-sm text-ivory/50">
+                    {vehicle.passengerCapacity} passengers · {vehicle.luggageCapacity} luggage
+                    {vehicle.startingPrice ? ` · From $${(vehicle.startingPrice / 100).toFixed(0)}` : ""}
+                  </p>
                 </div>
               </Link>
             ))}
@@ -219,40 +235,9 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Why AUREL: quiet, restrained */}
-      <section className="bg-ivory px-6 py-24 lg:px-12">
-        <Reveal className="mx-auto max-w-5xl">
-          <div className="max-w-xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-slate">Why AUREL</p>
-            <h2 className="mt-4 font-serif text-3xl text-midnight sm:text-4xl">
-              What you&rsquo;re actually paying for
-            </h2>
-          </div>
-
-          <div className="mt-14">
-            <NumberedRow
-              index="01"
-              title="Vetted chauffeurs"
-              description="Every driver is screened and trained before taking a single booking."
-            />
-            <NumberedRow
-              index="02"
-              title="Punctuality as a baseline"
-              description="Flights are tracked, pickup windows are monitored, and trips are confirmed before they begin."
-            />
-            <NumberedRow
-              index="03"
-              title="Transparent pricing"
-              description="The full price breakdown is shown before you confirm, with no surprise charges after the fact."
-            />
-            <div className="border-t border-midnight/10" />
-          </div>
-        </Reveal>
-      </section>
-
-      {/* Booking process, dark and numbered */}
+      {/* Booking process: a connected timeline, not another stacked list */}
       <section className="bg-midnight px-6 py-24 lg:px-12">
-        <Reveal className="mx-auto max-w-5xl">
+        <Reveal className="mx-auto max-w-6xl">
           <div className="max-w-xl">
             <p className="text-xs uppercase tracking-[0.3em] text-gold">How it works</p>
             <h2 className="mt-4 font-serif text-3xl text-ivory sm:text-4xl">
@@ -260,17 +245,8 @@ export default async function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-14">
-            {PROCESS.map((step) => (
-              <NumberedRow
-                key={step.index}
-                index={step.index}
-                title={step.title}
-                description={step.description}
-                tone="dark"
-              />
-            ))}
-            <div className="border-t border-ivory/10" />
+          <div className="mt-16">
+            <ProcessTimeline steps={PROCESS} />
           </div>
         </Reveal>
       </section>
@@ -298,7 +274,7 @@ export default async function HomePage() {
           <h2 className="mx-auto mt-4 max-w-xl text-balance font-serif text-3xl text-ivory sm:text-4xl">
             Reserve your next journey in minutes
           </h2>
-          <div className="mt-10 flex justify-center gap-4">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button href="/register" size="lg">
               Create an Account
             </Button>

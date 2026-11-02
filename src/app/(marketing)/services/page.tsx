@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SplitFeature } from "@/components/ui/split-feature";
+import { PhotoTile } from "@/components/ui/photo-tile";
 import { Reveal } from "@/components/ui/reveal";
 import { MARKETING_IMAGES } from "@/lib/marketing-images";
 
@@ -11,50 +10,38 @@ const SERVICES = [
   {
     id: "point-to-point",
     name: "Point-to-Point Transfer",
+    tagline: "One pickup, one destination, arranged around your schedule.",
     description:
-      "Travel from one pickup location to one destination, with a chauffeur arranged around your schedule.",
-    details: [
-      "One pickup, one destination",
-      "Suited to business meetings, events, and personal travel",
-      "Live route and distance shown before you confirm",
-    ],
+      "Travel from one pickup location to one destination, suited to business meetings, events, and personal travel. The route and distance are shown before you confirm.",
+    meta: "Live route shown before booking",
     image: MARKETING_IMAGES.heroNightCar,
   },
   {
     id: "airport-transfer",
     name: "Airport Transfer",
+    tagline: "Flight-tracked pickups, so delays don't become your problem.",
     description:
-      "Airport pickup or drop-off with your flight tracked in advance, so delays don't become your problem.",
-    details: [
-      "Flight number and airline tracked ahead of pickup",
-      "Optional meet-and-greet at the gate or baggage claim",
-      "Additional waiting time built into the quote",
-    ],
+      "Airport pickup or drop-off with your flight number and airline tracked in advance. Add meet-and-greet at the gate or baggage claim, with waiting time built into the quote.",
+    meta: "Meet-and-greet available",
     image: MARKETING_IMAGES.airportTransfer,
   },
   {
     id: "hourly",
     name: "Hourly Chauffeur",
+    tagline: "A chauffeur on call for a block of hours.",
     description:
-      "Hire a chauffeur for a block of hours from a starting location you choose, for days with more than one stop.",
-    details: [
-      "Pick the number of hours you need",
-      "Multiple stops without rebooking",
-      "Ideal for meetings or events with an uncertain schedule",
-    ],
+      "Hire a chauffeur for a block of hours from a starting location you choose, ideal for multi-stop days or events with an uncertain schedule. No rebooking between stops.",
+    meta: "Multiple stops, one booking",
     image: MARKETING_IMAGES.driverSeatDetail,
   },
   {
     id: "full-day",
     name: "Full-Day Chauffeur",
+    tagline: "One vehicle and driver, for the entire day.",
     description:
-      "Reserve a chauffeur and vehicle for the entire day, for business trips, events, and extended travel.",
-    details: [
-      "One vehicle and driver, all day",
-      "Suited to multi-stop business trips and events",
-      "Priced as a flat day rate, not an hourly estimate",
-    ],
-    image: MARKETING_IMAGES.luxuryVan,
+      "Reserve a chauffeur and vehicle for the entire day, suited to multi-stop business trips, events, and extended travel. Priced as a flat day rate, not an hourly estimate.",
+    meta: "Flat day rate",
+    image: MARKETING_IMAGES.businessDistrictSedan,
   },
 ];
 
@@ -79,30 +66,26 @@ export default function ServicesPage() {
           <section
             key={service.id}
             id={service.id}
-            className="scroll-mt-24 border-t border-midnight/10 px-6 py-20 lg:px-12"
+            className="scroll-mt-24 border-t border-midnight/10 px-6 py-16 lg:px-12"
           >
-            <Reveal className="mx-auto max-w-6xl">
-              <SplitFeature
+            <Reveal className="mx-auto max-w-5xl">
+              <PhotoTile
+                href="/register"
                 imageSrc={service.image}
                 imageAlt={service.name}
-                imageSide={i % 2 === 0 ? "left" : "right"}
-                eyebrow={`0${i + 1} · Service`}
                 title={service.name}
-                aspect="aspect-[4/3]"
-              >
-                <p>{service.description}</p>
-                <ul className="space-y-2">
-                  {service.details.map((detail) => (
-                    <li key={detail} className="flex items-start gap-3 text-sm">
-                      <Check className="mt-0.5 size-4 shrink-0 text-gold" strokeWidth={2} />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button href="/register" variant="outline" size="sm" className="mt-2">
+                description={service.tagline}
+                aspect={i % 2 === 0 ? "aspect-[21/9]" : "aspect-[16/9]"}
+              />
+              <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="max-w-xl text-slate">{service.description}</p>
+                  <p className="mt-3 text-xs uppercase tracking-wider text-gold">{service.meta}</p>
+                </div>
+                <Button href="/register" variant="outline" size="sm" className="shrink-0">
                   Book This Service
                 </Button>
-              </SplitFeature>
+              </div>
             </Reveal>
           </section>
         ))}
