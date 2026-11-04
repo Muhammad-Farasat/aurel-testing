@@ -33,10 +33,13 @@ reports.
 
 ## Visual check
 
-Open each page the phase touched in the Claude in Chrome tools, or in
-headless Playwright if Chrome is unavailable. At each of the three widths,
-capture a full-page screenshot with `save_to_disk`, plus hover, focus, open
-menus, validation errors, loading and empty states.
+For each page the phase touched, take full-page screenshots at exact widths
+of 1440, 834 and 390 with
+`.claude/skills/design-memory/scripts/capture-reference.mjs`, run through
+`.claude/skills/evidence-driven-testing/scripts/run-playwright.sh`. Capture
+hover, focus, open menus, validation errors, loading and empty states in the
+Claude in Chrome tools with `save_to_disk`. Check `innerWidth` there before
+trusting a width. Look at every screenshot with the Read tool.
 
 Compare what you see with `docs/project/DESIGN_DIRECTION.md`. Judge each page
 on visual hierarchy, typography, composition, spacing, brand consistency,

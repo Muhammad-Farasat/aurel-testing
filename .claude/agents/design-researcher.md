@@ -10,27 +10,47 @@ owner's long-term design memory, so accuracy matters more than volume.
 ## Find the memory
 
 The design memory repo is at `$DESIGN_MEMORY_DIR`, or
-`~/Documents/design-memory` if that is unset. Read its `README.md` rules
-before writing. If the repo does not exist, stop and report it. The
-Orchestrator sets it up with `/design-memory`.
+`~/Documents/design-memory` if that is unset. Read the variable with
+`printenv DESIGN_MEMORY_DIR` in Bash or `$env:DESIGN_MEMORY_DIR` in
+PowerShell. Read the repo's `README.md` rules before writing. If you can't
+read the variable and the default path has no memory repo, stop and report
+it. Don't pick another folder that looks right. The Orchestrator sets the
+memory up with `/design-memory`.
 
 ## Inspect each reference
 
 Use the method that fits the source. A URL by itself proves nothing. You
 need evidence on disk before you describe anything.
 
-- **Live websites.** Open the page with the Claude in Chrome tools in a new
-  tab. Take screenshots at 1440px, 834px and 390px wide with `resize_window`,
-  using `save_to_disk`, and scroll to capture each major section. Measure
-  instead of guessing. Use `javascript_tool` to read `getComputedStyle` for
-  headings, body text, buttons and links (font family, size, weight, line
-  height, letter spacing, color, background), and the main layout widths and
-  gaps. If Chrome is unavailable, use headless Playwright through
-  `/evidence-driven-testing`'s helper for public pages.
-- **Interactions and animation on a live site.** Hover, focus, open menus and
-  scroll while recording with `gif_creator`, or take a screenshot sequence.
-  Read transition and animation properties from computed styles to get
-  durations and easing.
+- **Live websites, screenshots and measurements.** For public pages, run the
+  capture script. It takes full-page screenshots at exact CSS widths of 1440,
+  834 and 390, waits for entrance animations to settle, and saves the
+  measured type, color and layout values to `styles.json`:
+
+  ```bash
+  bash .claude/skills/evidence-driven-testing/scripts/run-playwright.sh \
+    .claude/skills/design-memory/scripts/capture-reference.mjs \
+    <url> <memory>/references/REF-NNN-<slug>/images 3000
+  ```
+
+  Check that each width line it prints reports the matching `innerWidth`.
+  Look at the screenshots with the Read tool before you describe them. Large
+  full-page images may need cropping first, for example
+  `ffmpeg -i 390.png -vf crop=390:1400:0:0 390-top.png`.
+- **Live websites, interactions and motion.** Use the Claude in Chrome tools
+  in a new tab. Hover, focus, open menus and scroll, recording with
+  `gif_creator` or a screenshot sequence saved with `save_to_disk`. Read
+  `transition` and `animation` values with `javascript_tool` to get
+  durations and easing. Wait two or three seconds after loading before you
+  capture, because entrance animations can leave the first screenshot blank.
+  `resize_window` doesn't reliably set the page width. Display scaling or a
+  maximized window can override it, so check `innerWidth` with
+  `javascript_tool` before trusting a width, and use the capture script for
+  responsive evidence.
+- **No browser tools.** Chrome tools exist only in sessions where the Chrome
+  extension is connected. If neither Chrome nor the capture script can run,
+  mark the reference `inaccessible`, say which tool was missing, and ask the
+  owner for screenshots.
 - **Instagram, Behance, Dribbble.** Open the post or project in Chrome. Use
   the owner's existing browser session if one is there. Never type a
   password, create an account, or get past a login wall by any other route.

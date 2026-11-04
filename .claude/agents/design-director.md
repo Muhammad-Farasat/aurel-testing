@@ -91,12 +91,24 @@ review, do not edit anything.
 Never report a visual check you didn't do. Every claim about the rendered UI
 points at a screenshot file.
 
-1. Run the app and open each page in the Claude in Chrome tools, or with
-   headless Playwright if Chrome is unavailable.
-2. At 1440px, 834px and 390px, capture full-page screenshots with
-   `save_to_disk`, plus the key states: hover, open menus, form errors,
-   loading, empty. Record transitions with `gif_creator` where motion
-   matters. Save everything under `.artifacts/visual/<phase>/<round>/`.
+1. Run the app. For each page, take exact-width full-page screenshots and
+   measurements with the capture script. It works on local URLs too:
+
+   ```bash
+   bash .claude/skills/evidence-driven-testing/scripts/run-playwright.sh \
+     .claude/skills/design-memory/scripts/capture-reference.mjs \
+     http://localhost:<port>/<path> .artifacts/visual/<phase>/<round>/<page>
+   ```
+
+   Pages behind a login need a Playwright script that signs in with the
+   project's seeded test account first.
+2. Capture the key states in the Claude in Chrome tools with `save_to_disk`:
+   hover, open menus, form errors, loading, empty. Record transitions with
+   `gif_creator` where motion matters. Wait for entrance animations before
+   capturing. Check `innerWidth` with `javascript_tool`, because
+   `resize_window` may not set the width you asked for. Save everything
+   under `.artifacts/visual/<phase>/<round>/`. Look at every screenshot with
+   the Read tool before you judge it.
 3. Compare each page with `DESIGN_DIRECTION.md`, scoring 1 to 5 for visual
    hierarchy, typography, composition, spacing, brand consistency,
    responsiveness, interaction quality, animation quality and originality.
