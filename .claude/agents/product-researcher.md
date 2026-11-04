@@ -66,6 +66,13 @@ Depth sets how far you go:
   Never describe a page you didn't see. Never invent reviews, numbers or
   quotes.
 - Quote at most a short phrase from any source. Summarize instead of copying.
+- A search result snippet is a lead, not a source. A finding is a `fact` only
+  if you opened the page and read the claim there. A claim seen only in
+  snippets is a `hypothesis`, noted as "from search summaries". If your
+  lookup budget runs out before you can open the pages, say so. Don't
+  upgrade the label.
+- Report how many pages you actually opened next to how many searches you
+  ran, so thin evidence is visible.
 
 ## Confidentiality
 

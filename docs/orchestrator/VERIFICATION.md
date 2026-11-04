@@ -150,6 +150,60 @@ variable explicitly, and stops if it can't.
 - A `design-researcher` subagent running the new capture script. I ran the
   script directly.
 
+## Product research and innovation (2026-11-04)
+
+### Static checks
+
+The validator now covers `product-researcher` and `innovation-strategist`,
+all 15 project templates (the sources-of-truth table now accepts lowercase
+file names), and `product-principles.md` in the memory scaffold. It reports
+`0 failures`. On its first run it caught `product-researcher` calling its
+report section "Output" instead of "Report", which I fixed.
+
+### Live dry run
+
+A headless `claude -p` session ran `/start-client-project` on the 12-line
+bakery brief through Stage 2d. Design research and Stage 2e were skipped to
+save cost, and the run stopped before Stage 3. It cost $7.00 and took about
+14 minutes.
+
+| Check | Result |
+|---|---|
+| Depth chosen and justified | `light`: a familiar product type, but slot behavior was worth a few reviews. Recorded in product-decisions.md. |
+| Agents in order | `requirements-analyst`, then `product-researcher` and `researcher` in parallel, then `innovation-strategist` |
+| Lookup cap respected | product-researcher used 23 of 25 |
+| Labels used | market-research.md: 7 `fact`, 19 `pattern`, 6 `inference`, 8 `hypothesis` |
+| Ideas across all six directions | 15 ideas, one round |
+| Every idea has all 13 evaluation fields | 15 of 15 |
+| Every score has a reason | 15 of 15 for all four criteria |
+| Generic idea rejected | IDEA-14, an AI chat assistant: "Problem: None found", rejected with the allergen-answer risk noted |
+| Competitor copy rejected | IDEA-15, a waitlist, rejected as a copy that doesn't fit a today-only menu |
+| Classes assigned | 7 MVP, 3 high-value enhancement, 2 future opportunity, 3 rejected, each a PD row with a reason |
+| MVP ideas added to requirements | R-028 to R-034, with source `proposed` and the IDEA and PD IDs |
+| Owner decisions separated | One blocking question (which till the bakery uses) and an accountant check on tax. The rest continued. |
+
+### Gaps the dry run found, and the fixes
+
+- **Facts from snippets.** The researcher opened only 8 pages and labeled
+  some claims `fact` from search summaries. The Orchestrator caught three
+  and relabeled them `hypothesis`. The researcher now has to open a page
+  before calling a claim a fact, and must report searches run against pages
+  opened. The template has a line for both counts.
+- **Cost increase decided without the owner.** The Orchestrator kept a
+  confirmation email in the MVP even though it likely pushes the email
+  service past its free tier, and mentioned that only as a heads-up. Hard
+  stop 6 now counts higher running or one-off costs, including a plan
+  upgrade, as a budget change that needs the owner.
+
+### Not tested for product research
+
+- `standard` and `deep` depth, and `none`.
+- Stage 2e running after decisions, and the architect's feasibility check
+  in Stage 3.
+- Writing to `product-principles.md` at Stage 6.
+- The two fixes above. They are instruction changes made after the run,
+  and I didn't run it again.
+
 ## Not tested
 
 - Stages 4 to 6: the planning PR, building phases, sub-worktree merges,

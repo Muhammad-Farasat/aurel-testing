@@ -92,6 +92,8 @@ Even in `autonomous` mode, stop and ask the user when:
    - dropping or changing a feature the brief asks for
    - adding a new user role, a new paid service or account, or a new
      third-party integration
+   - raising the client's running or one-off costs, including pushing an
+     existing service past its free tier or onto a higher plan
    - adding work that needs its own phase, or grows an existing phase by
      more than about a quarter
    - changing who the product is for, how it makes money, or how it is

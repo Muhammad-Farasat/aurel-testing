@@ -6,6 +6,7 @@ other projects.
 - Depth: <none, light, standard, deep> (set by the Orchestrator, reason in
   product-decisions.md)
 - Researched: <YYYY-MM-DD>
+- Searches run: <n>. Pages actually opened: <n>.
 
 Labels: `fact` (stated by a source you read), `pattern` (seen across named
 sources), `inference` (reasoning shown), `hypothesis` (unverified, with how
