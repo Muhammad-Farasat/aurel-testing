@@ -30,6 +30,15 @@ resumed session. Do not rely on memory of earlier turns.
 | `DECISIONS.md` | Orchestrator | Assumptions and decisions with reasons |
 | `RISKS.md` | Orchestrator | Risks, open questions, blockers |
 | `VERIFICATION.md` | qa-verifier, Orchestrator | What was tested, how, and the results |
+| `market-research.md` | product-researcher | Users' problems, reviews, industry practice, trends, technology, with labeled evidence |
+| `competitor-analysis.md` | product-researcher | Direct and indirect competitors, journeys, gaps |
+| `opportunity-map.md` | innovation-strategist | Problems and gaps worth solving, with evidence strength |
+| `idea-backlog.md` | innovation-strategist | Every idea with its evaluation and scores |
+| `product-decisions.md` | Orchestrator | Research depth, idea classes, rejected ideas, owner decisions |
+
+The research and idea files belong to this client. Don't copy them into
+another client's project. Only general lessons with no client details go to
+`product-principles.md` in the owner's memory repo.
 
 Requirement IDs (`R-001`) tie the documents together. Every task, commit, test
 and verification entry names the IDs it covers.
@@ -78,12 +87,54 @@ Even in `autonomous` mode, stop and ask the user when:
    ownership (see the scope check in `AGENTS.md`).
 5. A task fails verification three times in a row, or `/greploop` hits its
    iteration cap with actionable findings left.
-6. The work would change scope: adding features the brief does not ask for, or
-   dropping ones it does.
+6. A decision would materially change the agreed business direction, budget
+   or scope. That means any of these:
+   - dropping or changing a feature the brief asks for
+   - adding a new user role, a new paid service or account, or a new
+     third-party integration
+   - raising the client's running or one-off costs, including pushing an
+     existing service past its free tier or onto a higher plan
+   - adding work that needs its own phase, or grows an existing phase by
+     more than about a quarter
+   - changing who the product is for, how it makes money, or how it is
+     positioned
+
+   Smaller additions that serve the brief's goals are low-risk. Make those
+   calls yourself under "Product decisions" below, and record them.
 
 For anything else, choose the most reasonable option, record it in
 `DECISIONS.md` as an assumption, and continue. When you stop, state what blocks
 you, what you already tried, and the smallest decision that unblocks you.
+
+## Product decisions
+
+The goal is a better product, not a longer feature list. Every idea has to
+earn its place.
+
+Classify each idea in `idea-backlog.md`, recording each decision in
+`product-decisions.md`:
+
+- `MVP`: the first useful release isn't useful without it, or it fixes a
+  strong opportunity at small cost
+- `high-value enhancement`: clear value, but the MVP works without it
+- `future opportunity`: promising, but the evidence is weak or the timing is
+  wrong
+- `rejected`: low value, too complex for what it returns, unsupported by
+  evidence, a generic pattern with no real problem, or out of scope
+
+Rules:
+
+- Decide low-risk ideas yourself and write down why. A low-risk idea fits
+  the brief's goals and doesn't hit hard stop 6.
+- Put an idea that hits hard stop 6 under "Waiting for the owner", with
+  options and a recommendation. Keep working on everything that doesn't
+  depend on it.
+- An idea backed only by a `hypothesis` can't be `MVP` unless it is small
+  and the backlog says how to validate it.
+- Prefer improving or simplifying a requested feature over adding a new one.
+- Keep rejected ideas, with the reason and what would change the decision.
+- Add each `MVP` idea to `REQUIREMENTS.md` as a requirement with source
+  `proposed`, citing the idea and decision IDs.
 
 ## Stages
 
@@ -122,27 +173,80 @@ assumptions or a hard stop.
 Exit: `REQUIREMENTS.md` covers the brief, every requirement has a testable
 acceptance criterion, and no open question blocks planning.
 
-### Stage 2. Research
+### Stage 2. Research, ideas and direction
 
-Run in parallel when both apply:
+#### 2a. Set the research depth
 
-- `researcher` on the domain, competitors, integrations (APIs, test modes,
-  limits, pricing), and technical unknowns from `REQUIREMENTS.md`.
-- `design-director` on art direction, for projects with UI. It reads the
-  design memory and the references filed in Stage 0, sorts the owner's
-  preferences into ones that apply to this client and ones that conflict,
-  compares two or three directions, and writes `DESIGN_DIRECTION.md` with a
-  reason for each major decision. It follows `/creative-design-director`
-  phases 1 to 5 and does not implement.
+Pick a depth from the project's scope and uncertainty. Record it and the
+reason in `product-decisions.md`.
+
+| Depth | When | What runs |
+|---|---|---|
+| none | The brief is a fixed spec, a rebuild of a known product, or a small internal tool | `researcher` only. Skip 2c and 2d. |
+| light | A familiar product type with a few open questions | `product-researcher` at light depth, then a short 2c |
+| standard | A new product in an established market | Full 2b to 2d |
+| deep | A new market, an unclear problem, or a product the client is betting on | Full 2b to 2d at deep depth |
+
+Then write the research questions: what you need to know to make the
+product better, not just to build it. Good questions are answerable and
+would change a decision. "Why do customers abandon competitor X's booking
+flow?" is good. "What is the market like?" isn't.
+
+#### 2b. Research
+
+Run these in parallel, as applicable:
+
+- `product-researcher` on the research questions: competitors, reviews,
+  practice, trends, technology and limits. It writes `market-research.md` and
+  `competitor-analysis.md`.
+- `researcher` on integrations (APIs, test modes, limits, pricing) and the
+  technical unknowns from `REQUIREMENTS.md`. When `product-researcher` runs,
+  tell `researcher` to skip competitors and the domain.
+
+Review the findings. Check that the labels hold up: a `pattern` names
+several sources, and an `inference` shows its reasoning. Send back anything
+that rests on a single source.
+
+#### 2c. Ideas
+
+Delegate to `innovation-strategist`. It maps opportunities, explores the
+six directions, and evaluates each idea in `idea-backlog.md` with scores and
+reasons.
+
+Review the backlog. Reject anything generic, anything with no traceable
+problem, or anything that copies a competitor. Ask for another round only if
+whole directions were skipped without a reason. One round is the norm.
+
+#### 2d. Decide
+
+Classify the ideas under "Product decisions" above. Update
+`REQUIREMENTS.md` with the `MVP` ideas, and record the rest in the roadmap
+section of `product-decisions.md`. If a decision needs the owner, ask in one
+message that lists every pending decision, and carry on with the rest.
+
+Keep this stage short. Research and ideas exist to improve decisions, not to
+delay the build. If 2b to 2d run past the budget the depth implies, decide
+with what you have and log the gaps as risks.
+
+#### 2e. Design direction
+
+For projects with UI, delegate to `design-director` once scope is decided,
+so the direction covers the ideas you kept. It reads the design memory and
+the references filed in Stage 0, sorts the owner's preferences into ones
+that apply to this client and ones that conflict, compares two or three
+directions, and writes `DESIGN_DIRECTION.md` with a reason for each major
+decision. It follows `/creative-design-director` phases 1 to 5 and does not
+implement. If the depth is `none`, run it in parallel with 2b.
 
 When reviewing `DESIGN_DIRECTION.md`, check that it lists the general
 rejections it avoided, and that every major decision cites a requirement,
 reference or preference.
 
-Exit: every technical unknown has a researched answer or a logged risk, and UI
+Exit: every technical unknown has a researched answer or a logged risk.
+Every idea is classified, and every `MVP` idea is in `REQUIREMENTS.md`. UI
 projects have an approved art direction in `DESIGN_DIRECTION.md`. In
-`autonomous` mode you approve it by checking it against the brief, log that in
-`DECISIONS.md`, and add client sign-off on the look as an open item in
+`autonomous` mode you approve it by checking it against the brief, log that
+in `DECISIONS.md`, and add client sign-off on the look as an open item in
 `RISKS.md`. In the other modes the user approves it at the planning stop.
 
 ### Stage 3. Plan
@@ -150,6 +254,11 @@ projects have an approved art direction in `DESIGN_DIRECTION.md`. In
 Delegate to `solution-architect`. It writes `ARCHITECTURE.md`: stack, module
 boundaries (use `/code-structure`), data model, integration approach including
 mock modes, security model, and the project's check commands.
+
+Ask the architect to check every `MVP` idea for feasibility and to flag any
+that cost far more than the backlog estimated. Reclassify those in
+`product-decisions.md`. If an idea is likely to come later, ask the
+architect to keep the structure open for it, without building it now.
 
 Then write `PHASE_PLAN.md` yourself:
 
@@ -214,7 +323,11 @@ that fails verification three times becomes `blocked`, which is a hard stop.
 4. Update the design memory, following "After a project" in
    `/design-memory`. Promote repeated candidates, and record the approved
    final design and every rejection from this project.
-5. Report to the user: PR URLs in stack order, the verification summary,
+5. Add reusable lessons to `product-principles.md` in the memory repo:
+   product principles, research methods that worked, and anti-patterns. Strip
+   every client name, number and finding. If a lesson only makes sense with
+   client details, leave it out.
+6. Report to the user: PR URLs in stack order, the verification summary,
    remaining risks, and anything only mocked. Never describe a mocked
    integration as working.
 
@@ -235,7 +348,8 @@ different files. Send parallel tasks in one message.
 `AGENTS.md` requires one worktree per agent.
 
 - Read-only specialists (`requirements-analyst`, `researcher`,
-  `security-reviewer`, `qa-verifier`) work in the phase or planning checkout.
+  `product-researcher`, `innovation-strategist`, `security-reviewer`,
+  `qa-verifier`) work in the phase or planning checkout.
   They write only the doc files their brief names and evidence under
   `.artifacts/`.
 - `design-researcher` doesn't edit the project at all. It writes only to the

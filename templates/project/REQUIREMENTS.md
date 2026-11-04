@@ -10,6 +10,9 @@ Owner: requirements-analyst. Source: BRIEF.md.
 
 ## Requirements
 
+Source is `brief` for what the client asked for, or `proposed` for an idea
+the Orchestrator added under product-decisions.md.
+
 Priority is `must`, `should` or `could`. Type is `functional`,
 `non-functional`, `content`, `integration` or `constraint`.
 
@@ -17,7 +20,7 @@ Priority is `must`, `should` or `could`. Type is `functional`,
 
 - Type: <type>
 - Priority: <priority>
-- Source: BRIEF.md, <section or quote>
+- Source: <brief: BRIEF.md section or quote, or proposed: IDEA-n, PD-n>
 - Description: <what the system must do>
 - Acceptance criteria:
   - [ ] Given <state>, when <action>, then <observable result>

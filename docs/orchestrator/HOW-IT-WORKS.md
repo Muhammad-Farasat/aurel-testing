@@ -44,6 +44,31 @@ The memory shapes decisions without fixing a house style. The client's brief
 always wins, and the design director has to show how each preference applies
 to the new client, or why it doesn't.
 
+## Product research and ideas
+
+The factory doesn't just build the brief. In Stage 2 it researches the
+market, maps opportunities, and generates ideas that could make the product
+better. Then it keeps only the ones that earn a place.
+
+- **Depth scales with uncertainty.** A fixed spec gets no market research. A
+  new product in a new market gets deep research. The Orchestrator records
+  its choice and the reason.
+- **Evidence is labeled.** Every finding is a `fact`, `pattern`,
+  `inference` or `hypothesis`, with sources and dates. Pages that couldn't
+  be opened are listed, never described.
+- **Ideas need a problem.** Each idea traces to a user problem or gap,
+  covers 13 evaluation fields, and has four 1 to 5 scores with reasons.
+  Generic additions such as chatbots, dashboards or notifications with no
+  named problem get rejected.
+- **Four classes.** `MVP`, `high-value enhancement`, `future opportunity`
+  or `rejected`. Rejected ideas stay on record with the reason.
+- **You decide the big ones.** The Orchestrator decides low-risk ideas
+  itself. Anything that changes business direction, budget or agreed scope
+  waits for you, without holding up the rest.
+- **Confidential by default.** Each client's research stays in its project.
+  Only general lessons with no client details go to `product-principles.md`
+  in your memory repo.
+
 ## Why the Orchestrator is the main session
 
 Claude Code subagents cannot start other subagents. If the Orchestrator were a
@@ -61,9 +86,12 @@ Brief + references
       |
   1 Understand .... requirements-analyst -> REQUIREMENTS.md
       |
-  2 Research ...... researcher -> RESEARCH.md
-      |             design-director -> DESIGN_DIRECTION.md   (in parallel,
-      |                reads design memory first)
+  2 Research ...... depth: none / light / standard / deep
+      |             product-researcher -> market-research, competitor-analysis
+      |             researcher -> RESEARCH.md (integrations, tech)
+      |             innovation-strategist -> opportunity-map, idea-backlog
+      |             Orchestrator -> product-decisions (MVP / later / rejected)
+      |             design-director -> DESIGN_DIRECTION.md (reads design memory)
       |
   3 Plan .......... solution-architect -> ARCHITECTURE.md
       |             Orchestrator -> PHASE_PLAN.md
