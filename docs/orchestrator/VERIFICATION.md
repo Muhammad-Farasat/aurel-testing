@@ -83,7 +83,7 @@ system.
   final delivery. These need a real remote and a real app. Their instructions
   were reviewed but not executed.
 - Resume from STATUS.md in a new session.
-- Adopting an in-progress project such as AUREL PRs #1 and #2.
+- Adopting an in-progress project with existing phase PRs.
 - `per-phase` and `plan-only` approval modes.
 - Behavior with interactive permission prompts instead of the allowlist above.
 - The installed skill-creator validator, which `AGENTS.md` notes does not

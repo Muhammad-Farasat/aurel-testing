@@ -13,9 +13,6 @@ git remote set-url origin https://github.com/<owner>/acme-portal.git
 git push -u origin main
 ```
 
-The factory's root `PROJECT_REQUIREMENTS.md` is the AUREL brief. Delete it or
-replace it with the new client's brief in the copy.
-
 Put the brief and references anywhere in the repo, for example:
 
 ```
@@ -96,17 +93,16 @@ Resume.
 It reads `docs/project/STATUS.md` and continues from the recorded stage and
 task.
 
-## 5. Adopt AUREL, which started before this system existed
+## 5. Adopt a project that started before this system
 
-AUREL already has PR #1 (foundation) and PR #2 (public site) open. To bring it
-under the Orchestrator:
+If a project already has open phase PRs but no `docs/project/`:
 
 ```
 /start-client-project
-Brief: PROJECT_REQUIREMENTS.md
-Project name: aurel
-Adopt the open PRs #1 and #2 as phases 1 and 2. Verify them before marking
-them done, then continue with Phase 3 on top of the Phase 2 branch.
+Brief: briefs/acme-brief.md
+Project name: acme-portal
+Adopt open PRs #4 and #5 as phases 1 and 2. Verify them before marking them
+done, then continue with Phase 3 on top of the Phase 2 branch.
 ```
 
 ## What you get back
