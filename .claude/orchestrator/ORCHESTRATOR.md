@@ -109,7 +109,10 @@ Run in parallel when both apply:
   `DESIGN_DIRECTION.md`. It does not implement.
 
 Exit: every technical unknown has a researched answer or a logged risk, and UI
-projects have an approved art direction in `DESIGN_DIRECTION.md`.
+projects have an approved art direction in `DESIGN_DIRECTION.md`. In
+`autonomous` mode you approve it by checking it against the brief, log that in
+`DECISIONS.md`, and add client sign-off on the look as an open item in
+`RISKS.md`. In the other modes the user approves it at the planning stop.
 
 ### Stage 3. Plan
 
