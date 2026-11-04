@@ -13,7 +13,36 @@ pause and resume across sessions.
 | Start skill | `.claude/skills/start-client-project/` | Loads the manual, sets up or resumes a project |
 | Specialists | `.claude/agents/*.md` | Subagent definitions, one job each |
 | Doc templates | `templates/project/` | Copied to `docs/project/` for each project |
+| Design memory skill | `.claude/skills/design-memory/` | Sets up the memory, files references, records design feedback |
+| Design memory scaffold | `templates/design-memory/` | Copied once to the memory repo, which lives outside every project |
 | Repo workflow | `AGENTS.md` and its skills | Isolation, design, testing, PRs, Greptile |
+
+## Design memory
+
+The factory keeps a long-term record of your design taste in its own git
+repo, `~/Documents/design-memory` (or `$DESIGN_MEMORY_DIR`). It sits outside
+every client project, so what one project learns reaches the next.
+
+```
+references you share --> design-researcher --> references/REF-NNN/ (evidence + analysis)
+your feedback -------> Orchestrator routes it:
+                         general ---------> preference files, rejections
+                         this project ----> DESIGN_DIRECTION.md feedback log
+                         one page/part ---> page plan + fix task
+new project ---------> design-director reads memory, sorts preferences into
+                       applies / adapts / conflicts / doesn't apply,
+                       compares 2-3 directions, checks rejections
+project ends --------> repeated candidates promoted, final design recorded
+```
+
+Preferences gain strength with evidence: `tentative`, then `moderate`, then
+`strong`. One offhand remark doesn't become a rule. A remark that could be
+general but has only come up once is recorded as a candidate. A rejection is
+never deleted. It only gets superseded by a later approval.
+
+The memory shapes decisions without fixing a house style. The client's brief
+always wins, and the design director has to show how each preference applies
+to the new client, or why it doesn't.
 
 ## Why the Orchestrator is the main session
 
@@ -28,11 +57,13 @@ watch it, interrupt it, and change its mode at any time.
 Brief + references
       |
   0 Intake ........ worktree, docs/project/, BRIEF.md
+      |             design-researcher -> design memory references
       |
   1 Understand .... requirements-analyst -> REQUIREMENTS.md
       |
   2 Research ...... researcher -> RESEARCH.md
-      |             design-director -> DESIGN_DIRECTION.md   (in parallel)
+      |             design-director -> DESIGN_DIRECTION.md   (in parallel,
+      |                reads design memory first)
       |
   3 Plan .......... solution-architect -> ARCHITECTURE.md
       |             Orchestrator -> PHASE_PLAN.md

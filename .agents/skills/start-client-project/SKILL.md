@@ -73,6 +73,10 @@ Available as subagent types (definitions in `.claude/agents/`):
 | `backend-engineer` | Server, data, integrations |
 | `qa-verifier` | Independent verification against requirement IDs |
 | `security-reviewer` | Security review of sensitive phases |
+| `design-researcher` | Inspecting visual references and filing them in the design memory |
+
+The owner's design memory lives outside this repo. See `/design-memory`. If
+it isn't set up yet, run that skill's setup during Stage 0.
 
 If a subagent type is missing from your Agent tool, the session probably
 started before the files existed. Use `general-purpose` instead and paste the

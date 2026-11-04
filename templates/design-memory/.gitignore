@@ -1,0 +1,11 @@
+# Never commit browser or account data
+*.har
+cookies*.json
+*.session
+storage-state*.json
+.env*
+# Raw recordings are large; keep extracted frames instead
+*.mp4
+*.mov
+*.webm
+*.mkv

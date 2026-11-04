@@ -105,6 +105,50 @@ Adopt open PRs #4 and #5 as phases 1 and 2. Verify them before marking them
 done, then continue with Phase 3 on top of the Phase 2 branch.
 ```
 
+## 6. Teach it your design taste
+
+The design memory lives in `~/Documents/design-memory`, outside every
+project. Use `/design-memory` at any time, inside a project or not.
+
+Share references, with a note on what you like:
+
+```
+/design-memory
+1. https://www.behance.net/gallery/<id>/<name> - love the editorial grid
+2. https://www.instagram.com/p/<id>/ - the way the nav collapses
+3. refs/checkout-recording.mp4 - this checkout transition feels premium
+4. refs/screens/ - screenshots from an app I like
+```
+
+If a post sits behind a login, it will say so and ask you for screenshots.
+It won't guess from the URL.
+
+Give feedback, general or specific:
+
+```
+I don't like excessive cards. Never use stacked grids of identical cards.
+```
+
+```
+For this client, the serif headlines feel too formal. Keep them for other
+projects.
+```
+
+```
+The hero on the services page feels too empty at mobile width.
+```
+
+It replies with one line saying what it recorded and at which scope:
+general, this project, or one page. Correct it if it got the scope wrong.
+If your feedback could mean two things, it asks which one you meant.
+
+Ask what it knows:
+
+```
+/design-memory
+What do you know about my taste so far?
+```
+
 ## What you get back
 
 At the end, the Orchestrator replies with:
