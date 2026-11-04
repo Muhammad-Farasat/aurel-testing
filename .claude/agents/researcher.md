@@ -20,7 +20,8 @@ Orchestrator's brief lists the questions to answer. Answer those first.
   that affects development, webhook behavior, and a mock strategy for when
   credentials are missing.
 - **Domain.** How comparable products handle the core flows. Name the products
-  and link the pages you looked at.
+  and link the pages you looked at. Skip this when the brief says
+  `product-researcher` is covering competitors and the domain.
 - **Technical unknowns.** Library choices, version constraints, and breaking
   changes in the chosen framework versions. Prefer official docs and
   changelogs over blog posts.

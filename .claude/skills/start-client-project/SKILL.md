@@ -74,6 +74,8 @@ Available as subagent types (definitions in `.claude/agents/`):
 | `qa-verifier` | Independent verification against requirement IDs |
 | `security-reviewer` | Security review of sensitive phases |
 | `design-researcher` | Inspecting visual references and filing them in the design memory |
+| `product-researcher` | Competitors, reviews, trends and available technology, with labeled evidence |
+| `innovation-strategist` | Opportunity map and evaluated, scored product ideas |
 
 The owner's design memory lives outside this repo. See `/design-memory`. If
 it isn't set up yet, run that skill's setup during Stage 0.

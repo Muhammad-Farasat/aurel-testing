@@ -20,6 +20,10 @@ The factory finds this repo at `$DESIGN_MEMORY_DIR`, or at
 | `approved-and-rejected-designs.md` | Concrete decisions the owner approved or rejected, with the reason |
 | `references/INDEX.md` | One row per analyzed reference, with tags for search |
 | `references/<id>/README.md` | One analyzed reference with its evidence |
+| `product-principles.md` | General product lessons and research methods, with no client details |
+
+Client research never comes here. Each project's market research, competitor
+analysis and ideas stay in that project's `docs/project/`.
 
 ## Rules for anyone editing this repo
 

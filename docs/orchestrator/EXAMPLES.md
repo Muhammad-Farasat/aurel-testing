@@ -105,7 +105,38 @@ Adopt open PRs #4 and #5 as phases 1 and 2. Verify them before marking them
 done, then continue with Phase 3 on top of the Phase 2 branch.
 ```
 
-## 6. Teach it your design taste
+## 6. Control the product research
+
+The Orchestrator picks a research depth itself. Override it if you know
+better:
+
+```
+/start-client-project
+Brief: briefs/acme-brief.md
+Research depth: deep. The client is entering a market they don't know.
+```
+
+```
+/start-client-project
+Brief: briefs/internal-tool.md
+Research depth: none. This is a fixed spec.
+```
+
+When an idea would change the business direction, budget or scope, it
+lists the decision with options and a recommendation, and keeps working on
+everything else. Answer in one line:
+
+```
+IDEA-3 yes as MVP. IDEA-5 move to future. Reject IDEA-7.
+```
+
+See what it considered:
+
+```
+Summarize docs/project/product-decisions.md, including the rejected ideas.
+```
+
+## 7. Teach it your design taste
 
 The design memory lives in `~/Documents/design-memory`, outside every
 project. Use `/design-memory` at any time, inside a project or not.
