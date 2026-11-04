@@ -7,6 +7,11 @@ Choose the applicable parts of this workflow for the requested task. It governs 
 - UI/UX and frontend design tasks must follow the Creative Design Director skill.
 - Small documentation edits use an isolated branch and relevant content or link checks. Do not manufacture runtime evidence or require a bot review for them.
 - Ship when the task calls for a PR or a completed repository change. A request for a plan, review, or local experiment does not imply publishing it.
+- A client brief or a new client project runs through the Orchestrator. See [Client projects](#client-projects).
+
+## Client projects
+
+When the user hands over a client brief, run `/start-client-project`. The main session becomes the Orchestrator and follows `.claude/orchestrator/ORCHESTRATOR.md`. It delegates to the specialists in `.claude/agents/` and keeps project state in `docs/project/`, copied from `templates/project/`. Every rule in this file still applies to each phase. [docs/orchestrator/HOW-IT-WORKS.md](docs/orchestrator/HOW-IT-WORKS.md) explains the flow, and [docs/orchestrator/EXAMPLES.md](docs/orchestrator/EXAMPLES.md) shows how to start a project.
 
 ## Workflow
 
@@ -82,6 +87,7 @@ Tests use synthetic recorder input and local API fixtures. They do not prove nat
 |---|---|
 | `new-feature`, `code-structure`, `evidence-driven-testing` | this repo |
 | `creative-design-director` | this repo, custom design skill |
+| `start-client-project` | this repo, entrypoint for the Orchestrator in `.claude/orchestrator/` |
 | `before-and-after` | this repo, vendored from [vercel-labs/before-and-after](https://github.com/vercel-labs/before-and-after) (or `npx skills add vercel-labs/before-and-after`) |
 | `greploop` | this repo, vendored from [greptileai/skills](https://github.com/greptileai/skills) |
 | `greploop-apps` | this repo, compatibility entrypoint requiring `greploop` |
