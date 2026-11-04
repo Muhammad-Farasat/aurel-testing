@@ -34,6 +34,23 @@ resumed session. Do not rely on memory of earlier turns.
 Requirement IDs (`R-001`) tie the documents together. Every task, commit, test
 and verification entry names the IDs it covers.
 
+## Design memory
+
+The owner's design memory is a separate git repo at `$DESIGN_MEMORY_DIR`, or
+`~/Documents/design-memory` when that variable is unset. It holds the owner's
+general preferences, rejected patterns, and analyzed references from every
+past project. `/design-memory` describes how to set it up, add references,
+and record feedback. Follow that skill whenever:
+
+- The owner shares visual references, with or without a project.
+- The owner reacts to a design: a direction, a screenshot, a page, a
+  component. Decide whether the feedback is general, project-level or
+  page-level, and record it only once it is clear. Never bring back a pattern
+  the owner rejected with general scope, or project scope for this client.
+- A project ends. See Stage 6.
+
+The memory informs design decisions. It never overrides the client's brief.
+
 ## Approval mode
 
 `PHASE_PLAN.md` records the approval mode. The default is `autonomous`.
@@ -80,10 +97,17 @@ the previous one meets them.
 2. Copy `templates/project/` to `docs/project/`. Fill `BRIEF.md` with the
    verbatim brief and a reference index: one row per file, URL or image with
    what it is and what it is for.
-3. Read every reference. Note any you could not open in `RISKS.md`.
+3. Read every text and document reference. Send every visual reference
+   (websites, social posts, Behance or Dribbble, images, videos) to
+   `design-researcher`. It files each one in the design memory with evidence
+   and reports which ones it could not open. Record the reference IDs it
+   returns in the BRIEF.md index.
+4. Note any reference nobody could open in `RISKS.md`, and ask the owner for
+   screenshots in your next report. If those were the project's only visual
+   references, this is a hard stop. Otherwise keep going.
 
-Exit: `BRIEF.md` is complete and every reference is either read or logged as
-unreadable.
+Exit: `BRIEF.md` is complete and every reference is either read, filed with
+evidence, or logged as inaccessible.
 
 ### Stage 1. Understand
 
@@ -104,9 +128,16 @@ Run in parallel when both apply:
 
 - `researcher` on the domain, competitors, integrations (APIs, test modes,
   limits, pricing), and technical unknowns from `REQUIREMENTS.md`.
-- `design-director` on design research and art direction, for projects with UI.
-  It follows `/creative-design-director` phases 1 to 5 and writes
-  `DESIGN_DIRECTION.md`. It does not implement.
+- `design-director` on art direction, for projects with UI. It reads the
+  design memory and the references filed in Stage 0, sorts the owner's
+  preferences into ones that apply to this client and ones that conflict,
+  compares two or three directions, and writes `DESIGN_DIRECTION.md` with a
+  reason for each major decision. It follows `/creative-design-director`
+  phases 1 to 5 and does not implement.
+
+When reviewing `DESIGN_DIRECTION.md`, check that it lists the general
+rejections it avoided, and that every major decision cites a requirement,
+reference or preference.
 
 Exit: every technical unknown has a researched answer or a logged risk, and UI
 projects have an approved art direction in `DESIGN_DIRECTION.md`. In
@@ -159,8 +190,12 @@ For each phase in order:
    Read the diff. Merge sub-branches into the phase branch. Rerun the checks.
 4. **Verify.** Delegate to `qa-verifier` for the phase's requirement IDs. For
    phases touching auth, payments, personal data, file upload or webhooks, also
-   delegate to `security-reviewer`. Send failures back to the original
-   specialist with the evidence, as a new brief.
+   delegate to `security-reviewer`. For phases with UI, also delegate a
+   visual verification to `design-director` in review mode. It captures
+   screenshots at three widths and scores them against
+   `DESIGN_DIRECTION.md`. Don't accept a visual pass that has no screenshot
+   files behind it. Send failures back to the original specialist with the
+   evidence, as a new brief.
 5. **Close.** When the exit criteria pass, update `STATUS.md` and
    `VERIFICATION.md`, commit, push, open the phase PR with evidence, and run
    `/greploop`. Record the PR URL and Greptile score in `STATUS.md`.
@@ -176,7 +211,10 @@ that fails verification three times becomes `blocked`, which is a hard stop.
    verified`, `mocked` or `not verified`, with the evidence.
 3. Make sure the README covers setup, environment variables, mock modes, seed
    data and how to run the checks.
-4. Report to the user: PR URLs in stack order, the verification summary,
+4. Update the design memory, following "After a project" in
+   `/design-memory`. Promote repeated candidates, and record the approved
+   final design and every rejection from this project.
+5. Report to the user: PR URLs in stack order, the verification summary,
    remaining risks, and anything only mocked. Never describe a mocked
    integration as working.
 
@@ -200,6 +238,8 @@ different files. Send parallel tasks in one message.
   `security-reviewer`, `qa-verifier`) work in the phase or planning checkout.
   They write only the doc files their brief names and evidence under
   `.artifacts/`.
+- `design-researcher` doesn't edit the project at all. It writes only to the
+  design memory repo, which it commits to directly.
 - Editing specialists (`solution-architect` for scaffolding,
   `frontend-engineer`, `backend-engineer`, `design-director` when it builds)
   get their own worktree on a sub-branch of the phase branch:

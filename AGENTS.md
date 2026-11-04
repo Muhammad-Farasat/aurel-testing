@@ -88,6 +88,7 @@ Tests use synthetic recorder input and local API fixtures. They do not prove nat
 | `new-feature`, `code-structure`, `evidence-driven-testing` | this repo |
 | `creative-design-director` | this repo, custom design skill |
 | `start-client-project` | this repo, entrypoint for the Orchestrator in `.claude/orchestrator/` |
+| `design-memory` | this repo, maintains the owner's design memory repo outside the project (scaffold in `templates/design-memory/`) |
 | `before-and-after` | this repo, vendored from [vercel-labs/before-and-after](https://github.com/vercel-labs/before-and-after) (or `npx skills add vercel-labs/before-and-after`) |
 | `greploop` | this repo, vendored from [greptileai/skills](https://github.com/greptileai/skills) |
 | `greploop-apps` | this repo, compatibility entrypoint requiring `greploop` |
