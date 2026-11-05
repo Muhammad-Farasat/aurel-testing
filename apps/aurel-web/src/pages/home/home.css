@@ -3,6 +3,7 @@
 /* ---------- Scenes 1 to 3: the car stays, the page changes around it ---------- */
 .hero {
   --fs: min(18.5vw, 25svh);
+  --car-w: min(80vw, calc(var(--fs) * 5));
   position: relative;
   height: 330svh;
 }
@@ -72,7 +73,6 @@
 /* The car: one element for the whole stage, moved only by transform. */
 .hero__car {
   position: absolute;
-  --car-w: min(80vw, calc(var(--fs) * 5));
   left: 50%;
   bottom: calc(5svh + var(--fs) * 0.56);
   width: var(--car-w);
@@ -305,9 +305,12 @@
 }
 
 /* Tablet and phone: the type stacks, the car is cropped off the right edge. */
-@media (max-width: 833px) {
+@media (max-width: 1099px) {
   .hero {
     --fs: min(19vw, 15svh);
+    --car-w: 170vw;
+    --car-top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 0.95);
+    --b-top: calc(var(--car-top) + var(--car-w) * 0.262);
     height: 300svh;
   }
 
@@ -318,30 +321,29 @@
   .hero__line--b {
     right: auto;
     left: var(--margin);
-    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 3.4);
+    top: var(--b-top);
     bottom: auto;
   }
 
   .hero__car {
-    --car-w: 170vw;
     left: 4vw;
     margin-left: 0;
     bottom: auto;
-    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 0.95);
+    top: var(--car-top);
     transform-origin: 35% 60%;
   }
 
   .hero__kicker {
     bottom: auto;
     left: var(--margin);
-    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 4.5);
+    top: calc(var(--b-top) + var(--fs) * 1.05);
   }
 
   .hero__clock {
     left: auto;
     right: var(--margin);
     bottom: auto;
-    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 4.5);
+    top: calc(var(--b-top) + var(--fs) * 1.05);
   }
 
   .hero__start {
@@ -433,13 +435,17 @@
   }
 }
 
-@media (min-width: 834px) and (max-width: 1099px) {
+@media (min-width: 600px) and (max-width: 1099px) {
+  .hero {
+    --car-w: 118vw;
+  }
+
   .hero__start {
-    width: 40vw;
+    max-width: 560px;
   }
 }
 
-@media (min-width: 834px) {
+@media (min-width: 1100px) {
   .hero.is-static .hero__stage {
     height: 100svh;
   }

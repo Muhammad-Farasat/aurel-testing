@@ -54,7 +54,7 @@ const mix = (a: Pose, b: Pose, t: number): Pose => ({
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
-  const narrow = useMediaQuery("(max-width: 833px)");
+  const narrow = useMediaQuery("(max-width: 1099px)");
   const p = useScrollProgress(ref, !reduce);
   const clock = useClock();
   const start = useStartBooking();
@@ -65,7 +65,7 @@ export function Hero() {
   // Poses in viewport units, relative to the car's resting place.
   const A: Pose = { x: 0, y: 0, s: 1 };
   const B: Pose = narrow ? { x: -40, y: 4, s: 1.6 } : { x: -22, y: -4, s: 2.35 };
-  const C: Pose = narrow ? { x: 0, y: 6, s: 0.86 } : { x: -21, y: 6, s: 0.6 };
+  const C: Pose = narrow ? { x: 0, y: 6, s: 0.86 } : { x: -21, y: -2, s: 0.6 };
   const pose = p < 0.42 ? mix(A, B, ease(range(p, 0.15, 0.42))) : mix(B, C, ease(range(p, 0.56, 0.8)));
 
   const carStyle: CSSProperties = reduce
