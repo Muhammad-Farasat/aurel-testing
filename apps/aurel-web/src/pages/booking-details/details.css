@@ -37,6 +37,7 @@
 .bd__status-mark {
   width: 10px;
   height: 10px;
+  border-radius: 50%;
   background: var(--color-ink);
 }
 
@@ -79,9 +80,10 @@
 }
 
 .bd__ref .t-input-xl {
-  font-weight: 500;
-  font-size: clamp(2rem, 1.3rem + 2.8vw, 4rem);
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-size: clamp(4rem, 1.6rem + 10vw, 11rem);
+  line-height: 0.82;
+  letter-spacing: 0;
 }
 
 .bd__date {
@@ -96,6 +98,7 @@
   margin-top: var(--space-4);
   padding: var(--space-3) var(--space-4);
   border: 1px dashed var(--color-field);
+  border-radius: var(--radius-field);
   max-width: 560px;
 }
 
@@ -109,8 +112,7 @@
 
 .bd__grid {
   row-gap: var(--space-7);
-  border-top: 1px solid var(--color-ink);
-  padding-top: var(--space-6);
+  padding-top: var(--space-4);
 }
 
 .bd__rule {
@@ -179,7 +181,8 @@
   top: 4px;
   width: 11px;
   height: 11px;
-  border: 1.5px solid var(--color-field);
+  border-radius: 50%;
+  border: 2px solid var(--color-field);
   background: var(--color-paper);
   transition:
     background-color var(--dur-panel) var(--ease-out),
@@ -201,8 +204,8 @@
   height: 15px;
   left: calc(76px + var(--space-5) / 2 - 7px);
   top: 2px;
-  background: var(--color-aurel);
-  border-color: var(--color-aurel);
+  background: var(--color-lamp);
+  border-color: var(--color-lamp);
   animation: now-in var(--dur-panel) var(--ease-out);
 }
 
@@ -259,7 +262,7 @@
   margin-top: var(--space-3);
   padding: var(--space-4);
   background: var(--color-paper-raised);
-  border-left: 2px solid var(--color-aurel);
+  border-radius: var(--radius-field);
   max-width: 320px;
 }
 
@@ -268,12 +271,22 @@
   flex-direction: column;
   gap: var(--space-3);
   padding: var(--space-5);
+  border-radius: var(--radius-panel);
   background: var(--color-paper-raised);
 }
 
+/* The car card carries the car itself, on the chrome ground. */
+.bd__card:has(.bd__car) {
+  background: var(--color-chrome);
+}
+
 .bd__car {
-  max-width: 260px;
-  margin-block: var(--space-2);
+  margin: var(--space-2) calc(var(--space-5) * -1) var(--space-2) 0;
+}
+
+.bd__car .vehicle {
+  width: 100%;
+  height: auto;
 }
 
 .bd__actions {
@@ -302,7 +315,8 @@
 }
 
 .bd__hrule-track span {
-  height: 4px;
+  height: 6px;
+  border-radius: 3px;
   background: var(--color-rule);
 }
 
@@ -311,7 +325,7 @@
 }
 
 .bd__hrule-track .is-now {
-  background: var(--color-aurel);
+  background: var(--color-lamp);
 }
 
 .bd__bar {
@@ -325,7 +339,8 @@
   gap: var(--space-2);
   padding: var(--space-2) var(--margin) calc(var(--space-2) + env(safe-area-inset-bottom));
   background: var(--color-paper-raised);
-  border-top: 1px solid var(--color-ink);
+  border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+  box-shadow: 0 -6px 24px rgb(23 36 31 / 0.12);
 }
 
 .bd__bar .btn {
@@ -347,6 +362,7 @@
   padding: var(--space-4);
   background: var(--color-paper-raised);
   border: 1px solid var(--color-ink);
+  border-radius: var(--radius-panel);
   box-shadow: var(--shadow);
 }
 
@@ -358,7 +374,8 @@
   max-width: 480px;
   width: calc(100% - 2 * var(--margin));
   padding: var(--space-6);
-  border: 2px solid var(--color-ink);
+  border: 0;
+  border-radius: var(--radius-panel);
   background: var(--color-paper-raised);
   color: var(--color-ink);
 }
@@ -370,7 +387,7 @@
 }
 
 .confirm::backdrop {
-  background: rgb(14 16 18 / 0.45);
+  background: rgb(23 36 31 / 0.45);
 }
 
 .confirm__actions {
@@ -389,6 +406,7 @@
 
 .feedback__scale {
   display: grid;
+  gap: 4px;
   grid-template-columns: repeat(5, 1fr);
   width: 100%;
   border: 0;
@@ -404,14 +422,14 @@
   gap: 2px;
   padding: var(--space-3) var(--space-1);
   border: 1px solid var(--color-field);
-  margin-left: -1px;
+  border-radius: var(--radius-field);
   cursor: pointer;
   text-align: center;
   min-height: 64px;
 }
 
 .feedback__scale label:hover {
-  background: rgb(22 24 27 / 0.05);
+  background: rgb(23 36 31 / 0.07);
 }
 
 .feedback__scale input {

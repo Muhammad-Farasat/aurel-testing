@@ -12,7 +12,7 @@ import { useMediaQuery } from "../../hooks";
 import { Button, ButtonLink } from "../../components/Button";
 import { Icon } from "../../components/Icon";
 import { NameBoard, BoardName } from "../../components/NameBoard";
-import { TierDrawing } from "../../components/TierDrawing";
+import { Vehicle } from "../../components/Vehicle";
 import { Breakdown } from "../book/VehicleStep";
 import "./details.css";
 
@@ -388,7 +388,7 @@ function Details({
               Chauffeur and car
             </h2>
             <div className="bd__car">
-              <TierDrawing tier={tier.id} passengers={d.passengers} bags={d.bags} />
+              <Vehicle tier={tier.id} sizes="(min-width: 1100px) 420px, 90vw" decorative />
             </div>
             {assigned ? (
               <>

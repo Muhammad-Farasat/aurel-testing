@@ -10,7 +10,7 @@ import { quoteFor } from "../../services/pricing";
 import { createBooking, PaymentDeclined } from "../../services/bookings";
 import { useOnline } from "../../hooks";
 import { TextField } from "../../components/form/Field";
-import { TierDrawing, tierLength, MAX_LENGTH } from "../../components/TierDrawing";
+import { Vehicle } from "../../components/Vehicle";
 import { Icon } from "../../components/Icon";
 import { ErrorSummary } from "../../components/booking/ErrorSummary";
 import { StepBar, StepHead } from "../../components/booking/StepParts";
@@ -165,9 +165,7 @@ export function ReviewStep() {
             </li>
           </ol>
           <div>
-            <div style={{ ["--len" as string]: tierLength(tier.id) / MAX_LENGTH, width: `calc(var(--len) * 100%)` }}>
-              <TierDrawing tier={tier.id} passengers={draft.passengers} bags={draft.bags} />
-            </div>
+            <Vehicle tier={tier.id} sizes="200px" decorative />
             <div className="itinerary__row" style={{ marginTop: 8 }}>
               <span>
                 <span className="jrule__place">{tier.name}</span>

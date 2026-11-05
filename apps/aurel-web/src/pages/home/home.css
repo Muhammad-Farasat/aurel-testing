@@ -1,0 +1,815 @@
+/* ================= Home, "Standing By" ================= */
+
+/* ---------- Scenes 1 to 3: the car stays, the page changes around it ---------- */
+.hero {
+  --fs: min(18.5vw, 25svh);
+  position: relative;
+  height: 330svh;
+}
+
+.hero.is-static {
+  height: auto;
+}
+
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--color-paper);
+  transition: background-color 700ms var(--ease-scene);
+}
+
+.hero.is-b .hero__stage {
+  background: var(--color-chrome);
+}
+
+.hero.is-static .hero__stage {
+  position: relative;
+  height: auto;
+  min-height: 100svh;
+}
+
+/* The headline, split corner to corner around the car (P-019). */
+.hero__title {
+  position: absolute;
+  inset: 0;
+  font-size: var(--fs);
+  line-height: 0.8;
+  pointer-events: none;
+}
+
+.hero__line {
+  position: absolute;
+  display: block;
+  white-space: nowrap;
+  transition:
+    transform 700ms var(--ease-scene),
+    opacity 500ms var(--ease-out);
+}
+
+.hero__line--a {
+  left: var(--margin);
+  top: calc(var(--frame-h) + 2svh);
+}
+
+.hero__line--b {
+  right: var(--margin);
+  bottom: 5svh;
+}
+
+.hero:not(.is-a) .hero__line--a {
+  transform: translateY(-40%);
+  opacity: 0;
+}
+
+.hero:not(.is-a) .hero__line--b {
+  transform: translateY(40%);
+  opacity: 0;
+}
+
+/* The car: one element for the whole stage, moved only by transform. */
+.hero__car {
+  position: absolute;
+  --car-w: min(80vw, calc(var(--fs) * 5));
+  left: 50%;
+  bottom: calc(5svh + var(--fs) * 0.56);
+  width: var(--car-w);
+  margin-left: calc(var(--car-w) / -2);
+  z-index: 2;
+  transform-origin: 62% 60%;
+  will-change: transform;
+}
+
+.hero__car .vehicle {
+  width: 100%;
+  height: auto;
+}
+
+.hero.is-static .hero__car {
+  transform: none;
+}
+
+/* Frames: each swaps in by phase. Text never scrubs, so it reads at once. */
+.hero__frame {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 420ms var(--ease-out),
+    visibility 0s linear 420ms;
+}
+
+.hero.is-a .hero__frame--a,
+.hero.is-b .hero__frame--b,
+.hero.is-c .hero__frame--c {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 520ms var(--ease-out) 120ms,
+    visibility 0s;
+}
+
+.hero__frame > * {
+  pointer-events: auto;
+}
+
+/* Frame A: small things around the big ones. */
+.hero__start {
+  position: absolute;
+  right: var(--margin);
+  top: calc(var(--frame-h) + 2svh);
+  width: min(400px, 30vw);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.hero__kicker {
+  position: absolute;
+  left: var(--margin);
+  top: calc(var(--frame-h) + 2svh + var(--fs) * 0.86);
+  color: var(--color-ink-2);
+}
+
+.hero__clock {
+  position: absolute;
+  left: var(--margin);
+  top: calc(var(--frame-h) + 2svh + var(--fs) * 0.86 + 28px);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero__lede {
+  color: var(--color-ink);
+  max-width: 36ch;
+}
+
+.hero__quick {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.hero__quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: left;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-press) var(--ease-out);
+}
+
+.hero__quick-btn:hover {
+  background: var(--color-aurel-hover);
+}
+
+.hero__quick-btn:active {
+  transform: translateY(var(--press-shift));
+}
+
+.hero__quick-btn:focus-visible {
+  outline-color: var(--color-ink);
+}
+
+.hero__quick-tag {
+  font-family: var(--font);
+  font-weight: 500;
+  text-transform: none;
+  color: var(--color-on-dark-2);
+}
+
+/* Frame B: close up, small labels pinned to the car (P-023). */
+.hero__chapter {
+  position: absolute;
+  left: var(--margin);
+  top: calc(var(--frame-h) + var(--space-5));
+}
+
+.hero__specs {
+  position: absolute;
+  right: var(--margin);
+  top: 22svh;
+  display: grid;
+  justify-items: end;
+  gap: var(--space-3);
+}
+
+.hero__specs .pill {
+  min-height: 40px;
+  padding-inline: var(--space-4);
+  box-shadow: 0 6px 18px rgb(23 36 31 / 0.12);
+  transform: translateX(16px);
+  opacity: 0;
+  transition:
+    transform 520ms var(--ease-out) calc(160ms + var(--i) * 70ms),
+    opacity 520ms var(--ease-out) calc(160ms + var(--i) * 70ms);
+}
+
+.hero.is-b .hero__specs .pill {
+  transform: none;
+  opacity: 1;
+}
+
+.hero__caption {
+  position: absolute;
+  left: var(--margin);
+  bottom: var(--space-6);
+  max-width: 44ch;
+  color: var(--color-ink-2);
+}
+
+/* Frame C: the car pulls back; the first standard is the loud thing. */
+.hero__frame--c {
+  display: grid;
+}
+
+.hero__there {
+  position: absolute;
+  right: var(--margin);
+  top: calc(var(--frame-h) + 6svh);
+  font-size: min(15vw, 30svh);
+  line-height: 0.8;
+  text-align: right;
+}
+
+.hero__there-line {
+  position: absolute;
+  left: var(--margin);
+  bottom: calc(var(--space-9) + 8px);
+  max-width: 40ch;
+}
+
+.hero__there-link {
+  position: absolute;
+  left: var(--margin);
+  bottom: var(--space-7);
+}
+
+/* Small labels pinned around the car once it pulls back (P-023). */
+.hero__notes {
+  position: absolute;
+  right: var(--margin);
+  bottom: var(--space-7);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  max-width: 520px;
+}
+
+.hero__notes .pill {
+  min-height: 40px;
+  padding-inline: var(--space-4);
+  transform: translateY(12px);
+  opacity: 0;
+  transition:
+    transform 520ms var(--ease-out) calc(200ms + var(--i) * 70ms),
+    opacity 520ms var(--ease-out) calc(200ms + var(--i) * 70ms);
+}
+
+.hero.is-c .hero__notes .pill {
+  transform: none;
+  opacity: 1;
+}
+
+/* Static version (reduced motion): the three frames stacked, nothing pinned. */
+.hero.is-static .hero__frame {
+  position: relative;
+  inset: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero.is-static .hero__frame--b,
+.hero.is-static .hero__frame--c {
+  display: none;
+}
+
+/* Tablet and phone: the type stacks, the car is cropped off the right edge. */
+@media (max-width: 833px) {
+  .hero {
+    --fs: min(19vw, 15svh);
+    height: 300svh;
+  }
+
+  .hero__line--a {
+    top: calc(var(--frame-h) + var(--space-3));
+  }
+
+  .hero__line--b {
+    right: auto;
+    left: var(--margin);
+    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 3.4);
+    bottom: auto;
+  }
+
+  .hero__car {
+    --car-w: 170vw;
+    left: 4vw;
+    margin-left: 0;
+    bottom: auto;
+    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 0.95);
+    transform-origin: 35% 60%;
+  }
+
+  .hero__kicker {
+    bottom: auto;
+    left: var(--margin);
+    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 4.5);
+  }
+
+  .hero__clock {
+    left: auto;
+    right: var(--margin);
+    bottom: auto;
+    top: calc(var(--frame-h) + var(--space-3) + var(--fs) * 4.5);
+  }
+
+  .hero__start {
+    left: var(--margin);
+    right: var(--margin);
+    top: auto;
+    bottom: calc(var(--space-5) + env(safe-area-inset-bottom));
+    width: auto;
+  }
+
+  .hero__quick-btn {
+    padding-inline: var(--space-4);
+    font-size: 1.25rem;
+  }
+
+  .hero__specs {
+    top: auto;
+    bottom: calc(var(--space-9) + var(--space-5));
+    left: var(--margin);
+    right: var(--margin);
+    justify-items: start;
+  }
+
+  .hero__specs .pill {
+    white-space: normal;
+  }
+
+  .hero__there {
+    left: var(--margin);
+    right: auto;
+    text-align: left;
+    font-size: min(24vw, 18svh);
+  }
+
+  .hero__there-line {
+    right: var(--margin);
+    bottom: calc(var(--space-7) + 40px);
+  }
+
+  .hero__there-link {
+    bottom: var(--space-5);
+  }
+
+  .hero__notes {
+    left: var(--margin);
+    right: var(--margin);
+    bottom: auto;
+    top: 58svh;
+    justify-content: flex-start;
+  }
+
+  .hero.is-static .hero__stage {
+    min-height: 0;
+    padding-bottom: var(--space-6);
+  }
+
+  .hero.is-static .hero__title,
+  .hero.is-static .hero__line {
+    position: relative;
+  }
+
+  .hero.is-static .hero__title {
+    display: block;
+    padding: calc(var(--frame-h) + var(--space-3)) var(--margin) 0;
+  }
+
+  .hero.is-static .hero__line--a,
+  .hero.is-static .hero__line--b {
+    inset: auto;
+  }
+
+  .hero.is-static .hero__car {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: var(--space-4) 0 var(--space-4) 6vw;
+  }
+
+  .hero.is-static .hero__frame--a {
+    display: grid;
+    gap: var(--space-4);
+    padding-inline: var(--margin);
+  }
+
+  .hero.is-static .hero__kicker,
+  .hero.is-static .hero__clock,
+  .hero.is-static .hero__start {
+    position: static;
+  }
+}
+
+@media (min-width: 834px) and (max-width: 1099px) {
+  .hero__start {
+    width: 40vw;
+  }
+}
+
+@media (min-width: 834px) {
+  .hero.is-static .hero__stage {
+    height: 100svh;
+  }
+}
+
+/* ---------- Fleet scene ---------- */
+.hfleet {
+  padding-block: var(--space-10) var(--space-9);
+  background: var(--color-paper);
+}
+
+.hfleet__head {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+
+.hfleet__kicker {
+  color: var(--color-ink-2);
+}
+
+.hfleet__title {
+  max-width: 14ch;
+}
+
+.hfleet__note {
+  margin-top: var(--space-4);
+  color: var(--color-ink-2);
+}
+
+.hfleet__note a {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+/* ---------- Landed: the airport chapter, on the paint ---------- */
+.landed {
+  background: var(--color-night);
+  overflow: hidden;
+}
+
+.landed__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-block: var(--space-9);
+  gap: var(--space-5);
+}
+
+.landed__kicker {
+  color: var(--color-on-dark-2);
+}
+
+.landed__title {
+  position: relative;
+  display: grid;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.landed__was {
+  font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  color: var(--color-on-dark-2);
+  text-decoration: line-through;
+  text-decoration-thickness: 0.08em;
+}
+
+.landed__now {
+  font-size: clamp(7rem, 2rem + 24vw, 22rem);
+  letter-spacing: -0.02em;
+  color: var(--color-on-dark);
+}
+
+/* The name board crosses the big time, as the object in front of the type. */
+.landed__board {
+  position: relative;
+  justify-self: start;
+  margin-top: calc(var(--space-8) * -1);
+  transform: rotate(-4deg) translateY(24px);
+  opacity: 0;
+  transition:
+    transform 700ms var(--ease-scene) 200ms,
+    opacity 500ms var(--ease-out) 200ms;
+}
+
+.landed__inner.is-in .landed__board {
+  transform: rotate(-4deg);
+  opacity: 1;
+}
+
+.landed__board .nameboard {
+  padding: var(--space-4) var(--space-6);
+}
+
+.landed__copy {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 46ch;
+}
+
+.landed__lede {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem);
+  line-height: 0.95;
+}
+
+.landed__line {
+  color: var(--color-on-dark-2);
+}
+
+.landed__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.landed__step {
+  background: transparent;
+  color: var(--color-on-dark);
+  box-shadow: inset 0 0 0 1px rgb(229 223 212 / 0.4);
+}
+
+.landed__link {
+  justify-self: start;
+}
+
+@media (min-width: 1100px) {
+  .landed__inner {
+    grid-template-columns: 7fr 5fr;
+    column-gap: var(--gutter);
+    align-items: end;
+  }
+
+  .landed__kicker {
+    grid-column: 1 / -1;
+    align-self: start;
+  }
+
+  .landed__title {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .landed__board {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: calc(var(--space-10) * -1);
+    margin-left: 22%;
+  }
+
+  .landed__copy {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: end;
+    padding-bottom: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landed__board {
+    transition: none;
+    opacity: 1;
+    transform: rotate(-4deg);
+  }
+}
+
+/* ---------- Four ways to book: four big words ---------- */
+.hsvc {
+  padding-block: var(--space-10);
+  background: var(--color-paper);
+}
+
+.hsvc__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  padding-bottom: var(--space-4);
+  color: var(--color-ink-2);
+}
+
+.hsvc__list li + li {
+  border-top: 1px solid var(--color-rule);
+}
+
+.hsvc__list {
+  border-block: 1px solid var(--color-ink);
+}
+
+.hsvc__row {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 96px;
+  padding: var(--space-3) 0;
+  text-align: left;
+}
+
+.hsvc__n {
+  flex: none;
+  width: 2.5rem;
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.hsvc__word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(3.5rem, 1.6rem + 8vw, 9.5rem);
+  line-height: 0.82;
+  transition: transform 330ms var(--ease-out);
+}
+
+.hsvc__tag {
+  align-self: flex-start;
+  margin-top: var(--space-3);
+  transform: rotate(-3deg);
+}
+
+.hsvc__go {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--color-ink);
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out),
+    transform 330ms var(--ease-out);
+}
+
+.hsvc__row:hover .hsvc__word {
+  transform: translateX(var(--space-4));
+}
+
+.hsvc__row:hover .hsvc__go {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 599px) {
+  .hsvc__row {
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .hsvc__n {
+    display: none;
+  }
+
+  .hsvc__go {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hsvc__row:hover .hsvc__word,
+  .hsvc__row:hover .hsvc__go {
+    transform: none;
+  }
+}
+
+/* ---------- For business: the leather chapter ---------- */
+.hbiz {
+  background: var(--color-leather);
+  color: var(--color-ink);
+  --focus: var(--color-ink);
+}
+
+.hbiz__inner {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-10);
+}
+
+.hbiz__title {
+  max-width: 12ch;
+}
+
+.hbiz__copy {
+  display: grid;
+  gap: var(--space-4);
+  align-content: end;
+  max-width: 44ch;
+}
+
+.hbiz__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.hbiz__pills .pill {
+  background: rgb(242 238 231 / 0.75);
+}
+
+.hbiz .btn--secondary {
+  justify-self: start;
+}
+
+@media (min-width: 1100px) {
+  .hbiz__inner {
+    grid-template-columns: 7fr 5fr;
+    align-items: end;
+  }
+}
+
+/* ---------- Ending: the wordmark with the car in front ---------- */
+.ending {
+  background: var(--color-paper);
+  overflow: hidden;
+}
+
+.ending__inner {
+  position: relative;
+  display: grid;
+  padding-block: var(--space-9) var(--space-8);
+}
+
+.ending__tag {
+  color: var(--color-ink-2);
+}
+
+.ending__mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(8rem, 1rem + 33vw, 30rem);
+  line-height: 0.78;
+  letter-spacing: 0.02em;
+  color: var(--color-leather-deep);
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+.ending__car {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 980px);
+  justify-self: center;
+  margin-top: calc(clamp(8rem, 1rem + 33vw, 30rem) * -0.3);
+}
+
+.ending__car .vehicle {
+  width: 100%;
+  height: auto;
+}
+
+.ending__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 599px) {
+  .ending__car {
+    width: 112%;
+    margin-left: -6%;
+  }
+}

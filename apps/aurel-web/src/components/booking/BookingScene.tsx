@@ -19,7 +19,9 @@ export function BookingScene({
   heading,
   aside,
   label,
+  headingLevel = 1,
 }: {
+  headingLevel?: 1 | 2;
   preset?: Service;
   lockService?: boolean;
   heading?: ReactNode;
@@ -44,6 +46,7 @@ export function BookingScene({
             headingId="booking-question"
             heading={heading}
             lockService={lockService}
+            headingLevel={headingLevel}
             onDone={() => navigate("/book/vehicle", { state: { from: window.location.pathname } })}
           />
         </div>

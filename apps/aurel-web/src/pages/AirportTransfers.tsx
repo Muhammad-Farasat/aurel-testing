@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BookingScene } from "../components/booking/BookingScene";
-import { NameBoard } from "../components/NameBoard";
+import { BoardName, NameBoard } from "../components/NameBoard";
+import { Vehicle } from "../components/Vehicle";
 import { ButtonLink } from "../components/Button";
+import { Icon } from "../components/Icon";
 import { useInView } from "../hooks";
 import { sampleBoardName } from "../config/copy";
 import { serviceRules } from "../config/serviceRules";
@@ -46,14 +48,46 @@ export function AirportTransfers() {
   }, []);
   return (
     <div className="svc">
-      <BookingScene preset="airport" label="Airport transfers" />
+      {/* Poster: the SUV, the one with room for bags, crosses the word (P-019). */}
+      <section className="ap-hero" data-ground="light" aria-labelledby="ap-title">
+        <div className="wrap ap-hero__inner">
+          <p className="t-label ap-hero__kicker">Airport transfers</p>
+          <h1 id="ap-title" className="t-poster ap-hero__title">
+            Arrivals
+          </h1>
+          <div className="ap-hero__car">
+            <Vehicle tier="suv" priority sizes="(min-width: 834px) 70vw, 120vw" decorative />
+            <div className="ap-hero__board" aria-hidden="true">
+              <NameBoard>
+                <BoardName name={sampleBoardName} />
+              </NameBoard>
+            </div>
+          </div>
+          <div className="ap-hero__foot">
+            <p className="ap-hero__lede">
+              Met in the arrivals hall with your name on a board. The pickup follows your flight, early or late.
+            </p>
+            <ul className="ap-hero__pills" aria-label="Included with arrivals">
+              <li className="pill">Flight tracked</li>
+              <li className="pill">Meet-and-greet</li>
+              <li className="pill tnum">{serviceRules.airportWaitingIncluded} min waiting included</li>
+            </ul>
+            <a href="#booking" className="btn btn--primary ap-hero__cta">
+              <span className="btn__label">Book an airport transfer</span>
+              <Icon name="arrow" size={20} className="btn__arrow" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <BookingScene preset="airport" label="Airport transfers" headingLevel={2} />
 
       <section className="svc-tt" data-ground="light" aria-labelledby="tt-title">
         <div className="wrap">
           <div className="svc-tt__head">
             <p className="t-label muted">The arrival, as a timetable</p>
-            <h2 id="tt-title" className="t-title">
-              From landing to your door, one arrival at a time.
+            <h2 id="tt-title" className="t-display">
+              Landing to door.
             </h2>
           </div>
           <ol className={rowsIn ? "tt is-in" : "tt"} ref={rowsRef}>
@@ -71,8 +105,9 @@ export function AirportTransfers() {
                   {r.moved ? (
                     <span className="tt__move tnum">
                       <span className="visually-hidden">Pickup moved from {r.moved.from} to {r.moved.to}.</span>
-                      <span aria-hidden="true">
-                        <s>{r.moved.from}</s> <span className="tt__arrow">→</span> <strong>{r.moved.to}</strong>
+                      <span aria-hidden="true" className="tt__move-pills">
+                        <s className="pill">{r.moved.from}</s> <span className="tt__arrow">→</span>{" "}
+                        <strong className="pill pill--ink">{r.moved.to}</strong>
                       </span>
                     </span>
                   ) : null}
@@ -84,32 +119,9 @@ export function AirportTransfers() {
         </div>
       </section>
 
-      <section className="svc-board" data-ground="light" aria-labelledby="board-h">
-        <div className="wrap grid">
-          <div className="svc-board__board">
-            <NameBoard size="lg">
-              <span className="t-title svc-board__name">{sampleBoardName.toUpperCase()}</span>
-            </NameBoard>
-          </div>
-          <div className="svc-board__copy">
-            <h2 id="board-h" className="t-step">
-              The name board
-            </h2>
-            <p className="measure">
-              Your chauffeur waits in the arrivals hall holding a board with your name, or the name you choose: a
-              company name, or initials if you'd rather not be announced. You'll see the board when you book, and
-              again on your booking page.
-            </p>
-            <p className="t-small muted">
-              Meet-and-greet is included with airport arrivals.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section className="svc-qa" data-ground="light" aria-labelledby="qa-title">
-        <div className="wrap grid">
-          <h2 id="qa-title" className="t-label svc-qa__title">
+        <div className="wrap">
+          <h2 id="qa-title" className="t-title svc-qa__title">
             Delays and waiting
           </h2>
           <dl className="svc-qa__list">
@@ -120,16 +132,19 @@ export function AirportTransfers() {
               </div>
             ))}
           </dl>
+          <p className="t-small muted svc-qa__board-note">
+            The board can show a company name, or initials if you'd rather not be announced. You set it when you book.
+          </p>
         </div>
       </section>
 
       <section className="svc-close on-dark" data-ground="dark" aria-labelledby="close-title">
         <div className="wrap svc-close__inner">
-          <h2 id="close-title" className="t-title">
+          <h2 id="close-title" className="t-display">
             Landing soon?
           </h2>
           <div className="svc-close__actions">
-            <ButtonLink to="/book/journey" variant="secondary" arrow>
+            <ButtonLink to="/book/journey" variant="primary" arrow>
               Book an airport transfer
             </ButtonLink>
             <Link to="/help" className="btn btn--text">

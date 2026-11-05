@@ -11,7 +11,6 @@ import { driveMinutes } from "../../services/pricing";
 import { useOnline } from "../../hooks";
 import { Button } from "../Button";
 import { Icon } from "../Icon";
-import { NameBoard } from "../NameBoard";
 import { Segments } from "../form/Segments";
 import { PlaceField } from "../form/PlaceField";
 import { DateField, TimeField } from "../form/DateField";
@@ -23,7 +22,7 @@ import "./booking.css";
 
 const services: Service[] = ["transfer", "airport", "hourly", "fullday"];
 
-/** The first field for each service: the one held in the name board. */
+/** The first field for each service: the one set large at the top of the panel. */
 export function firstFieldKey(d: Draft): string {
   if (d.service === "airport") return "airport";
   if (d.service === "fullday") return "date";
@@ -38,8 +37,8 @@ function firstFieldDone(d: Draft): boolean {
 
 /**
  * Step 1 of BookingPanel. `entry` is the home and service-page version: the
- * question in display type, the first field in the name board, and the rest of
- * the step growing in place once the first field is answered (REF-004).
+ * question in display type, the first field set large, and the rest of the
+ * step growing in place once the first field is answered (REF-004).
  * `step` is /book/journey: every field shown.
  */
 export function JourneyFields({
@@ -49,7 +48,9 @@ export function JourneyFields({
   heading,
   headingId,
   lockService,
+  headingLevel = 1,
 }: {
+  headingLevel?: 1 | 2;
   variant: "entry" | "step";
   onDone: () => void;
   doneLabel?: string;
@@ -128,7 +129,7 @@ export function JourneyFields({
     );
   })();
 
-  const HeadingTag = variant === "entry" ? "h1" : "h2";
+  const HeadingTag = variant === "entry" && headingLevel === 1 ? "h1" : "h2";
   const question = serviceQuestions[draft.service];
 
   return (
@@ -179,9 +180,7 @@ export function JourneyFields({
         />
       ) : null}
 
-      <NameBoard draw={variant === "entry"} className="panel__board">
-        {firstField}
-      </NameBoard>
+      <div className="panel__first">{firstField}</div>
 
       <div className={grown ? "panel__grow is-open" : "panel__grow"} ref={growRef}>
         <div className="panel__grow-inner">

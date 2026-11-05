@@ -6,7 +6,7 @@ import { fitReason, tiers, MAX_BAGS, MAX_PARTY, type TierId } from "../../config
 import { formatMoney } from "../../config/market";
 import { quoteAll, type Quote } from "../../services/pricing";
 import { Stepper } from "../../components/form/Stepper";
-import { TierDrawing, tierLength, MAX_LENGTH } from "../../components/TierDrawing";
+import { Vehicle } from "../../components/Vehicle";
 import { Icon } from "../../components/Icon";
 import { ErrorSummary } from "../../components/booking/ErrorSummary";
 import { StepBar, StepHead, useReturnTo } from "../../components/booking/StepParts";
@@ -115,7 +115,7 @@ export function VehicleStep() {
                   rowRefs.current[i] = el;
                 }}
                 id={`tier-${i}`}
-                className="tier"
+                className={`tier tier--${t.id}`}
                 role="radio"
                 aria-checked={isSel}
                 aria-disabled={blocked || undefined}
@@ -128,9 +128,7 @@ export function VehicleStep() {
                 onKeyDown={(e) => onKey(e, i)}
               >
                 <div className="tier__draw" aria-hidden="true">
-                  <div className="tier__draw-inner" style={{ ["--len" as string]: tierLength(t.id) / MAX_LENGTH }}>
-                    <TierDrawing tier={t.id} passengers={blocked ? 0 : draft.passengers} bags={blocked ? 0 : draft.bags} />
-                  </div>
+                  <Vehicle tier={t.id} sizes="(min-width: 600px) 240px, 80vw" decorative />
                 </div>
                 <div className="tier__info" id={`tier-${t.id}-desc`}>
                   <span className="tier__name">{t.name}</span>

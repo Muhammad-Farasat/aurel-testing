@@ -6,7 +6,7 @@ import { formatDay, formatMoney } from "../../config/market";
 import { getTier } from "../../config/tiers";
 import { quoteFor } from "../../services/pricing";
 import { Icon } from "../../components/Icon";
-import { TierDrawing, tierLength, MAX_LENGTH } from "../../components/TierDrawing";
+import { Vehicle } from "../../components/Vehicle";
 
 /** The running total once journey and tier are known. */
 export function useRunningTotal(d: Draft): number | null {
@@ -97,8 +97,8 @@ export function Summary() {
       </ol>
       {tier ? (
         <div className="summary__tier">
-          <span style={{ ["--len" as string]: tierLength(tier.id) / MAX_LENGTH }} className="summary__draw">
-            <TierDrawing tier={tier.id} passengers={draft.passengers} bags={draft.bags} />
+          <span className="summary__draw">
+            <Vehicle tier={tier.id} sizes="140px" decorative />
           </span>
           <span>
             <span className="jrule__place">{tier.name}</span>
