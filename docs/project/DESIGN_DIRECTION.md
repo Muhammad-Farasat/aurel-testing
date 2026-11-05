@@ -1,297 +1,278 @@
 # Design direction
 
 Owner: design-director, following `/creative-design-director` and the design
-memory. Skip this file for projects without a UI and note that in
-DECISIONS.md.
+memory.
 
-Every major decision has a reason that cites a requirement (`R-001`), a
-reference (`REF-001`), or a preference or rejection (`P-001`, `RJ-001`).
+Every major decision has a reason that cites a brief section (`Brief §5`), a
+reference (`REF-008`), or a preference or rejection (`P-020`, `RJ-002`).
 
-Scope for this pass: frontend design strategy only. No code, no backend, no
-prototypes. REQUIREMENTS.md and RESEARCH.md are still empty templates, so
-decisions cite brief sections (`Brief §5` and so on) in place of requirement
-IDs. When requirements are numbered, the requirements-analyst should map them
-back to the sections below.
+**This branch holds concept B, "Standing By".** The first concept, "Kept
+Time", is built on branch `agent/aurel-frontend-design-1104a` and its
+direction document lives there. This concept was made because the owner
+said Kept Time reads too quiet and pointed at REF-008 (ayzz.thedesigner) as
+the model for "how to make your website pop". The two are compared at the
+end of [Directions compared](#directions-compared).
 
-Status: draft for owner review, 2026-11-05.
+Status: built for owner review, 2026-11-06. Frontend only; services are
+mocks.
 
 ---
 
 ## Client and audience
 
-- **Client identity.** AUREL is a pre-booked private chauffeur service:
-  point-to-point transfers, airport transfers, hourly hire and full-day hire,
-  across four vehicle tiers (Brief §1, §5, §6). It competes on a better-managed
-  journey, not on price (Brief §7). It wants to be seen as sophisticated,
-  confident, professional, elegant, dependable, understated and
-  customer-focused (Brief §10).
-- **Audience** (Brief §4):
-  - Executive individuals booking for themselves, often on a phone between
-    meetings or in a desk session the day before.
-  - Corporate buyers (executive assistants, travel managers) booking for other
-    people, mostly on desktop during office hours, who care about billing,
-    duty of care and repeat bookings.
-  - Frequent travellers whose main use is the airport run, booking on a phone,
-    often the night before or at the departure gate.
-  - Affluent individuals, families and event customers booking less often,
-    with more passengers and luggage, and more need for reassurance.
-  - Hotels, travel agencies and hospitality providers booking for guests,
-    on desktop, often several journeys at a time.
-- **Primary task.** Reserve a journey: choose a service, enter journey details,
-  choose a vehicle, see the price, confirm (Brief §9 steps 3 and 4). Second
-  tasks: check and change a booking (Prepare), see the chauffeur and vehicle
-  before the trip, open a business account.
-- **Brand traits from the brief.** Reliability, comfort, professionalism,
-  convenience, personalisation (Brief §3). Personality: sophisticated,
-  confident, professional, elegant, dependable, understated, customer-focused
-  (Brief §10). Tagline: "AUREL. Travel, Considered." Philosophy: "The journey
-  should feel as carefully considered as the destination." (Brief §1)
-- **Brief's explicit dos and don'ts** (Brief §10, §7, §12):
-  - Do communicate premium quality through service standards, not by claiming
-    to be luxurious.
-  - Do speak with confidence and clarity.
-  - Do make pricing and what is being booked clear before confirmation
-    ("Transparent Reservations", Brief §7).
-  - Don't use luxury clichés, exaggerated promises, aggressive marketing, or
-    language that makes the company sound inaccessible.
-  - Don't present future opportunities (Brief §11) as launch commitments.
-  - Launch market, fleet ownership, pricing and policies are not final
-    (Brief §12), so every number on the site is a placeholder until the owner
-    supplies it.
+Unchanged from Kept Time, summarised here so this file stands alone.
+
+- **Client.** AUREL, a pre-booked private chauffeur service: point-to-point
+  transfers, airport transfers, hourly and full-day hire, four vehicle tiers
+  (Brief §1, §5, §6). It competes on a better-managed journey, not on price
+  (Brief §7).
+- **Audience** (Brief §4): executives booking for themselves, corporate
+  buyers and assistants booking for others, frequent airport travellers,
+  families and event customers, hotels and agencies.
+- **Primary task.** Reserve a journey: service, journey details, vehicle,
+  price, confirm (Brief §9 steps 3 and 4).
+- **Personality** (Brief §10): sophisticated, confident, professional,
+  elegant, dependable, understated, customer-focused.
+- **Brief's dos and don'ts** (Brief §10, §7, §12): premium shown through
+  service standards, not claimed; clear about price before confirmation; no
+  luxury clichés, no exaggerated promises, no aggressive marketing; future
+  plans are not launch commitments; every number is a placeholder until the
+  owner supplies it.
+
+**The tension this concept resolves.** The owner wants a site that pops
+(AP-004). The brief wants understated (Brief §10). Standing By makes the
+scale loud and keeps the voice and colour quiet: one huge car and one huge
+word per screen, plain sentences, a palette taken from a dark green car on a
+stone floor. Nothing shouts "luxury"; the composition does the work.
+
+---
+
+## Concept
+
+**Standing By.** A chauffeur's job is mostly waiting: the car is at the kerb
+before you are. So the car stands still on screen and the page changes around
+it. It crosses the opening headline, the camera moves in on the rear seat
+with small labels pinned to it, then pulls back while the first standard
+("There first.") takes the stage. Every colour on the site comes from that
+one car and the studio floor it stands on. Below it, each section answers
+the next question a visitor has, each with one loud thing: the booking
+question, one expanded car with a big index numeral, one moved pickup time,
+four service words, one question for businesses, and the wordmark with the
+car parked across it.
+
+### Signature devices
+
+1. **The car that stays.** One vehicle element through the first three
+   scenes, moved only by transform (P-020). It crosses the type in the hero
+   (P-019), zooms to the rear door for detail, then pulls back with spec
+   pills around it (P-023). The same device closes the page: the car parked
+   across the AUREL wordmark (P-009).
+2. **One expanded band.** The fleet is four colour bands; one is open, with
+   the car crossing a big index numeral 01 to 04 and arrows to step through
+   (P-022). Each band's ground is a tint taken from the car (P-021).
+3. **Pinned pills.** Small rounded labels stuck to big things: spec pills on
+   the car, tag pills on the service words, the moved time as a pill pair on
+   the airport timetable (P-023).
+
+### What changed from Kept Time
+
+| | Kept Time | Standing By |
+|---|---|---|
+| Hero subject | The booking question set as the headline | The car, crossing a split headline |
+| First scene | The booking panel | The car and four quick-start pills; the panel is the second scene |
+| Display type | Archivo Expanded, sentence case | Barlow Condensed, capitals |
+| Colour | Paper, ink, one amber accent | Car paint green, studio stone, chrome, leather, tail-lamp red as the only signal |
+| Shape | Square, radius 0 | Pills and soft panels |
+| Navigation | No bar; wordmark, Sign in, Index | Small pill bar: three links, Menu, Book |
+| Story motion | Scroll scrubs a clock; grounds follow the hour | Scroll moves the car: cross, zoom, pull back |
+| Fleet | Four elevation line drawings to scale | Four studio renders, one expanded band |
+| Imagery | Type and line drawings, no cars | Placeholder car renders carry the concept |
+| Signature | Name board, journey rule | The car that stays, the expanded band, pinned pills |
+
+Kept from Kept Time: the sitemap, every journey, the whole booking flow and
+its rules, the booking-details states, the name board as a functional
+airport feature, all copy that was already concrete, and every service,
+config and data file.
 
 ---
 
 ## Design memory applied
 
 Memory read on 2026-11-05 from
-`C:/Users/Muhammad Farasat/Documents/design-memory`, commit `4304fca`.
+`C:/Users/Muhammad Farasat/Documents/design-memory`: MY-DESIGN-PREFERENCES.md
+(including "What makes a design pop"), the topic files it points to,
+approved-and-rejected-designs.md, REF-008's README and the images listed under
+References, and the REF-001 to REF-003 entries. REF-004 to REF-007 are the
+chauffeur category scan and carry no taste; they are used for what to avoid.
 
-Owner taste comes from REF-001, REF-002, REF-003 and the owner's answers on
-2026-11-04. REF-004 to REF-007 are a category scan for this project and carry
-no taste evidence. They are used only for what to avoid and for booking
-patterns.
-
-The rule used throughout: client requirements beat owner preferences, and
-owner rejections beat my defaults. The memory's own carve-out applies here:
-"Task-first screens (booking steps, checkout, search results, dashboards)
-keep the type, color and hover craft but drop the pinned scroll story."
+Rule used throughout: the client's brief beats owner preferences, and owner
+rejections beat my defaults. The memory's own carve-out holds: booking steps
+keep the type, colour and hover craft but drop the pinned story.
 
 | ID | Preference or rejection | Decision | Reason |
 |---|---|---|---|
-| P-006 (strong) | Chaptered, pinned scroll story by default | **adapts** | The home page and service pages keep a chaptered story, but it starts *after* the booking scene, never before it. Booking is the primary task (Brief §9), so the first scene is the booking itself. `/book`, booking details and the account area have no pinned story (memory carve-out). |
-| P-014 (strong) | Scroll drives the story, and motion explains the product | **applies** | The story's motion demonstrates service standards, which is exactly what the brief asks for (Brief §10). Chapter 01 scrubs an airport pickup minute by minute: the flight lands early and the pickup moves with it. Motion explains flight tracking; no copy has to claim it. |
-| P-018 (strong) | Serif display only by intent, and rarely | **applies** | No serif anywhere. The category already owns the luxury serif (REF-004 PP Fragment, REF-007 Cormorant), so a serif would also make AUREL look like its competitors. |
-| P-001 | One display face, one quiet text face | **applies** | One superfamily used in two widths: Extended for display, Standard width for text. Width, not a second family, separates statement from information (same split-in-one-family idea REF-003 shows). |
-| P-002 | Extreme scale jump, no middle sizes | **adapts** | Kept on story scenes (display about 8vw against 16px body). Dropped on booking, account and legal screens, where a middle step (22 to 48px) is needed for step titles and the oversized input. The memory lists booking steps as an exception. Sizes are smaller than REF-002's 16vw because the brand is understated (Brief §10). |
-| P-003 | Display leading at or below 0.9 | **applies** | 0.9 on display sizes, slight negative tracking. Extended letters make tight leading read as one calm block. |
-| P-017 | The display face belongs to the business | **applies** | Display face chosen for its transport-signage character and its match to the arrivals name board, the one object every airport customer sees (Brief §5B meet-and-greet). See Typography. |
-| P-007 | One message per viewport | **applies on story scenes, not on task screens** | Story scenes each carry one idea. The memory excludes comparison tables and forms, so the tier comparison and booking steps are dense on purpose. |
-| P-010 | No conventional nav bar | **adapts** | No link bar. Wordmark top left; "Sign in" and "Index" top right; one persistent booking action at the bottom. The Index is a full-screen page index, so corporate, fleet, services and account stay one click away (Brief §4 corporate buyers). The account area keeps a side index, because the memory says P-010 doesn't apply to app interfaces. |
-| P-011 | Quiet interface color, one signal accent | **applies** | Paper and ink, plus one accent (Aurel amber) for the commit action and the "now" marker on timelines. Story chapters change ground by time of day (see P-008), which is ground color, not interface color. |
-| P-012 | Made-for-the-brand imagery | **adapts** | AUREL has no photography yet (Brief §12: fleet not final). Launch imagery is type, technical elevation drawings of the four tiers, live route and timeline graphics, and a small set of rendered objects. A commissioned shoot follows (shot list below). RJ-004's own fallback says: fewer images, stronger type. |
-| P-013 | Hover feedback in 150 to 330ms | **applies** | 160ms hover, 90ms press, instant focus ring. |
-| P-015 | Type that reveals itself | **applies, limited** | Only the timestamps in Chapter 01 and the ending line reveal on scroll. Booking labels and prices never animate their text: they must read at once. |
-| P-016 | Strong ease-out curves | **applies** | Two curves only: `--ease-out` cubic-bezier(0.22, 1, 0.36, 1) for UI and reveals, `--ease-scene` cubic-bezier(0.16, 1, 0.3, 1) for scene and ground transitions. Both are standard named curves (ease-out-quint and ease-out-expo), not copied signatures. |
-| P-004 (tentative) | Uppercase display for loud brands | **doesn't apply** | AUREL is understated (Brief §10). Display is sentence case. Uppercase is kept for the wordmark and the name board, where real arrivals boards use it. |
-| P-005 (tentative) | Staircase line offsets | **doesn't apply** | It's REF-001 and REF-003's rhythm device. The timeline's tabular alignment is AUREL's rhythm instead. |
-| P-008 (tentative) | Ground color marks each chapter | **adapts** | Grounds change by time of day across the story (dawn, day, dusk, night). The change carries meaning: AUREL runs at any hour. |
-| P-009 (tentative) | A designed ending | **applies** | The home page ends on a night ground with the wordmark, the tagline and the booking question repeated. Not "download the app" (category cliché). |
-| Theme | No default ("Both") | **decided: light** | Booking happens on paper-light grounds; dark is used only for story chapters set at night. Reasons: (1) dark plus a black car is the category's default luxury signal (REF-006 black, REF-005 photos of black cars), (2) corporate buyers and assistants work in daytime office settings, (3) long forms and price breakdowns read better on light grounds, (4) the time-of-day story needs a light baseline so dusk and night chapters stand out. |
-| Button shape | No default ("Depends on overall website") | **decided: square, radius 0** | AUREL's objects are rectangles: the arrivals name board, the itinerary sheet, the receipt, the boarding pass. Square corners read precise and managed (Brief §3 professionalism). Pills belong to Blacklane's booking (REF-004), so square also separates AUREL from the closest competitor. |
+| P-006 (strong) | Chaptered, pinned story | **adapts** | Only the first three scenes pin (one car, three moments, about 3.3 viewports). The rest of the home page is unpinned scenes with their own compositions. Booking, booking details and the account area have no story. |
+| P-014 (strong) | Scroll drives the story; motion explains the product | **applies** | Scroll moves the car: in to the rear seat (what you sit in), out to the standards (what surrounds the ride). The motion is the product tour. |
+| P-018 (strong) | Serif only by intent, rarely | **applies** | No serif. Owner default for this concept. |
+| P-001 | One display face, one text face | **applies** | Barlow Condensed and Barlow, one superfamily. |
+| P-002 | Extreme scale jump | **applies** | Poster type at 15 to 30vw against 16px text and 13px labels. Booking steps keep a middle step for titles (memory carve-out). |
+| P-003 | Display leading at or below 0.9 | **applies** | 0.78 to 0.9. |
+| P-004 (candidate) | Uppercase display for loud brands | **adapts** | Capitals for display, because condensed capitals give the poster scale REF-008 relies on. The voice stays plain and the palette quiet, so it reads confident, not loud (Brief §10). Text stays sentence case. |
+| P-005 (candidate) | Staircase line offsets | **adapts** | The hero splits one line corner to corner ("TRAVEL," top left, "CONSIDERED." bottom right) around the car, the diagonal version REF-008 shows (p03, p14). |
+| P-007 | One message per viewport | **applies** | Each scene has one loud thing (see Composition plan). Task screens are exempt. |
+| P-008 (candidate) | Ground colour per chapter | **applies** | Stone, chrome (detail zoom), paint green (airport), leather (business), stone (ending). Fleet bands carry their own grounds. |
+| P-009 (candidate) | A designed ending | **applies** | The AUREL wordmark at 33vw in leather brown with the car parked across it, then one Book action. |
+| P-010 | No conventional nav bar | **adapts, open** | A small pill bar: three links (Airports, Fleet, Business), Menu, Book. Most REF-008 website concepts keep one (p05, p10, p11, p14). It's the open tension the memory names; owner default given for this concept. The bar hides on scroll down and the menu is a full-screen sheet. |
+| P-011 | Quiet interface, loud content colour | **applies** | Interface is paint and stone. The car and the chapter grounds carry colour. |
+| P-012 | Made-for-the-brand imagery | **adapts** | AI-generated placeholder renders of generic cars in AUREL's paint (see Imagery), until the fleet is shot. |
+| P-013 | Hover 150 to 330ms | **applies** | 180ms colour, 330ms word shift on the service rows. |
+| P-015 | Type that reveals itself | **adapts** | Text never scrubs. Frames swap with a 420 to 520ms fade, and pills arrive staggered by 70ms. |
+| P-016 | Strong ease-out | **applies** | Same two curves as Kept Time (ease-out-quint, ease-out-expo). |
+| P-017 | Display face belongs to the business | **applies** | Barlow was drawn from road signs and number plates (California public infrastructure). AUREL is a road business; the face is the lettering of the street the car waits on. |
+| P-019 (candidate) | The subject breaks the type | **applies** | Car across "TRAVEL, / CONSIDERED.", across the fleet numeral, across "ARRIVALS", across the ending wordmark. The name board crosses the airport time "07:53". |
+| P-020 (candidate) | Hero object stays across scenes | **applies** | One car element for scenes 1 to 3; only its transform changes. |
+| P-021 (candidate) | Colour from the product | **applies** | Every token is sampled from or tinted from the car render: paint #17241F, studio floor #E5DFD4, chrome, cabin leather, tail lamp. |
+| P-022 (candidate) | One expanded item, not equal cards | **applies** | Fleet bands on home and /fleet; the vehicle step's selected tier also expands with its own ground. |
+| P-023 (candidate) | Small labels on big things | **applies** | Spec pills on the zoomed car, note pills around the pulled-back car, tag pills on the service words, timeline pills on the airport chapter. |
+| P-024 (candidate) | Section order follows the visitor's questions | **applies** | What is this, can I book, which car, what happens at the airport, what else, can my company use it, sign-off. Order is the home page order. |
+| P-025 (candidate) | Entrance resolves from distortion | **doesn't apply** | One post only, and a distortion effect on a car photo would read as a gimmick for an understated brand (Brief §10). |
+| REF-008 p05 | Quiet text still passes contrast | **applies** | Every text pair is checked below; the quietest text colour on a light ground is 5.10:1. |
+| Theme | "Both", no default | **decided: light, with dark and leather chapters** | The car is dark green; it reads best on a light stone floor, as it was lit. Booking forms stay light (Brief §9). Dark is used for the airport chapter and the menu, where there is no car to lose. |
+| Button shape | "Depends on overall website" | **decided: pill** | Round like the tyre and the wheel hub; the primary button ends in a round "hub" holding the arrow. Pills also carry the REF-008 label language. Kept Time chose square partly to differ from Blacklane's pills (REF-004); here the pill is paired with condensed capitals and a dark green fill, which Blacklane doesn't use, so the shape alone doesn't make it look like Blacklane. |
 | RJ-001 to RJ-008 | General rejections | **applies, all** | Checked one by one below. |
 
 ### Rejections checked and avoided
 
-- [x] **RJ-001 Centered hero on a gradient.** Could have crept in as the
-      category's darkened photo hero with a centered promise line (REF-007,
-      REF-004). Instead the first scene is a left-aligned booking question on
-      a flat paper ground, with the answer field set as large as the
-      headline.
-- [x] **RJ-002 Rows of identical feature cards.** Could have crept in at
-      services (four cards) and fleet (four car cards). Instead services are
-      a typographic index of four rows with a different time-shape glyph
-      each, and the fleet is four drawings on one shared ground line, to
-      scale.
-- [x] **RJ-003 Icon grids.** Could have crept in as "why choose us" icons
-      (REF-006 "What sets us apart"). Instead the standards are a numbered
-      written list (Chapter 04). Functional icons (plane, pin, clock, seat,
-      bag) appear only inside controls, never as a grid.
-- [x] **RJ-004 Stock photography.** Could have crept in as a stock
-      chauffeur-and-car hero, the category default. There is no photography
-      at launch. Type, drawings, live graphics and a few renders of objects
-      carry the site until the commissioned shoot.
-- [x] **RJ-005 Logo strips as filler.** Could have crept in as client logos
-      or a Trustpilot badge under the hero (REF-004, REF-006). None are used.
-      Proof goes only where it supports a specific claim, and only when the
-      owner supplies it (for example insurance cover beside the business
-      account form).
-- [x] **RJ-006 Every section on the same template.** Each scene and each
-      service page has its own composition, listed per section in the page
-      plans below.
-- [x] **RJ-007 Color spread evenly.** One accent, used on at most one action
-      per viewport and on the "now" marker. Status colors appear only in
-      booking states and errors.
-- [x] **RJ-008 Default serif as the premium shortcut.** No serif. The display
-      face is an extended grotesk chosen for signage and the name board.
+- [x] **RJ-001 Centered hero on a gradient.** The hero is a flat stone floor
+      with a split, corner-to-corner headline and a car across it. Nothing is
+      centred and there is no gradient.
+- [x] **RJ-002 Rows of identical feature cards.** Fleet: one expanded band,
+      three collapsed. Services: four big words, not cards. Vehicle step:
+      rows, the chosen one expanded with its own ground.
+- [x] **RJ-003 Icon grids.** None. Functional icons only inside controls.
+- [x] **RJ-004 Stock photography.** None. The car renders are generated for
+      AUREL in one paint, angle and light, with no people, and labelled as
+      placeholders.
+- [x] **RJ-005 Logo strips.** None.
+- [x] **RJ-006 Every section on one template.** Each scene has its own
+      composition (see Composition plan); no two consecutive scenes share a
+      layout or ground.
+- [x] **RJ-007 Colour spread evenly.** One interface colour (paint) plus one
+      signal (tail-lamp red, used only for the live dot and the "now" marker).
+      Chapter grounds change one section at a time.
+- [x] **RJ-008 Default serif.** No serif.
 
-### Category clichés checked (from the REF-004 to REF-007 scan)
+### Category clichés checked (REF-004 to REF-007)
 
-These are not owner rejections; they are what makes a chauffeur site look
-like every other one.
-
-- [x] Chauffeur-and-black-car hero photo with darkened overlay: not used.
-- [x] Booking bar docked at the bottom of a photo hero: not used. The booking
-      question is the headline.
-- [x] Abstract promise headlines ("Exceptional care", "Your chauffeur
-      awaits"): not used. Headlines are questions or concrete facts.
-- [x] Serif as luxury: not used.
-- [x] Navy/blue, or black and yellow: not used. Paper, ink and one amber.
-- [x] Equal card rows and icon grids: not used.
-- [x] Logo strip, Trustpilot badge, stat row: not used. Corporate assurance
-      facts appear beside the business form as owner-supplied text.
+- [x] Chauffeur-and-black-car photo hero with a dark overlay: not used. The
+      car is green, on a light floor, with no chauffeur, no overlay and no
+      city.
+- [x] Booking bar docked on a photo hero: not used. Four quick-start pills
+      in the hero; the full panel is its own scene.
+- [x] Abstract promise headlines ("Your chauffeur awaits"): not used. The
+      headlines are the brand's own tagline, a standard ("There first."), a
+      time, and plain questions.
+- [x] Serif as luxury, navy, black and gold, black and yellow: not used.
+- [x] Logo strip, Trustpilot badge, stat row: not used.
 - [x] "Download the app" close: not used.
-- [x] Conventional dropdown nav: not used.
-- [x] Hand-off to a different-looking booking app (REF-006, REF-007): the
-      booking panel is the same component on the home page, service pages and
-      `/book`.
-- [x] Repeated questions (REF-007): answers carry across every step and
-      page. Nothing is asked twice.
-- [x] Name and payment on the vehicle step (REF-006): the vehicle step asks
-      only about people, bags and tier.
-- [x] Modals or chat covering content (REF-006, REF-007): no arrival modal,
-      no auto-opening chat. Help is a page.
-- [x] No full-day option: full day is one of four first-level services.
+- [x] Hand-off to a different-looking booking app: the same panel and system
+      on home, service pages and /book.
 
 ---
 
 ## References
 
-Research limits: I did not browse Awwwards, Godly or other galleries in this
-pass. The category scan (REF-004 to REF-007) was filed by the
-design-researcher on 2026-11-05. I read every entry in full and looked at
-these images myself: REF-004 `booking-guided-dropoff-1440.png`,
-`booking-vehicle-classes-1440.png`; REF-005 `hero-1440.png`; REF-006
-`booking-vehicle-carousel-1440.png`; REF-007 `hero-booking-bar-1440.png`;
-REF-001 `problem-1536-headline.jpg`; REF-002 `hero-1440.png`; REF-003
-`library-1440.png`. Font facts were checked on the foundry pages on
-2026-11-05 (grillitype.com, github.com/Omnibus-Type/Archivo).
+Research limits: no new gallery browsing in this pass. REF-008 was filed by
+the design-researcher on 2026-11-05 from reel frames, so nothing about its
+motion timing is measured. I read REF-008's README in full and looked at
+these images myself: `p11-DDHfjS_AB8l-frames-a.jpg`,
+`p11-DDHfjS_AB8l-crop-c-transition.jpg`, `p07-DdB_MI1iSCa-frames-b-final.jpg`,
+`p14-Dd1ym5LKbOJ-frames-b.jpg`, `p10-DeH-dYUgpHB-slide7.png`,
+`p03-DeUeBaQiYEl-frames-b.jpg`, `p02-DehfGFNituy-frames-a.jpg`,
+`p05-DeEsRh5nQQf-frames-b.jpg`, `p13-DfGx1ouiXWa-frames.jpg`.
 
-| ID | Reference | Source | What to take | What not to copy |
-|---|---|---|---|---|
-| REF-001 | Grail | owner taste | Chapters with a constant frame and a different composition inside each; a floating action that hides where the real form appears; the oversized input with a hairline underline (Chapter 08) as the model for AUREL's booking question; short hover (150ms) and 500 to 780ms reveals. | PP Pangaia, lilac on black, crests, 3D characters, the brush wipe, the countdown, the drifting pill. |
-| REF-002 | Carnilove by Ashfall | owner taste | Two grounds that swap per section plus one signal accent; one dominant line per viewport; a visual thread across chapters; a designed sign-off. | The condensed caps face, wine/cream/red, the red trail line with dots, the warped footer wordmark. |
-| REF-003 | premotio | owner taste | The page demonstrates the product as you scroll; neutral chrome with content carrying the energy; the active-item list (pointer plus stepped opacity) as a model for the services index; reduced-motion support. | The card ring, the cycling bracket word, staircase copy, the tick ruler, the glass pill nav. |
-| REF-004 | Blacklane | category scan | Booking panel that grows in place; flight field only for airport pickups; one control switching drop-off and duration; tier comparison with capacity and all-in price in one glance; completed inputs collapsing into editable chips. | PP Fragment serif statements, pastel card backgrounds, frosted captions, pill CTAs, its tier names (see Open questions). |
-| REF-005 | Wheely | category scan | Chauffeurs shot as portraits in real places (for the future shoot); near-colorless interface when imagery is strong. | Stacked equal promo panels, no web booking, slab wordmark. |
-| REF-006 | Addison Lee | category scan | Airport question (arriving or departing) before any address; running total pinned while comparing tiers. | Black and yellow, tracked caps, booking hand-off, name and payment on the vehicle step, auto-opening chat. |
-| REF-007 | Carey | category scan | Autocomplete results labelled Airport or Address; a helper line for the one rule people break; assurance facts beside booking for corporate buyers. | Cormorant on navy, stat row, five dropdown nav, arrival modal, legacy hand-off. |
+| ID | What I took | What I did not copy |
+|---|---|---|
+| REF-008 p11 | The object stays while the page changes; zoom to detail, pull back with annotation pills | The shoe, orbit ring, swoosh, colourway sequence, "Quality that speaks." |
+| REF-008 p03, p14 | Headline split corner to corner around the subject; subject in front of the type | "TAPE / CURE", "RIDE / DIE", the red, the italic |
+| REF-008 p07 | One expanded band, collapsed siblings, big index numeral, arrows | Its purple/blue/yellow/orange bands, circle photo, flower motif |
+| REF-008 p10 | Tag pills stuck on headline words; one hue with pale tints of itself; small pill top bar | Two26's orange, "Aa" face, characters, copy |
+| REF-008 p13 | A palette drawn from one object | The fruit palettes |
+| REF-008 p02 | One product, plain floor, generous empty space | The suitcase and poster copy |
+| REF-008 p05 | Check contrast on the quiet text | The pizza site |
+| REF-001 to 003 | Chaptered scenes, frame that stays, designed ending, one signal colour | Their faces, colours, motifs |
+| REF-004 to 007 | What the category does, so AUREL can avoid it; booking patterns (kept from Kept Time) | Every identity element |
 
 ---
 
 ## Directions compared
 
-### A. Kept Time (chosen)
+Kept Time is direction A and is built on its own branch. For this pass I
+developed three new candidates that answer "make it pop", then compared the
+winner with Kept Time.
 
-- **Concept.** AUREL's premium is that time is kept. The site is built from
-  the materials of a well-run journey: the arrivals name board, the itinerary,
-  the timestamp. The first thing on screen is the first booking question, set
-  as the headline. Below it, the story shows one journey minute by minute,
-  so the standards prove themselves instead of being claimed.
-- **Type.** One extended grotesk superfamily: Extended width for display,
-  Standard width for text, tabular figures for every time and price.
-- **Color.** Paper and ink. One amber accent ("Aurel", from aureus, the
-  name's root) for the commit action and the "now" marker. Story grounds move
-  through the day: dawn, day, dusk, night.
-- **Layout.** Booking question as the opening scene; then pinned chapters on
-  a strict 12-column grid with a hairline "journey rule" that carries
-  timestamps down the page and later becomes the booking summary.
-- **Motion.** Scroll scrubs the clock. Ground color follows the hour. The
-  booking panel grows in place. Completed steps fold into the journey rule.
-- **References.** REF-001 (oversized input, chapter frame), REF-002 (ground
-  swaps, thread), REF-003 (page as demo, active list), REF-004 and REF-006
-  (booking patterns).
+### B1. Standing By (chosen, built here)
 
-### B. Cabin
+Described above. The car stays; the page changes around it.
 
-- **Concept.** The site is the inside of the car at night: a dark,
-  cinematic, material world (leather grain, stitched seams, cool glass, city
-  light passing). Booking sits in a dark panel bottom left, like a console.
-- **Type.** A light, narrow grotesk display (for example GT America
-  Condensed Light) with a quiet text face.
-- **Color.** Near-black cabin ground, warm interior highlights, one cool light
-  accent.
-- **Layout.** Full-bleed rendered interior scenes, pinned; the panel docked.
-- **Motion.** Slow camera moves through rendered interiors tied to scroll;
-  light sweeps across materials.
-- **References.** REF-001 (dark theatre), REF-002 (product in a scene),
-  REF-005 (imagery-first).
+### B2. Kerbside Signs
 
-### C. House Rules
+- **Concept.** The site as street signage: every section is a giant road
+  sign in condensed capitals (arrival bays, pickup points), with the booking
+  panel as a sign you fill in.
+- **Type.** Barlow Condensed throughout. **Colour.** Sign green and white.
+- **Layout.** Full-bleed sign panels with arrows.
+- **Motion.** Signs flip like a departures board.
+- **Why not.** Pops, but it's a costume: it looks like infrastructure, not a
+  premium service, and green-and-white signage is public transport's
+  language. No hero object, so P-019 to P-023 don't land.
 
-- **Concept.** The site as AUREL's standards manual: numbered rules, a strict
-  Swiss grid, specification tables. Every page reads like a page of the
-  operating handbook. Booking is a form sheet.
-- **Type.** A neutral grotesk with a mono for numbers.
-- **Color.** White, black, one red signal.
-- **Layout.** Long numbered documents, tables, footnotes; little imagery.
-- **Motion.** Almost none: underline hovers and section reveals.
-- **References.** REF-003 (neutral chrome), REF-007 (assurance for buyers).
+### B3. Colourway
 
-### Scores
+- **Concept.** p11 taken literally: the car on a full-colour ground that
+  changes per tier (deep red, ochre, teal, plum) as you scroll.
+- **Type.** A heavy grotesk. **Colour.** One saturated ground per tier.
+- **Why not.** Loudest of the three, but saturated colour per tier is the
+  "colour spread evenly" problem (RJ-007) and reads as consumer retail, not
+  understated (Brief §10). Standing By keeps the idea (a ground per tier)
+  with tints taken from the car.
 
-| Criterion | A. Kept Time | B. Cabin | C. House Rules |
-|---|---|---|---|
-| Fit with audience and brand | 5: understated, concrete, works for executives and families alike; premium shown through standards (Brief §10) | 3: elegant but leans on "luxury" mood the brief warns against; feels distant to families and buyers | 4: dependable and clear; cold for occasion customers |
-| Brief requirements, accessibility, primary task | 5: booking is the first scene; light grounds for forms; time and price are central (Brief §7, §9) | 3: dark booking panels and imagery-led pages make the task secondary; contrast harder on rendered grounds | 5: forms and tables first; excellent accessibility |
-| Owner's applicable preferences | 4: story, motion that explains, type-led, one accent, designed ending; story adapted to sit after booking | 5: the most cinematic, closest to REF-001 and REF-002's feel | 2: drops the scroll story and motion craft the owner called "Default" |
-| Distinct from competitors and past projects | 5: no category site leads with time or the name board; differs from all three owner refs (light, extended sans, no pills) | 2: dark car interior is close to the category's default image of luxury | 3: distinct in the category, but generic as a web style |
-| Buildable in stack and time | 4: needs a careful scroll scene and a solid booking component; renders are few and small | 2: depends on high-end 3D renders or a shoot that doesn't exist yet | 5: simplest to build |
-| **Total** | **23** | **15** | **19** |
+### Scores (1 to 5)
 
-**Chosen: A, Kept Time.** It scores highest on fit and the primary task, and
-it's the only direction that turns the brief's instruction ("communicate
-premium through service standards") into the visual system itself. B is the
-owner's taste at its most literal, but it can't be built honestly before
-AUREL has a fleet or photography, and it reads like the category. C would be
-a safe fallback if the owner wants less motion, and much of it lives on
-inside A as the Standards page.
+| Criterion | A. Kept Time (other branch) | B1. Standing By | B2. Kerbside Signs | B3. Colourway |
+|---|---|---|---|---|
+| Fit with audience and brand | 5 | 4: confident and still plain-spoken; capitals and scale are louder than the brief's "understated" | 2 | 2 |
+| Brief requirements, accessibility, primary task | 5: booking is the first scene | 4: booking one click from the hero (four quick starts, Book in the bar) and the second scene | 3 | 3 |
+| Owner's applicable preferences, including REF-008 "pop" | 3: quiet; few REF-008 rules apply | 5: P-019 to P-024 all applied, plus P-006, P-009, P-014 | 3 | 4 |
+| Distinctiveness (category and past work) | 5 | 4: no chauffeur site uses a single car as a moving object across a split headline; a car photo is still the category's subject | 4 | 3 |
+| Buildable in stack and time | 4 | 4: needs one scroll stage and placeholder renders, both built | 4 | 3 |
+| **Total** | **22** | **21** | **16** | **15** |
 
-Kept for the owner: if the owner prefers B's mood, the closest compromise is
-A's structure with dusk and night chapters lengthened and the commissioned
-shoot (below) pointed at interiors. If the owner prefers C, A's Standards
-page and booking flow transfer unchanged.
+Kept Time's score here is re-scored against the owner's new feedback ("too
+quiet"), so its preference score drops from 4 to 3 compared with its own
+document.
+
+**Recommendation.** The two concepts score within a point, for opposite
+reasons. Kept Time fits the brief's "understated" more closely; Standing By
+is the one that pops the way the owner asked. Given the owner's direct
+feedback, I'd take Standing By forward, and borrow two things back from Kept
+Time if the owner wants it calmer: the booking question as the first scene
+(swap scenes 1 and 4), and sentence-case display.
 
 ---
 
-## Concept
+## Website structure, journeys and booking flow
 
-**Kept Time.** A good chauffeur service is measured in minutes: the chauffeur
-is at arrivals before you are, the pickup moves when the flight lands early,
-the price is fixed before you confirm. AUREL's site makes those minutes the
-design material. The opening screen asks the first booking question in
-display type. The story below scrubs one journey by the clock while the page
-moves from dawn to night. Every booking ends as an itinerary on the same
-hairline rule the story used, so the promise and the receipt look the same.
+**Unchanged from Kept Time** in content and rules: the same sitemap, the
+same journeys per audience, the same four-step booking flow with its
+errors, loading and empty states, and the same booking-details states. The
+build reuses `src/services`, `src/data`, `src/config`, the draft state and
+the route structure as they were. Only presentation changes, and those are
+marked in the text below and listed under Interaction patterns. Wherever the
+text says "journey rule", read the running summary card; the rule is still
+drawn, with round markers and the lamp-red "now" dot.
 
-### Signature devices
-
-1. **The name board.** A plain rectangle with a 2px ink border and uppercase
-   Extended type, the board a chauffeur holds at arrivals. It frames the
-   opening booking question, previews the meet-and-greet board in the airport
-   flow ("This is the board your chauffeur will hold"; the traveller can edit
-   the name), and returns on the confirmation page. It's a real feature for
-   airport customers (Brief §5B), not decoration.
-2. **The journey rule.** A 1px vertical (desktop) or horizontal (mobile) line
-   with tabular timestamps and a small amber "now" marker. It structures
-   Chapter 01, becomes the running summary in booking, and becomes the live
-   status tracker on the booking-details page (Prepare and Travel stages,
-   Brief §9).
-3. **Grounds that keep the hour.** Story chapters move from dawn to night.
-   Booking and account pages always sit on day paper.
-
----
-
-## Website structure
+### Website structure
 
 ### Sitemap
 
@@ -357,36 +338,22 @@ Brief §12), careers.
 
 ### Global frame
 
-- **Top left:** AUREL wordmark (text placeholder set in the display face;
-  the owner supplies or commissions the real mark; no logo is invented here).
-  Links home.
-- **Top right:** "Sign in" (or the account holder's initials when signed in)
-  and "Index". Text buttons, 48px tall targets. The frame scrolls away on
-  story pages and returns on scroll up.
-- **Index** (replaces the nav bar, P-010): a full-screen sheet on day paper,
-  set like a departures board. Four groups in a 12-column grid:
-  - Book: Book a journey, Manage a booking
-  - Services: Airport transfers, Transfers, Hourly, Full day
-  - AUREL: Fleet, Standards, For business, Hotels and agencies
-  - Help: Help, Contact, Sign in or Account
-  Large Extended links (40px desktop, 28px mobile), each with a one-line
-  description in text size. Opens with a 420ms ground slide from the top;
-  focus moves to the first link; Esc and the close button return focus to
-  "Index".
-- **Persistent action** (P-010): a square ink bar at the bottom center,
-  shown once the booking scene leaves the viewport, hidden on `/book`,
-  account pages and wherever the booking panel is visible. Label "Book a
-  journey". When a draft exists, it reads "Continue: Heathrow T5 → The Savoy,
-  Thu 07:40" with the amber now-dot. On home it scrolls back to the booking
-  scene and focuses the next empty field; elsewhere it opens `/book` with the
-  draft.
-- **Footer** (every page except booking steps): on the home page this is the
-  designed ending; elsewhere a compact index on night ground with the same
-  four groups, legal links, contact line, and the tagline.
+Changed in this concept (see Interaction patterns):
+
+- **Top bar:** AUREL wordmark (typeset placeholder) left; three pill links
+  (Airports, Fleet, Business) centred; Menu and a Book pill right. Below
+  834px, only wordmark, Menu and Book.
+- **Menu** (was "Index"): the same four groups and links, as a full-screen
+  sheet on the paint ground with condensed labels. Sign in lives here.
+- **Persistent action:** a paint pill at the bottom, shown when no booking
+  panel, hero or ending is in view; with a draft it reads "Continue:" and the
+  route. Hidden on /book, booking pages and the account area.
+- **Footer:** compact index on the paint ground on every page except the
+  booking steps.
 
 ---
 
-## Customer journeys
+### Customer journeys
 
 ### Journeys per audience, mapped to the brief's seven stages
 
@@ -416,7 +383,7 @@ Brief §12), careers.
 
 ---
 
-## Booking flow
+### Booking flow
 
 One component, `BookingPanel`, used in the home booking scene, each service
 page's first scene and `/book`. It grows in place (REF-004). Each step has its
@@ -432,7 +399,7 @@ nothing.
   - Airport: "Arriving, or catching a flight?"
   - Hourly: "Where do we start, and for how long?"
   - Full day: "Which day do you need a chauffeur?"
-- **First field** sits inside the name board at display-adjacent size
+- **First field** is a large pill input in the display face
   (`--type-input-xl`). Typing opens autocomplete. Results are labelled
   "Airport", "Hotel" or "Address" (REF-007). Choosing a result grows the panel
   downward to show the rest of step 1. Nothing else on the page moves.
@@ -449,7 +416,7 @@ Fields by service. Only relevant fields appear (REF-004).
 | Hourly | Start address; Date; Start time; Duration (stepper, hours) | One toggle "End somewhere else" adds a drop-off field (REF-004 lesson: one control switches drop-off and duration). Minimum hours TBD by owner. |
 | Full day | Start address; Date; Start time; Day length (choice: values TBD, for example 8 or 10 hours); "Rough plan" text (optional) | The plan field is free text; the chauffeur and operations see it. |
 
-Primary action: "See vehicles" (amber). Date pickers: a custom accessible
+Primary action: "See vehicles" (paint pill). Date pickers: a custom accessible
 calendar grid on desktop and tablet; native date and time inputs on phones,
 which are faster and more reliable there.
 
@@ -513,7 +480,7 @@ Nothing about the traveller or payment is asked here (REF-006 friction).
 returns to through Prepare, Travel and Complete.
 
 - **Top:** status line ("Reserved") and the reference in tabular Extended.
-- **Itinerary:** the journey rule with the amber now-marker.
+- **Itinerary:** the journey rule with the lamp-red now-marker.
 - **What happens next** as dated items on the same rule: "Chauffeur and
   vehicle confirmed by [time TBD]", "Flight tracked from departure",
   "Chauffeur at arrivals from 07:40". This is the Prepare stage made visible.
@@ -579,492 +546,266 @@ returns to through Prepare, Travel and Complete.
 
 ## Design system
 
+Implemented in `apps/aurel-web/src/styles/tokens.css` and `base.css`. Token
+names from Kept Time are kept so the booking components carry over; their
+values and roles are this concept's.
+
 ### Typography
 
-**Display face.** An extended grotesk with signage character. Extended
-letters at large sizes read like the boards and signs a traveller follows
-through an airport; they look calm and unhurried at size, and their width
-keeps lines short, so a booking question fits on two lines. This ties the
-face to the business (P-017): it's the face of the name board.
+**Display: Barlow Condensed** 600 and 700, capitals, leading 0.78 to 0.9.
+**Text: Barlow** 400, 500 and 600. Both by Jeremy Tribby, SIL Open Font
+License, self-hosted through `@fontsource/barlow` and
+`@fontsource/barlow-condensed` 5.3.0. Barlow is drawn from California's
+public infrastructure: highway signs and licence plates. AUREL's car waits
+at a kerb under those signs; the face is that street's lettering (P-017).
+Condensed widths let one word fill the screen at poster size, which is
+the scale REF-008's posters use (P-002).
 
-**Text face.** The Standard width of the same superfamily, with tabular
-figures for every time, date, price and reference so columns align on the
-journey rule.
+Rejected: Archivo Expanded (Kept Time's face; this concept must be
+different), Anton and Oswald (common poster defaults), Bebas Neue (generic,
+caps only, no text weights), any serif (RJ-008, P-018), Geist, abcFavorit,
+Steagal (competitors' faces, REF-004 to REF-006).
 
-| Candidate | Use | Licence and availability | Notes |
+| Token | Family | 390 | 1440 | Leading | Use |
+|---|---|---|---|---|---|
+| `--type-poster` | Condensed 700 caps | 68px | 240px | 0.82 | Hero lines, FLEET, ARRIVALS, the ending wordmark (larger, own clamp) |
+| `--type-display` | Condensed 700 caps | 52px | 144px | 0.86 | Section statements: FOUR CARS, THERE FIRST, BOOKING FOR SOMEONE ELSE? |
+| `--type-title` | Condensed 700 caps | 36px | 80px | 0.9 | Booking question in the panel, Q&A title |
+| `--type-input-xl` | Condensed 600 | 21px (phone) to 24px | 36px | 1.1 | The panel's first field |
+| step title | Condensed 700 caps | 36px | 56px | 0.9 | Booking step titles |
+| `--type-step` | Barlow 600 | 22px | 28px | 1.2 | Sub-titles in steps and cards |
+| `--type-body` | Barlow 400 | 16px | 16px | 1.55 | All reading text and inputs |
+| `--type-small` | Barlow 400 | 14px | 14px | 1.45 | Helpers, pills, captions |
+| `--type-label` | Barlow 600 caps | 13px | 13px | 1.3 | Field labels and corner labels, tracking 0.06em |
+
+Tabular figures on every time, date, price and reference.
+
+### Colour tokens
+
+Every value is taken from the car render or the floor it was lit on
+(P-021): paint sampled at #19241F to #1B2521 on the body, floor #DFD9CD,
+tail lamp #391210 in shadow.
+
+| Token | Value | Source | Use |
 |---|---|---|---|
-| **GT Standard** (Grilli Type), Extended Medium for display, Standard M Regular and Medium for text | Recommended | Commercial licence from grillitype.com; free trial fonts available for design work; web licence terms and price to confirm with the foundry before build. Six widths (Compressed to Expanded) plus Mono, seven weights. | One superfamily covers display and text by width, which is exactly P-001. Tabular figures not listed on the product page: confirm in the trial files. |
-| **Archivo** (Omnibus-Type, Héctor Gatti), Expanded SemiBold display, normal width Regular text | Open-licence fallback | SIL Open Font License 1.1, on Google Fonts and GitHub. Nine weights, widths from Extra Condensed to Expanded, variable masters since v2.000. | Same width-as-voice system at no cost. Slightly more common on the web. Confirm `tnum` support in the font files. |
-| Rejected: Geist | | | Blacklane's text face (REF-004). |
-| Rejected: abcFavorit | | | Wheely's face (REF-005). |
-| Rejected: Steagal, any wide-tracked caps | | | Addison Lee's identity (REF-006). |
-| Rejected: Cormorant, PP Fragment, Playfair and other go-to serifs | | | RJ-008, and they are Carey's and Blacklane's display faces. |
-| Rejected: Söhne | | | Strongly associated with a well-known AI product, which works against RJ-008's reason. |
-| Rejected: Inter, Space Grotesk | | | Default web choices; nothing tied to AUREL. |
+| `--color-paper` (stone) | `#E5DFD4` | Studio floor | Page ground |
+| `--color-paper-raised` | `#F2EEE7` | Floor, lit | Panels, menus, pills |
+| `--color-chrome` | `#D6D8D2` | Window trim | Zoom scene ground, First Class band, Q&A, car card |
+| `--color-tan` | `#D9C3A6` | Cabin leather, pale | Luxury SUV band |
+| `--color-sage` | `#C7CFC4` | Paint, tinted | Luxury Van band |
+| `--color-leather` | `#B8875A` | Cabin leather | Business chapter ground |
+| `--color-leather-deep` | `#8B5B34` | Leather in shadow | Ending wordmark (large text only) |
+| `--color-ink` / `--color-night` / `--color-aurel` | `#17241F` | Paint | Text, primary action fill, dark chapters, menu, footer |
+| `--color-aurel-hover` | `#2A3A33` | Paint highlight | Hover on paint fills |
+| `--color-ink-2` | `#424E48` | Paint, lifted | Secondary text |
+| `--color-ink-3` | `#6C7771` | Glass | Disabled text only |
+| `--color-field` | `#6C7771` | Glass | Input borders at rest |
+| `--color-rule` | `#C9C2B5` | Floor shadow | Hairlines, decorative only |
+| `--color-on-dark` / `-2` | `#E5DFD4` / `#A9B3AD` | Floor, chrome | Text on paint |
+| `--color-lamp` / `-on-dark` | `#9B2C22` / `#F08A7E` | Tail lamp | The only signal: live dot, "now" marker, current step |
+| `--color-error` | `#A3271C` | Status | Errors, always with icon and words |
+| `--color-success` | `#2E6A3F` | Status | Confirmed states |
 
-Type scale (16px root; fluid sizes use `clamp()` between 390 and 1440):
-
-| Token | Family and weight | 390 | 834 | 1440 | Leading | Tracking | Use |
-|---|---|---|---|---|---|---|---|
-| `--type-display` | Extended Medium | 44px / 2.75rem | 72px / 4.5rem | 120px / 7.5rem | 0.9 | -0.02em | Story statements, booking question on home |
-| `--type-title` | Extended Medium | 32px / 2rem | 48px / 3rem | 72px / 4.5rem | 0.95 | -0.015em | Page titles, chapter titles, ending wordmark line |
-| `--type-input-xl` | Extended Regular | 24px / 1.5rem | 32px / 2rem | 40px / 2.5rem | 1.1 | -0.01em | The first booking field's value, the booking reference, totals |
-| `--type-step` | Standard Medium | 20px / 1.25rem | 22px / 1.375rem | 24px / 1.5rem | 1.25 | 0 | Booking step titles, account section titles |
-| `--type-body` | Standard Regular | 16px / 1rem | 16px | 16px | 1.55 | 0 | All reading text and inputs (16px stops iOS zoom on focus) |
-| `--type-small` | Standard Regular | 14px / 0.875rem | 14px | 14px | 1.45 | 0 | Helper text, captions, price breakdown lines |
-| `--type-label` | Standard Medium, uppercase | 12px / 0.75rem | 12px | 12px | 1.3 | 0.08em | Field labels, timestamps' captions, chapter corner labels |
-| `--type-board` | Extended Medium, uppercase | 20px | 28px | 36px | 1.0 | 0.04em | Name board, wordmark placeholder |
-
-Rules: one display weight. Sentence case for display. Body measure 60 to 72
-characters. Tabular figures (`font-variant-numeric: tabular-nums`) on all
-times, dates, prices and references. Story scenes use only `display`,
-`body`, `small` and `label` (P-002); booking and account use the middle steps.
-
-### Color tokens
-
-| Token | Value | Use | Reason |
-|---|---|---|---|
-| `--color-paper` | `#F1EFEA` | Page ground (day) | Warm grey paper, not white: softer for long forms, distinct from Blacklane's warmer off-white and Wheely's white |
-| `--color-paper-raised` | `#FAF9F7` | Booking panel, inputs, Index sheet | Lifts the task surface without shadow |
-| `--color-dawn` | `#E3E1DA` | Story ground, dawn chapter | Time-of-day grounds (P-008 adapted) |
-| `--color-dusk` | `#2A2C31` | Story ground, dusk chapter | Same |
-| `--color-night` | `#0E1012` | Story ground, night chapter, footer | Same; also the designed ending (P-009) |
-| `--color-ink` | `#16181B` | Text, primary borders, selected states, persistent action | One dark for everything that isn't the accent |
-| `--color-ink-2` | `#565A61` | Secondary text, placeholders, helper text | Passes 4.5:1 on every light ground |
-| `--color-ink-3` | `#6E727A` | Disabled text only | Fails 4.5:1 on paper (4.20), so it's never used for readable text |
-| `--color-field` | `#86837C` | Input underlines and borders at rest | 3:1 or more for non-text UI (WCAG 1.4.11) |
-| `--color-rule` | `#D3CFC6` | Hairline dividers, journey rule track | Decorative only; never the only cue for a control |
-| `--color-on-dark` | `#F1EFEA` | Text on dusk and night | Same value as paper |
-| `--color-on-dark-2` | `#BDBAB3` | Secondary text on dusk and night | |
-| `--color-aurel` | `#A24E17` | Primary commit action fill, now-marker, active service segment underline | The single accent (P-011); burnt amber from the name's root (aureus), not metallic gold, and far from Addison Lee's yellow |
-| `--color-aurel-on-dark` | `#E39B5F` | Accent on dusk and night | Same accent, lifted for dark grounds |
-| `--color-error` | `#A3271C` | Error text, borders, icon | Status only |
-| `--color-error-on-dark` | `#F08A7E` | Errors on dark grounds (rare) | |
-| `--color-success` | `#2E6A3F` | "Confirmed", "Chauffeur assigned" status text | Status only |
-| `--color-focus` | `#16181B` on light, `#F1EFEA` on dark | Focus ring, 2px with 2px offset | Instant and high contrast on every ground |
-
-Contrast checks (WCAG 2.x relative luminance, computed 2026-11-05):
+Contrast (WCAG 2.x, computed 2026-11-05):
 
 | Pair | Ratio | Result |
 |---|---|---|
-| ink on paper / raised / dawn | 15.48 / 16.91 / 13.59 | AAA |
-| ink-2 on paper / raised / dawn | 6.03 / 6.59 / 5.30 | AA text |
-| ink-3 on paper / raised | 4.20 / 4.59 | Disabled only |
-| field on paper / raised | 3.29 / 3.60 | AA non-text |
-| aurel on paper / raised (accent as text or marker) | 5.02 / 5.49 | AA text |
-| white on aurel / paper on aurel (button label) | 5.77 / 5.02 | AA text |
-| error on paper / raised | 6.38 / 6.97 | AA text |
-| success on raised | 6.14 | AA text |
-| on-dark on dusk / night | 12.16 / 16.59 | AAA |
-| on-dark-2 on dusk / night | 7.21 / 9.84 | AAA |
-| aurel-on-dark on dusk / night | 6.07 / 8.28 | AA text |
-| error-on-dark on night | 7.85 | AA text |
-| rule on paper | 1.35 | Decorative only, never carries meaning |
+| ink on stone / raised / chrome / tan / sage | 12.10 / 13.88 / 11.17 / 9.40 / 10.05 | AAA |
+| ink on leather (business chapter) | 5.08 | AA |
+| ink-2 on stone / raised / chrome / tan / sage | 6.56 / 7.52 / 6.05 / 5.10 / 5.45 | AA |
+| ink-2 on input fill `#FBF9F6` | 8.27 | AAA |
+| field on stone / raised / input | 3.51 / 4.02 / 4.43 | AA non-text |
+| on-dark on paint / on-dark-2 on paint | 12.10 / 7.44 | AAA |
+| raised label on paint button | 13.88 | AAA |
+| lamp on stone / raised | 5.70 / 6.54 | AA |
+| lamp-on-dark on paint | 6.60 | AA |
+| error on stone / raised / input | 5.53 / 6.34 / 6.98 | AA |
+| success on raised | 5.59 | AA |
+| leather-deep on stone (wordmark, 128px and up) | 4.35 | AA large text |
+| rule on stone | 1.33 | Decorative only |
 
-Accent budget (RJ-007): at most one amber action per viewport. The
-persistent action is ink, not amber, so it never competes with the panel's
-amber "Continue".
+No text on leather uses ink-2; pills on leather use a raised fill (10.6:1).
 
-### Layout principles
+### Shape, space and layout
 
-- **Spacing scale** (4px base): 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192px
-  (`--space-1` to `--space-11`). Inside the booking panel, steps use 16 to 32;
-  between story scenes, a full viewport or more.
-- **Grid:**
-  - 1440: 12 columns, 64px outer margins, 24px gutters, content max 1312px.
-  - 834: 8 columns, 40px margins, 24px gutters.
-  - 390: 4 columns, 20px margins, 16px gutters.
-- **Radius and borders:** radius 0 everywhere. 1px hairlines for dividers;
-  1px `--color-field` under inputs at rest, 2px ink when focused or selected;
-  2px ink border for the name board. One elevation token only, for the
-  persistent action and open menus: `0 8px 24px rgb(14 16 18 / 0.14)`.
-- **Section rhythm:** story scenes each take one viewport or more and change
-  composition every time (see page plans). Recurring elements that keep them
-  one page: the corner frame (chapter label top left, the hour top right),
-  the journey rule, the grid.
+- Radius: pills (999px) for buttons, labels, segment tracks and the menu
+  button; 20px panels; 12px fields and dropdowns; round stepper and arrow
+  buttons. The primary button ends in a round "hub" holding the arrow.
+- Spacing scale and the 4, 8 and 12-column grid are unchanged from Kept
+  Time (4px base; 16, 40 and 64px margins).
+- Elevation: one shadow, `0 10px 30px rgb(23 36 31 / .16)`, for the
+  persistent action, menus and pills over the car.
 
 ### Imagery
 
-**At launch (no fleet photography):**
+**Used now: AI-generated placeholder renders.** Four side views, one per
+tier (saloon, long-wheelbase saloon, large SUV, seven-seat van), made with
+Figma's `generate_image` (model gpt-image-2.5-flare) on 2026-11-05 in the
+file "AUREL vehicle placeholders (AI-generated)". Same prompt frame for all
+four: exact side profile facing left, camera at wheel height, deep bottle
+green metallic paint, dark tinted glass, no badges, no plates, no people,
+on a flat stone floor lit by a large softbox. They were cut out with a
+small script that keeps the floor shadow as soft alpha, and saved as
+transparent WebP at native width (about 1400px) and 800px, 30 to 75KB each,
+in `apps/aurel-web/public/vehicles/`.
 
-1. **Type.** The main image on most screens.
-2. **Tier elevation drawings.** Orthographic side views of the four tier
-   shapes (saloon, larger saloon, SUV, van), drawn as 1.5px ink lines on
-   paper, to scale with one another, with seats and bags drawn inside as
-   simple marks. They are generic body shapes, not a specific model, which
-   is honest while the fleet is not final (Brief §6 "vary by location").
-   Commission from an illustrator or draw in-house; one SVG per tier.
-3. **Live graphics.** Route lines (from the map provider's geometry, drawn
-   as a single ink line with pickup and drop-off marks), flight path arcs,
-   the journey rule. They show the customer's own journey, so they are always
-   true.
-4. **Rendered objects, few and small.** A matte, studio-lit render family on
-   paper-coloured backdrops: the name board in a hand, a folded itinerary
-   card, a receipt, a closed umbrella in a door pocket. Uses: Standards page,
-   Business page, the ending. Same light direction (upper left, soft), same
-   paper backdrop, no cars, no people. Rendering a car would imply a fleet
-   that doesn't exist yet.
+Why: the concept needs the car to carry the page, and line drawings or CSS
+cars could not hold a full-screen zoom. Option (a) in the brief was
+available, so I used it.
 
-**Never:** stock photography (RJ-004), darkened photo overlays, a black car
-motion-blurred past a hotel (REF-007), the chauffeur-opening-a-door pose,
-skyline-at-dusk clichés, icons standing in for ideas (RJ-003).
+How they are labelled: `src/components/Vehicle.tsx` header comment, a
+`data-placeholder="ai-generated"` attribute on every image, alt text ending
+"Placeholder image." where the image is not decorative, captions on the zoom
+scene and fleet bands, and the fleet note "Pictures are placeholders until
+the fleet is photographed."
 
-**Future commissioned shoot** (when fleet and chauffeurs exist). Art
-direction: natural light at the hour of the chapter it serves, eye-level,
-people shown at work rather than posed, no added grade beyond matching
-paper-warm whites, no overlays. Each frame is planned for a scene.
+Limits to tell the owner: the shapes resemble real models (an S-Class-like
+saloon, a V-Class-like van) even without badges; the green paint is a
+proposal for a fleet colour, not a known fact; renders must be replaced by
+photography before launch. The "or similar" model names in `tiers.ts` are
+still placeholders.
 
-| # | Shot | For | Notes |
-|---|---|---|---|
-| 1 | Chauffeur at arrivals holding the name board, seen from the passenger's walking position | Chapter 01 (07:55), Airport page | Real terminal or a convincing set; board text matches the site's name board |
-| 2 | Chauffeur checking a flight on a phone by the parked car, early light | Chapter 01 (06:40) | Shows flight tracking as a human act |
-| 3 | Rear cabin from the seat, door open, nothing on the seat but what AUREL provides | Fleet, Standards | Shows cleanliness standard without a person |
-| 4 | Luggage being loaded, hands and bags only, the car's boot dimensions readable | Fleet (capacity), Family page sections | Proof of capacity |
-| 5 | Portrait of each lead chauffeur in a real place they work (station forecourt, hotel porte-cochère) | Standards, booking details placeholder style | Wheely's lesson (REF-005), composed off-centre to match AUREL's grid |
-| 6 | Each tier in clean side elevation, matching the drawings' angle | Fleet, Vehicle step | Allows photo and drawing to swap without layout change |
-| 7 | Interior at night with city light through glass, no faces | Dusk and night chapters | The only "mood" image |
-| 8 | A full-day sequence: the same car at four places through one day | Full-day page | Tells a day by its stops |
-| 9 | A hotel concierge handing a guest's itinerary card to a chauffeur | Partners page | Shows the hand-off a partner cares about |
-| 10 | Close detail: the dashboard clock showing the pickup time beside the itinerary card | Ending, Booking details | Ties to "Kept Time" |
+**Future shoot** (replaces the renders, same layout): each tier side-on at
+wheel height, lens and height matched across all four, on a stone-coloured
+floor or seamless, soft overhead light, the fleet's real paint. Then the
+Kept Time shot list for chauffeurs and arrivals.
 
-### Iconography
+**Never:** stock photos (RJ-004), chauffeur-opening-the-door poses, cars
+blurred past hotels, skyline at dusk, people in renders.
 
-A small functional set drawn for AUREL: plane arriving, plane departing,
-pin, clock, seat, bag, stop, swap, edit, close, error, check. 24px grid, 1.5px
-stroke, square caps and joins to match the radius-0 system. Used only inside
-controls and status lines.
+---
+
+## Composition plan
+
+### Home (P-024 order)
+
+| # | Visitor's question | One loud thing | Composition | Ground |
+|---|---|---|---|---|
+| 1 | What is this? | The car across "TRAVEL, / CONSIDERED." | Split headline corner to corner; car crosses the second line. Top right: one sentence and four quick-start pills (Transfer, Airport, Hourly, Full day, each with a tag). Corner labels: "Pre-booked private chauffeurs", city clock with the lamp dot. | Stone |
+| 2 | What's it like inside? | The rear door and wheel at 2.35x | Car zooms to the rear seat; four spec pills pinned right (from `tiers.ts`); chapter label "01 / Where you sit"; placeholder caption. | Chrome |
+| 3 | Will they be there? | "THERE FIRST." | Car pulls back to the left at 0.6x; four note pills bottom right; one sentence and a link bottom left. | Stone |
+| 4 | Can I book now? | The booking question | The booking panel on a raised card, columns 1 to 8; city clock and facts on 10 to 12. | Stone, raised card |
+| 5 | Which car? | One car across its big numeral | "FOUR CARS. / PICK BY WHAT YOU CARRY." then four bands, one open. | Stone, band grounds |
+| 6 | What happens at the airport? | "07:53" | Struck "08:05" above a huge "07:53"; the name board crosses the time; timeline pills and a link. | Paint |
+| 7 | What else can I book? | Four service words | TRANSFER, AIRPORT, HOURLY, FULL DAY at display size with tilted tag pills; each row starts a booking with that service. | Stone |
+| 8 | Can my company use it? | "BOOKING FOR SOMEONE ELSE?" | Question left, three pills and a link right. | Leather |
+| 9 | Sign-off | AUREL wordmark | Wordmark at 33vw in leather brown, the saloon parked across it, Book and Fleet. Then the footer. | Stone, then paint |
+
+### Airport transfers
+
+| Section | Composition |
+|---|---|
+| Poster | "ARRIVALS" at poster size; the SUV (room for bags) crosses the word's foot; the name board pinned at the car's front, tilted; one sentence, three pills, Book. |
+| Booking | The panel preset to Airport. |
+| Timetable | "LANDING TO DOOR." then seven rounded rows; the "landed early" row is paint with the moved time as a struck pill and a filled pill. |
+| Delays and waiting | Four questions in two columns on chrome; a note on what the board can show. |
+| Close | "LANDING SOON?" on paint, Book and Help. |
+
+### Fleet
+
+| Section | Composition |
+|---|---|
+| Head | "FLEET" at 28vw; beside it one sentence, the passengers and bags steppers, and an "N of 4 cars fit" pill. |
+| Bands | The four bands with the party applied: cars that can't take it are struck out, their Book button disabled with the reason written; the first car that fits opens. |
+| Compare | The full table on raised ground. |
+
+### Booking steps, booking details, in-preparation pages
+
+Same layouts as Kept Time (see Booking flow), restyled: condensed step
+titles, pill segment tracks, soft fields, rows with the selected vehicle
+expanded on its tier ground, the running summary on a raised card with the
+car on chrome, the reference at up to 176px on the booking page, the car card
+on chrome. In-preparation pages get a paint "In preparation" pill and the
+title at display size.
 
 ---
 
 ## Interaction patterns
 
-- **Booking panel:** grows in place; completed steps fold into chips in the
-  journey rule ("Heathrow T5 → The Savoy", "Thu 12 Dec, 07:40", "First
-  Class, 2 seats, 2 bags"); clicking a chip edits that step. Enter submits a
-  step; Tab order follows the visual order; every step title is a heading
-  that gets focus on step change.
-- **Service switch:** a radio group (arrow keys move between options). It
-  keeps what's already entered where it still applies (pickup stays when
-  switching from Transfer to Hourly).
-- **Autocomplete:** ARIA combobox pattern; results labelled by type
-  (Airport, Hotel, Address); first result highlighted; Enter chooses.
-- **Steppers:** − and + buttons 48×48, the number readable and typeable.
-- **Buttons:**
-  - Primary (amber fill, paper label): one per view, commit actions only.
-  - Secondary (2px ink border, ink label, transparent).
-  - Text action (ink, underline grows from the left on hover).
-  - All 48px tall minimum, label Standard Medium 16px, padding 0 24px,
-    radius 0.
-  - Hover: fill darkens 8% and the trailing arrow moves 4px right (160ms).
-  - Press: translateY(1px) (90ms).
-  - Disabled: `--color-ink-3` label on `--color-rule` fill, no hover.
-- **Focus:** 2px solid ring, 2px offset, `--color-focus`, appears instantly
-  (no transition). Never removed.
-- **Inputs:** label above (12px uppercase), value 16px, 1px underline at
-  rest, 2px ink on focus, 2px error on error. Helper text under in `ink-2`.
-  The first booking input is the oversized variant inside the name board.
-- **Forms everywhere:** labels always visible (no placeholder-as-label),
-  `autocomplete` attributes set, errors announced.
-- **Story chapters:** scroll only. No click-to-advance, no scroll hijack;
-  the page scrolls at normal speed and scenes are pinned with scroll-linked
-  progress.
-- **Help:** no floating chat bubble. If a chat service is added later, it
-  opens from Help or a "Talk to us" link and never on its own.
+Changes from Kept Time only; everything else in Booking flow holds.
 
----
+- **Top bar:** wordmark, three pill links with the current page filled,
+  Menu, Book. Hides on scroll down, returns on scroll up, flips colours over
+  dark grounds. Below 834px the three links move into the menu.
+- **Menu:** full-screen sheet on paint, condensed link labels, focus goes to
+  the first link, Esc and Close return focus to Menu (verified by keyboard).
+- **Quick starts (hero) and service rows:** buttons that set the service in
+  the draft and open /book/journey.
+- **Fleet bands:** each band head is a button with `aria-expanded` and
+  `aria-controls`; arrows move to the previous or next car and move focus to
+  its head.
+- **Hover:** 180ms colour; service words shift 16px right and the arrow
+  disc fills and turns 45 degrees (330ms); primary arrow hub nudges 4px.
+  Every hover has a visible rest state (filled pill, border, underline).
+- **Focus:** 2px ring, 2px offset, paint on light and stone on dark,
+  instant.
+- **Booking panel:** the first field is a large pill input in the display
+  face; the panel no longer sits inside a name board.
 
 ## Animation direction
 
-### Tokens
-
-| Token | Value | Use |
+| What | How | Why |
 |---|---|---|
-| `--ease-out` | cubic-bezier(0.22, 1, 0.36, 1) | Controls, panel growth, reveals |
-| `--ease-scene` | cubic-bezier(0.16, 1, 0.3, 1) | Ground changes, page transitions, Index sheet |
-| `--dur-press` | 90ms | Press |
-| `--dur-hover` | 160ms | Hover color, underline, arrow nudge |
-| `--dur-chip` | 240ms | Step folding into a chip |
-| `--dur-step` | 320ms | Booking step change |
-| `--dur-panel` | 420ms | Panel growth, Index open |
-| `--dur-page` | 480ms | Page transition |
-| `--dur-reveal` | 640ms | Story line reveals (time-based ones only) |
+| Hero car | Scroll-linked transform only (translate and scale), eased with a cubic out per segment: hold to 15%, zoom 15 to 42%, hold, pull back 56 to 80% | P-014, P-020; the reader sets the pace; no scroll hijack |
+| Hero frames | Phase swaps (A under 14%, B to 60%, C after), 420ms out and 520ms in with a 120ms delay; pills staggered 70ms | Text reads at once, never mid-scrub |
+| Hero ground | Stone to chrome in the zoom, 700ms | Marks the close-up |
+| Fleet band | Panel fades up 12px (420ms); numeral rolls up 40% (560ms); car slides in 8% (640ms) | The p07 rolling index, in AUREL's terms |
+| Airport chapter | Name board settles from 24px below and rotates into place when 35% in view | One entrance, once |
+| Timetable | Rows fade up, staggered 60ms; moved time drops in after 700ms | Shows the moved pickup |
+| Menu | Clip-path reveal from the top (420ms) | |
+| Booking steps | Unchanged from Kept Time | |
 
-### Scroll story choreography (home)
-
-All story motion is scroll-linked (scrubbed), so the reader sets the pace
-(P-014). Scenes pin for the scroll length noted, at 1440.
-
-| Scene | Pin length | What moves, tied to scroll | Why |
-|---|---|---|---|
-| 0 Booking question | none | Nothing on scroll. On load: the question appears at once (no intro sequence); the name board's border draws in once over 420ms. | Booking must be usable on the first frame. |
-| 01 One morning, minute by minute | 300vh | The hour in the top-right corner counts 06:40 → 07:25 → 07:55 → 08:40 as the reader scrolls. The ground shifts dawn → day. A flight arc fills; at 07:25 the "landed" marker jumps 12 minutes early and the pickup marker on the journey rule slides to match. At 07:55 the name board slides into the frame. Each timestamp's line reveals word by word as its hour arrives (P-015). | Shows flight tracking and waiting time without claiming them. |
-| 02 Four ways to book | 150vh | The active row pointer moves down the four services as you scroll; the time-shape glyph beside the active row draws itself (A→B line; plane-to-door; a bracket of hours; a day arc). | Teaches the four services as shapes in time (REF-003 active-list idea, reinterpreted). |
-| 03 What each car carries | 200vh | A passengers and bags count steps from 1/1 up to 7/7 as you scroll; tiers that no longer fit fade to 30% and their reason text appears. | Explains tier choice by capacity, the question families actually have. |
-| 04 The standard | 150vh, ground goes day → dusk | Numbered standards come in one per scroll step, each pushing the previous one up and dimming it. | Premium shown through standards (Brief §10). |
-| 05 For organisations | none | The statement sheet mock fills its rows (journeys, cost centres, total) once as it enters (time-based, 640ms, staggered 60ms). | Shows monthly billing as a product, not a claim. |
-| 06 Ending | none, ground night | The wordmark line reveals letter by letter once on entry (640ms, 30ms stagger). | Designed sign-off (P-009). |
-
-### Transitions
-
-- **Between marketing pages:** the next page's ground slides up from the
-  bottom over the old page (`--dur-page`, `--ease-scene`), using the View
-  Transitions API where supported and an instant swap where not. The
-  persistent action stays in place across the swap.
-- **Between booking steps:** the finished step's content folds into a chip
-  that flies to the journey rule (`--dur-chip`), and the next step fades in
-  with a 12px upward shift (`--dur-step`). Going back reverses it.
-- **Panel growth:** height animates with `--dur-panel` and `--ease-out`;
-  content inside fades in after 120ms.
-- **Status changes on booking details:** the now-marker slides along the
-  rule to the new state (`--dur-panel`); the status line crossfades.
-
-### Hover and focus
-
-Hover 160ms, press 90ms, focus instant. Hover feedback is always paired with
-a non-hover equivalent (visible underline or border at rest) so touch users
-lose nothing.
-
-### Smooth scrolling
-
-Native scroll by default. If the build adds a smooth-scroll library for the
-story pages, keep lerp at 0.1 or above and turn it off on `/book`, booking
-details, account pages and under reduced motion. Implementation is the
-solution-architect's call.
-
-### Reduced motion (`prefers-reduced-motion: reduce`)
-
-- No pinning and no scrubbing. Each chapter becomes a normal stacked section
-  showing its final state: Chapter 01 becomes a static list of the four
-  timestamps with their lines and the finished flight arc; Chapter 03 shows
-  the full capacity table.
-- Ground colors still change between sections, as hard edges, not fades.
-- Page transitions, chip flights and panel growth become instant, or a
-  120ms opacity fade at most.
-- Letter and word reveals are off; text is present at once.
-- Hover color changes stay; movement (arrow nudge, press shift) is removed.
-
----
+**Reduced motion:** the hero does not pin; frame A shows statically with the
+car in place; frames B and C are not shown (their facts appear in the fleet
+bands and the airport chapter). No band, numeral, car, board or row
+animations; step change becomes a 120ms fade. Verified at 1440 and 390 and
+through a full airport booking at 390 with `prefers-reduced-motion: reduce`.
 
 ## Responsive strategy
 
-Design widths: 1440 (desktop), 834 (tablet), 390 (mobile). Fluid type
-between them. Touch targets at least 48×48px everywhere (above WCAG 2.5.8's
-24px minimum); no two targets closer than 8px.
-
-### Booking panel
-
 | | 1440 | 834 | 390 |
 |---|---|---|---|
-| Home scene 0 | Question on columns 1 to 8, panel below it on 1 to 8; columns 9 to 12 hold one line of service facts and the hour | Question full width; panel full width | Question at 44px, 3 lines max; panel full width; service switch as four equal segments (87px each, labels 14px) |
-| Steps 1 to 4 | Panel columns 1 to 8; journey rule summary sticky on 9 to 12 with the running total | Single column; summary collapses into a chip row at the top; running total and Continue in a sticky bottom bar (64px) | Each step fills the screen; chips scroll horizontally at the top; sticky bottom bar with total and Continue, above the safe-area inset |
-| Tier comparison | Four rows, drawing left, data right | Four rows, drawing smaller | Four stacked rows; drawing above data; selected row expands |
-| Date and time | Calendar grid inline | Calendar grid inline | Native date and time inputs |
-| Autocomplete | Dropdown under the field | Dropdown | Full-screen search sheet with the field at the top |
+| Hero | Split headline corner to corner; car centred across line two; quick starts top right | Lines stacked left; car 118vw cropped off the right edge between them; quick starts at the bottom | Same as 834 with the car at 170vw |
+| Zoom and pull-back | Car at 2.35x, pills right; pull-back left at 0.6x | Car 1.6x; pills and text at the bottom | Same |
+| Top bar | Wordmark, three pills, Menu, Book | Same | Wordmark, Menu, Book |
+| Fleet bands | Car and numeral on 8 columns, info on 4 | Stacked | Stacked; car 118% wide, capacity hidden in the head |
+| Airport poster | Car under the word, board at its front | Same | Car overlaps less; board at its foot |
+| Booking | Unchanged from Kept Time (sticky summary at 1440, bottom bar below 1100) | | |
 
-### Story scenes
-
-| Scene | 1440 | 834 | 390 |
-|---|---|---|---|
-| 01 Minute by minute | Hour huge at left (display), flight arc and journey rule at right, name board enters from right | Hour on top, graphic below, still pinned | Shorter pin (200vh); hour at top, one line, the graphic simplified to the rule only; name board full width |
-| 02 Four ways | Four rows across columns 1 to 8, glyph at 9 to 12 | Rows full width, glyph inline at the row's right | Rows stacked, glyph above the active row's text; not pinned, each row reveals as it enters |
-| 03 Capacity | Four drawings on one ground line, counter above | Two by two, counter above | One drawing at a time in a horizontal snap row; counter sticky at top |
-| 04 Standard | One standard at display size, number at left | Same, title size | Title size, number above |
-| 05 Organisations | Statement left 1 to 5, statement sheet 7 to 12 | Stacked, sheet below | Stacked; sheet shows three rows and a total |
-| 06 Ending | Wordmark across all 12 columns | Same | Wordmark at full width, tagline below, booking link |
-
-Frame and Index: at 390, "Sign in" moves into the Index; top right keeps
-only "Index". The persistent action becomes a full-width bottom bar (56px plus
-safe area) with 20px side margins.
-
----
-
-## Page and screen plans
-
-### Home (Brief §5, §7, §9, §10)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Scene 0, the booking question | Start a booking without reading anything | Day paper. Wordmark top left, Sign in and Index top right. Service switch, then the question in display type, left-aligned on columns 1 to 8, then the name board holding the oversized first field. Columns 9 to 12: one sentence ("Pre-booked chauffeurs for transfers, airports, hours or a whole day. Fixed price before you confirm.", to confirm with the owner) and the current hour in label type. No image. | Stacked; question 3 lines; panel full width; facts line under the panel | Booking is the primary task (Brief §9); REF-001's oversized field; avoids photo hero and docked bar clichés |
-| 01 One morning, minute by minute | Show the standard of an airport pickup | Pinned. Corner label "01 Airport" and the hour top right. Left half: the hour in display. Right half: flight arc and journey rule. Ground dawn → day. | See Responsive | P-014; Brief §5B features shown, not listed |
-| 02 Four ways to book | Explain the four services | Typographic index rows in Extended title size, pointer and glyph; each row links to its service page, with "Book this" setting the panel's service | Stacked rows | RJ-002 avoided; REF-003 list idea |
-| 03 What each car carries | Explain the tiers | Four elevation drawings on one ground line, the counter above, names and one line each | Horizontal snap | Brief §6; RJ-002 avoided |
-| 04 The standard | State the standards | Day to dusk. Numbered standards, one per step, display size, e.g. "Your chauffeur is at arrivals before you are." (all wording and values from the owner) | Title size | Brief §7, §10 |
-| 05 For organisations | Bring corporate buyers to `/business` | Split: statement and one link left; a statement sheet mock right | Stacked | Brief §4, §8 |
-| 06 Ending | Sign off and offer booking once more | Night ground. Wordmark across the grid, "Travel, Considered." under it, the booking question as a link, then the compact footer index and legal links | Same, stacked | P-009 |
-
-### Airport transfers (Brief §5B)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Booking scene | Book an airport journey | Panel preset to Airport with the Arriving / Departing choice as the headline | Same as home | REF-006 airport-first |
-| The arrival, as a timetable | What happens from landing to door | A full-width timetable: rows of time, event, what AUREL does; the row for "landed early" shows the pickup moving | Rows stack, time above text | Shows arrival coordination |
-| The name board | Explain meet-and-greet | The name board at full title size with a sample name, and one paragraph on where the chauffeur waits | Board full width | Signature device 1 |
-| Delays and waiting | Answer the anxious questions | Quiet two-column Q&A in text size (what if my flight is late, how long you wait, what it costs) | One column | Brief §2 unreliable pickups |
-| Close | Book | Booking link and Help link on dusk ground | Same | |
-
-### Point-to-point transfers (Brief §5A)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Booking scene | Book | Panel preset to Transfer | Same | |
-| The route | Show what a transfer is | One long horizontal route line across the full width with A and B marks and three short notes along it (collected at the door, stops on request, price fixed when you book; wording TBD) | Line turns vertical | Distinct from the airport timetable |
-| Common journeys | Help people picture use | A plain list of journey types from the brief (meetings, hotels, appointments) as text links into the panel with the service preset | List | Brief §5A, no cards |
-
-### Hourly chauffeur (Brief §5C)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Booking scene | Book hours | Panel preset to Hourly, duration stepper visible | Same | |
-| A bracket of hours | Explain how hours work | A large horizontal bar of hours; scrolling extends the bracket from 2h to 6h while three sample stops land on it | Vertical bar | Motion explains duration |
-| What's included in an hour | Set expectations | Short definition list (waiting between stops, distance allowance if any, extensions on the day), owner wording | Same | Brief §7 transparency |
-
-### Full-day chauffeur (Brief §5D)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Booking scene | Book a day | Panel preset to Full day | Same | Brief: full day was missing on competitor sites |
-| A day, planned | Show a full day | A day rail from morning to night across the page with ground shifting dawn to night along it; example plans for a corporate visit, a wedding and a city day as three switchable rails (tabs) | Rail vertical; tabs as a segmented control | Brief §5D uses; distinct composition |
-| Breaks and hours | Explain limits honestly | Quiet text: chauffeur breaks, overtime, overnight, owner wording | Same | Brief §10 no exaggeration |
-
-### Fleet (Brief §6)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Title | Name the page | Title "Four cars, chosen by what you're carrying" (draft) and the party counter | Same | |
-| Tier chapters (×4) | Each tier on its own | Drawing large across columns 1 to 8; columns 9 to 12: name, "or similar" models, seats, bags, included, suited to. The four chapters alternate drawing side so the page doesn't repeat one template | Drawing on top | RJ-006 |
-| Comparison table | Compare at once | Dense table, all four tiers, rows for seats, bags, included features, from-price if the owner publishes one | Table scrolls horizontally with the first column fixed | P-007 exception for tables |
-| Note | Honesty | "Vehicles vary by city" line (Brief §6) | Same | |
-
-### For business (Brief §4, §8)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Opening | State what an account does | Title on columns 1 to 7; columns 8 to 12: the account application form start (company, name, work email, monthly journeys estimate) | Title, then form | Buyers want the action early |
-| Assurance beside the form | Answer risk questions | A short list of owner-supplied facts beside the form (insurance cover, chauffeur vetting, support hours). Shown only when real; never as a stat row | Under the form | REF-007 lesson, RJ-005 respected |
-| The monthly statement | Show billing and central management | A full statement sheet mock, large: journeys by person and cost centre, invoice total | Simplified sheet | Product shown, not claimed |
-| Booking for others | Show the assistant's flow | Three-step strip using the real booking UI at small scale: saved traveller, cost centre, itinerary sent | Stacked | Brief §8 centralized travel management |
-| Recurring journeys | Show repeat bookings | A week calendar with recurring pickups drawn on it | One day at a time | Brief §8 |
-| Close | Apply or talk to someone | Form link and contact | Same | |
-
-### Hotels and agencies (Brief §4, §11)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Opening | Explain guest transport | Statement plus "Talk to us" form start | Stacked | Brief §4 hospitality |
-| The hand-off | What the guest experiences | The guest's itinerary card as a rendered object, with the name board and the partner's name on it | Same | |
-| How billing works | Partner billing | Plain text, owner wording | Same | Brief §11: no future commitments as facts |
-
-### Standards (about) (Brief §3, §7, §10)
-
-| Section | Purpose | Composition | Mobile | Reason |
-|---|---|---|---|---|
-| Opening | State the philosophy | "The journey should feel as carefully considered as the destination." in title size, nothing else | Same | Brief §1 |
-| The five principles | Reliability, comfort, professionalism, convenience, personalisation | Long numbered document in text size with title-size numbers, one principle per spread, each with the concrete standards that support it (owner-supplied) | Single column | Brief §3; C direction kept here |
-| Chauffeurs | How chauffeurs are chosen and trained | Quiet text, portraits later (shot 5) | Same | Brief §7 |
-| Vehicles | Maintenance and presentation standard | Text plus rendered object (cabin detail later) | Same | Brief §6 |
-
-### Booking steps (`/book`) (Brief §9 steps 3, 4)
-
-Layout described in Booking flow. Frame: wordmark, step indicator ("2 of 4
-Vehicle" as text, plus four short ticks), Exit (returns to where the user
-came from with the draft kept). No Index, no persistent action, no footer
-beyond a single line of legal links.
-
-### Booking details (`/booking/[ref]`) (Brief §9 steps 4 to 7)
-
-| Area | Content | 1440 | 390 |
-|---|---|---|---|
-| Header | Status, reference, date | Full width | Same |
-| Journey rule | Itinerary and live status | Columns 1 to 7 | Top, horizontal compressed rule with current state large |
-| Chauffeur and vehicle | Assigned details, contact through AUREL | Columns 8 to 12 | Under the rule |
-| Name board | Arrival board (airport) | Columns 8 to 12 | Under chauffeur |
-| Actions | Calendar, share, change, cancel | Columns 8 to 12 | Sticky bottom bar with "Change" and a "More" menu |
-| Receipt and feedback | After completion | Replaces actions | Same |
-
-### Manage a booking (`/manage`)
-
-One centred form: reference and email. Then the booking details page. Error:
-"We couldn't find a booking with that reference and email."
-
-### Account area (layout level)
-
-- **1440:** left index column (columns 1 to 3): Journeys, Travellers, Places,
-  Payment, Receipts, Company (business admins only), Settings, Sign out.
-  Content on columns 4 to 12. "Book a journey" as the one amber action at the
-  top of Journeys.
-- **834:** index becomes a horizontal tab row under the title.
-- **390:** index becomes a list page; each section is its own screen with a
-  back link.
-- **Journeys:** upcoming first, each as a row on a shared journey rule
-  (date, time, route, tier, status), then past journeys with "Book again".
-- **Company:** people (invite, role), cost centres, billing details and
-  invoices; table layouts.
-
-### Help and contact
-
-- **Help:** title, a search field, topic index (Booking, Airports, Changes
-  and cancellations, Payment and receipts, Business accounts, Safety and
-  standards) as large text links, then questions in quiet accordions within
-  each topic. A contact block at the end of every topic.
-- **Contact:** phone, email and hours (owner-supplied) at title size, then a
-  message form with topic, booking reference (optional), message.
-
-### Legal
-
-Reading layout: 68-character measure on columns 4 to 9, contents list sticky
-on columns 1 to 3 at 1440 (collapsed into a disclosure at 834 and 390), last
-updated date at the top, plain headings. Booking conditions link from the
-Review step and open in the same tab with the booking draft kept.
+Touch targets are 48px or more except the 40px pill links in the top bar
+(each has 8px or more of space around it).
 
 ---
 
 ## Open questions for the owner
 
-Only the questions whose answers change the design.
+New for this concept:
 
-1. **Tier names.** "Business Class" and "First Class" are Blacklane's exact
-   tier names (REF-004). Keeping them makes AUREL's vehicle step read like
-   Blacklane's. Not renamed here. Options if you want to change them:
-   - Descriptive by vehicle: Saloon, Executive Saloon, SUV, Van.
-   - By what the tier carries: Saloon, Saloon Plus, Seven-Seat, Group.
-   - A short house series: AUREL One, AUREL Two, AUREL Space, AUREL Group.
-   The layout works with any names up to about 18 characters.
-2. **Launch city or market.** Sets currency, airports in autocomplete,
-   date and unit formats, language, and whether city pages are needed.
-3. **Fonts budget.** GT Standard (licensed, recommended) or Archivo (free)?
-4. **Pricing model.** Fixed all-in price before confirmation, or estimates
-   for hourly and full-day? This decides the "This is the price you pay"
-   promise and the Vehicle step's price display.
-5. **Service rules.** Minimum notice, included waiting time at airports,
-   hourly minimum, full-day lengths, cancellation window. Chapter 01, the
-   Airport page and the Review step are built on these numbers.
-6. **The standards themselves.** The Standards page and Chapter 04 need real,
-   specific commitments (for example "at arrivals 15 minutes before
-   landing"). Which ones will AUREL commit to publicly?
-7. **Accounts.** Can people book as guests (recommended), and can businesses
-   open accounts themselves or only through a sales contact?
-8. **Wordmark.** Is there a logo, or should one be commissioned? The site
-   uses a typeset placeholder until then.
-9. **Live tracking.** Will the platform show the chauffeur's live location?
-   This changes the Travel stage on the booking details page.
-10. **Imagery budget and timing.** Is a commissioned shoot planned, and is
-    the illustrated elevation set approved as the launch fleet imagery?
+1. **Standing By or Kept Time?** Or Standing By with Kept Time's calmer
+   opening (booking question first, sentence-case display)?
+2. **Top bar.** This concept uses a small pill bar (three links, Menu,
+   Book). Your earlier answer was "website doesn't need one" (P-010). Keep
+   the bar, or go back to wordmark, Menu and one floating Book?
+3. **Capitals.** Display type is in capitals for poster scale. Too loud for
+   AUREL, or right?
+4. **Theme and colour.** Light stone with paint-green and leather chapters,
+   colours taken from a dark green car. Is a green fleet plausible, or should
+   the palette follow the real fleet colour once known?
+5. **Buttons.** Pills with a round arrow hub. Keep?
+6. **Imagery.** The cars are AI-generated placeholders. Approve them for
+   review builds only, and is a fleet shoot planned (side-on, matched
+   angle, stone floor)?
+
+Still open from Kept Time (unchanged): tier names (Business Class and First
+Class are Blacklane's names), launch market, fonts budget (now moot unless a
+licensed face is wanted; Barlow is free), pricing model, service rules,
+public standards, guest booking and business sign-up, wordmark, live
+tracking.
 
 ---
 
 ## Feedback log
 
-The owner's feedback on this project. General feedback is also recorded in
-the design memory.
-
 | Date | Feedback (quoted) | Scope | Recorded as | Action |
 |---|---|---|---|---|
-| | | | | |
-
-## Visual QA log
-
-No build exists yet; this pass is strategy only. No screenshots taken.
-
-| Round | Date | Page | Width | Screenshot | Scores (hier/type/comp/space/brand/resp/inter/anim/orig) | Issues | Status |
-|---|---|---|---|---|---|---|---|
-| | | | | | | | |
+| 2026-11-05 | Kept Time reads too quiet; REF-008 as the model for "how to make your website pop" | project | AP-004, REF-008 (already filed) | This concept |
