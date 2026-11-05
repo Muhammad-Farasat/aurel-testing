@@ -1,0 +1,113 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  font-size: var(--type-body);
+  font-weight: 500;
+  font-stretch: var(--wdth-standard);
+  line-height: 1.2;
+  text-decoration: none;
+  border-radius: 0;
+  border: 2px solid transparent;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+.btn__arrow {
+  flex: none;
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+
+.btn:hover .btn__arrow {
+  transform: translateX(var(--nudge));
+}
+
+.btn:active {
+  transform: translateY(var(--press-shift));
+}
+
+/* Primary: the one amber commit action per view. */
+.btn--primary {
+  background: var(--color-aurel);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--color-aurel-hover);
+}
+
+/* Ink: the persistent action and dark commits that must not compete with amber. */
+.btn--ink {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.btn--ink:hover {
+  background: #2b2e33;
+}
+
+.btn--secondary {
+  border-color: currentColor;
+  background: transparent;
+}
+
+.btn--secondary:hover {
+  background: rgb(22 24 27 / 0.06);
+}
+
+.on-dark .btn--secondary:hover {
+  background: rgb(241 239 234 / 0.1);
+}
+
+/* Text action: underline at rest so touch users see it is a link; grows on hover. */
+.btn--text {
+  padding: 0;
+  border: 0;
+  background: none;
+  justify-content: flex-start;
+}
+
+.btn--text .btn__label {
+  background:
+    linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat,
+    linear-gradient(currentColor, currentColor) left bottom / 0 2px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size var(--dur-hover) var(--ease-out);
+}
+
+.btn--text:hover .btn__label {
+  background-size:
+    100% 1px,
+    100% 2px;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background: var(--color-rule);
+  color: var(--color-ink-3);
+  border-color: transparent;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled .btn__arrow {
+  transform: none;
+}
+
+.btn--text:disabled {
+  background: none;
+  color: var(--color-ink-3);
+}

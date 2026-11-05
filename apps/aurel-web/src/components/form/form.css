@@ -1,0 +1,531 @@
+/* Fields: label above, value 16px, underline at rest, 2px ink on focus. */
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.field__label {
+  color: var(--color-ink);
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-2) 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-field);
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--type-body);
+  line-height: 1.4;
+  color: var(--color-ink);
+  box-shadow: 0 1px 0 0 transparent;
+  transition: border-color var(--dur-hover) var(--ease-out);
+  appearance: none;
+}
+
+.input:hover {
+  border-bottom-color: var(--color-ink);
+}
+
+/* 2px focus underline drawn without moving layout. */
+.input:focus,
+.input:focus-visible {
+  outline: none;
+  border-bottom-color: var(--color-ink);
+  box-shadow: 0 1px 0 0 var(--color-ink);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.has-error .input,
+.input[aria-invalid="true"] {
+  border-bottom-color: var(--color-error);
+  box-shadow: 0 1px 0 0 var(--color-error);
+}
+
+.input--xl {
+  min-height: 64px;
+  padding: var(--space-2) 0 var(--space-3);
+}
+
+.input--area {
+  min-height: 112px;
+  resize: vertical;
+  border: 1px solid var(--color-field);
+  padding: var(--space-3);
+}
+
+.input--area:focus {
+  box-shadow: inset 0 0 0 1px var(--color-ink);
+}
+
+.input::placeholder {
+  color: var(--color-ink-2);
+}
+
+input[type="date"].input,
+input[type="time"].input {
+  min-width: 0;
+}
+
+.field__help {
+  margin-top: calc(var(--space-1) * -1);
+}
+
+.field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--color-error);
+}
+
+.field__error svg {
+  flex: none;
+  margin-top: 1px;
+}
+
+/* Segments (radio groups as square segments) */
+.segments {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.segments__legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+}
+
+.segments__row {
+  display: grid;
+}
+
+.segments__item {
+  position: relative;
+  min-width: 0;
+}
+
+.segments__input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.segments__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out),
+    box-shadow var(--dur-hover) var(--ease-out);
+}
+
+.segments--box .segments__label {
+  border: 1px solid var(--color-field);
+  margin-left: -1px;
+  background: transparent;
+}
+
+.segments--box .segments__item:first-child .segments__label {
+  margin-left: 0;
+}
+
+.segments--box .segments__label:hover {
+  background: rgb(22 24 27 / 0.05);
+}
+
+.segments--box .segments__input:checked + .segments__label {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+  border-color: var(--color-ink);
+  position: relative;
+  z-index: 1;
+}
+
+/* Line variant: the service switch. Active segment gets the amber underline. */
+.segments--line .segments__row {
+  border-bottom: 1px solid var(--color-field);
+}
+
+.segments--line .segments__label {
+  justify-content: flex-start;
+  padding: 0;
+  box-shadow: inset 0 -3px 0 0 transparent;
+  color: var(--color-ink-2);
+}
+
+.segments--line .segments__label:hover {
+  color: var(--color-ink);
+}
+
+.segments--line .segments__input:checked + .segments__label {
+  color: var(--color-ink);
+  box-shadow: inset 0 -3px 0 0 var(--color-aurel);
+}
+
+.segments__input:focus-visible + .segments__label {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  z-index: 2;
+  position: relative;
+}
+
+/* Stepper */
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.stepper__row {
+  display: flex;
+  align-items: center;
+}
+
+.stepper__btn {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-field);
+  background: var(--color-paper-raised);
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out);
+}
+
+.stepper__btn:hover:not(:disabled) {
+  border-color: var(--color-ink);
+  background: #fff;
+}
+
+.stepper__btn:active:not(:disabled) {
+  transform: translateY(var(--press-shift));
+}
+
+.stepper__btn:disabled {
+  color: var(--color-ink-3);
+  background: transparent;
+  border-color: var(--color-rule);
+  cursor: not-allowed;
+}
+
+.stepper__value {
+  width: 56px;
+  height: 48px;
+  border: 0;
+  border-block: 1px solid var(--color-field);
+  background: transparent;
+  text-align: center;
+  font-size: var(--type-step);
+  font-weight: 500;
+}
+
+.stepper__value:focus-visible {
+  outline-offset: -2px;
+}
+
+.stepper__unit {
+  margin-left: var(--space-3);
+  color: var(--color-ink-2);
+}
+
+/* Place combobox */
+.place__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.place__control {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.place__control > .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.place.is-sheet .place__list {
+  flex-basis: 100%;
+}
+
+.place__list {
+  position: absolute;
+  z-index: 20;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--space-1);
+  background: var(--color-paper-raised);
+  border: 1px solid var(--color-ink);
+  box-shadow: var(--shadow);
+  max-height: 360px;
+  overflow: auto;
+}
+
+
+.place__opt,
+.place__status {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: var(--space-3) var(--space-4);
+  min-height: 48px;
+}
+
+.place__status {
+  display: block;
+}
+
+.place__opt {
+  cursor: pointer;
+  border-top: 1px solid var(--color-rule);
+}
+
+.place__opt:first-child {
+  border-top: 0;
+}
+
+.place__opt.is-active {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.place__opt.is-active .muted,
+.place__opt.is-active .place__kind {
+  color: var(--color-on-dark-2);
+}
+
+.place__kind {
+  color: var(--color-ink-2);
+}
+
+.place__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.place__name {
+  font-weight: 500;
+}
+
+.place__close {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+}
+
+/* Phones: the field becomes a full-screen search sheet. */
+.place.is-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  padding: var(--space-4) var(--margin) env(safe-area-inset-bottom);
+  background: var(--color-paper-raised);
+  overflow: auto;
+}
+
+.place.is-sheet .input--xl {
+  font-size: 1.5rem;
+}
+
+.place.is-sheet .place__list {
+  position: static;
+  margin-top: var(--space-4);
+  border: 0;
+  border-top: 1px solid var(--color-ink);
+  box-shadow: none;
+  max-height: none;
+  transform: none;
+}
+
+/* Date */
+.date {
+  position: relative;
+}
+
+.date__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  text-align: left;
+}
+
+.date__placeholder {
+  color: var(--color-ink-2);
+}
+
+.calendar {
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  left: 0;
+  margin-top: var(--space-2);
+  width: 336px;
+  padding: var(--space-4);
+  background: var(--color-paper-raised);
+  border: 1px solid var(--color-ink);
+  box-shadow: var(--shadow);
+  font-stretch: var(--wdth-standard);
+  font-size: var(--type-body);
+  letter-spacing: 0;
+  animation: pop-in var(--dur-step) var(--ease-out);
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.calendar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.calendar__nav {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+}
+
+.calendar__nav:hover {
+  background: rgb(22 24 27 / 0.06);
+}
+
+.calendar__grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.calendar__grid th {
+  height: 32px;
+  color: var(--color-ink-2);
+  font-weight: 500;
+}
+
+.calendar__grid td {
+  padding: 0;
+  text-align: center;
+}
+
+.calendar__day {
+  width: 100%;
+  height: 44px;
+  font-size: var(--type-small);
+  transition: background-color var(--dur-hover) var(--ease-out);
+}
+
+.calendar__day:hover:not(:disabled) {
+  background: rgb(22 24 27 / 0.08);
+}
+
+.calendar__day.is-outside {
+  color: var(--color-ink-2);
+}
+
+.calendar__day:disabled {
+  color: var(--color-ink-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-rule);
+  cursor: not-allowed;
+}
+
+.calendar__day.is-today {
+  box-shadow: inset 0 -2px 0 var(--color-aurel);
+}
+
+.calendar__day.is-selected {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.calendar__day:focus-visible {
+  outline-offset: -2px;
+}
+
+.calendar__hint {
+  margin-top: var(--space-3);
+}
+
+/* Checkbox list (add-ons) */
+.checks {
+  border-top: 1px solid var(--color-rule);
+}
+
+.check {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+  min-height: 56px;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-rule);
+  cursor: pointer;
+}
+
+.check input {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  border: 1.5px solid var(--color-field);
+  background: var(--color-paper-raised);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out);
+}
+
+.check:hover input {
+  border-color: var(--color-ink);
+}
+
+.check input:checked {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.check input:checked::after {
+  content: "";
+  width: 12px;
+  height: 6px;
+  border-left: 2px solid var(--color-on-dark);
+  border-bottom: 2px solid var(--color-on-dark);
+  transform: translateY(-2px) rotate(-45deg);
+}
+
+.check__price {
+  font-variant-numeric: tabular-nums;
+}

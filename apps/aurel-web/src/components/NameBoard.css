@@ -1,0 +1,99 @@
+.nameboard {
+  position: relative;
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
+  padding: var(--space-5);
+}
+
+.nameboard--lg {
+  padding: var(--space-7) var(--space-6);
+}
+
+.nameboard__edge {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* 2px ink border. With `draw`, top and bottom grow from the left, then the sides from the top. */
+.nameboard::before,
+.nameboard::after,
+.nameboard__edge::before,
+.nameboard__edge::after {
+  content: "";
+  position: absolute;
+  background: var(--color-ink);
+  pointer-events: none;
+}
+
+.nameboard::before,
+.nameboard::after {
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform-origin: left;
+}
+
+.nameboard::before {
+  top: 0;
+}
+
+.nameboard::after {
+  bottom: 0;
+}
+
+.nameboard__edge::before,
+.nameboard__edge::after {
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform-origin: top;
+}
+
+.nameboard__edge::before {
+  left: 0;
+}
+
+.nameboard__edge::after {
+  right: 0;
+}
+
+.nameboard--draw::before,
+.nameboard--draw::after {
+  animation: edge-x var(--dur-panel) var(--ease-out) 80ms both;
+}
+
+.nameboard--draw .nameboard__edge::before,
+.nameboard--draw .nameboard__edge::after {
+  animation: edge-y var(--dur-panel) var(--ease-out) 200ms both;
+}
+
+@keyframes edge-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes edge-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nameboard--draw::before,
+  .nameboard--draw::after,
+  .nameboard--draw .nameboard__edge::before,
+  .nameboard--draw .nameboard__edge::after {
+    animation: none;
+  }
+}
+
+.nameboard__name {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.nameboard__name.is-empty {
+  color: var(--color-ink-2);
+}
