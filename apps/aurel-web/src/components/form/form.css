@@ -1,4 +1,5 @@
-/* Fields: label above, value 16px, underline at rest, 2px ink on focus. */
+/* Fields: label above, value 16px, a soft box with a 1px border at rest and
+   a 2px ink edge on focus (drawn inside, so nothing moves). */
 .field {
   position: relative;
   display: flex;
@@ -13,30 +14,30 @@
 
 .input {
   width: 100%;
-  min-height: 48px;
-  padding: var(--space-2) 0;
-  border: 0;
-  border-bottom: 1px solid var(--color-field);
-  border-radius: 0;
-  background: transparent;
+  min-height: 52px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-field);
+  border-radius: var(--radius-field);
+  background: #fbf9f6;
   font-size: var(--type-body);
   line-height: 1.4;
   color: var(--color-ink);
-  box-shadow: 0 1px 0 0 transparent;
-  transition: border-color var(--dur-hover) var(--ease-out);
+  box-shadow: inset 0 0 0 1px transparent;
+  transition:
+    border-color var(--dur-hover) var(--ease-out),
+    box-shadow var(--dur-hover) var(--ease-out);
   appearance: none;
 }
 
 .input:hover {
-  border-bottom-color: var(--color-ink);
+  border-color: var(--color-ink);
 }
 
-/* 2px focus underline drawn without moving layout. */
 .input:focus,
 .input:focus-visible {
   outline: none;
-  border-bottom-color: var(--color-ink);
-  box-shadow: 0 1px 0 0 var(--color-ink);
+  border-color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
 }
 
 .input:focus-visible {
@@ -46,24 +47,24 @@
 
 .has-error .input,
 .input[aria-invalid="true"] {
-  border-bottom-color: var(--color-error);
-  box-shadow: 0 1px 0 0 var(--color-error);
+  border-color: var(--color-error);
+  box-shadow: inset 0 0 0 1px var(--color-error);
 }
 
+/* The first field of the booking panel: set large in the display face. */
 .input--xl {
-  min-height: 64px;
-  padding: var(--space-2) 0 var(--space-3);
+  min-height: 72px;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--type-input-xl);
+  border-radius: var(--radius-pill);
 }
 
 .input--area {
   min-height: 112px;
   resize: vertical;
-  border: 1px solid var(--color-field);
-  padding: var(--space-3);
-}
-
-.input--area:focus {
-  box-shadow: inset 0 0 0 1px var(--color-ink);
+  padding: var(--space-3) var(--space-4);
 }
 
 .input::placeholder {
@@ -91,7 +92,8 @@ input[type="time"].input {
   margin-top: 1px;
 }
 
-/* Segments (radio groups as square segments) */
+/* Segments: radio groups drawn as a pill track; the checked option fills
+   with the paint. */
 .segments {
   margin: 0;
   padding: 0;
@@ -106,6 +108,11 @@ input[type="time"].input {
 
 .segments__row {
   display: grid;
+  gap: 2px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  box-shadow: inset 0 0 0 1px var(--color-rule);
 }
 
 .segments__item {
@@ -125,9 +132,10 @@ input[type="time"].input {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
+  min-height: 44px;
   padding: 0 var(--space-3);
-  font-weight: 500;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
   text-align: center;
   cursor: pointer;
   user-select: none;
@@ -137,47 +145,16 @@ input[type="time"].input {
     box-shadow var(--dur-hover) var(--ease-out);
 }
 
-.segments--box .segments__label {
-  border: 1px solid var(--color-field);
-  margin-left: -1px;
-  background: transparent;
+.segments__label:hover {
+  background: rgb(23 36 31 / 0.07);
 }
 
-.segments--box .segments__item:first-child .segments__label {
-  margin-left: 0;
-}
-
-.segments--box .segments__label:hover {
-  background: rgb(22 24 27 / 0.05);
-}
-
-.segments--box .segments__input:checked + .segments__label {
+.segments__input:checked + .segments__label {
   background: var(--color-ink);
   color: var(--color-on-dark);
   border-color: var(--color-ink);
   position: relative;
   z-index: 1;
-}
-
-/* Line variant: the service switch. Active segment gets the amber underline. */
-.segments--line .segments__row {
-  border-bottom: 1px solid var(--color-field);
-}
-
-.segments--line .segments__label {
-  justify-content: flex-start;
-  padding: 0;
-  box-shadow: inset 0 -3px 0 0 transparent;
-  color: var(--color-ink-2);
-}
-
-.segments--line .segments__label:hover {
-  color: var(--color-ink);
-}
-
-.segments--line .segments__input:checked + .segments__label {
-  color: var(--color-ink);
-  box-shadow: inset 0 -3px 0 0 var(--color-aurel);
 }
 
 .segments__input:focus-visible + .segments__label {
@@ -205,6 +182,7 @@ input[type="time"].input {
   display: grid;
   place-items: center;
   border: 1px solid var(--color-field);
+  border-radius: 50%;
   background: var(--color-paper-raised);
   transition:
     background-color var(--dur-hover) var(--ease-out),
@@ -231,11 +209,11 @@ input[type="time"].input {
   width: 56px;
   height: 48px;
   border: 0;
-  border-block: 1px solid var(--color-field);
   background: transparent;
   text-align: center;
-  font-size: var(--type-step);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
 }
 
 .stepper__value:focus-visible {
@@ -280,6 +258,7 @@ input[type="time"].input {
   margin-top: var(--space-1);
   background: var(--color-paper-raised);
   border: 1px solid var(--color-ink);
+  border-radius: var(--radius-field);
   box-shadow: var(--shadow);
   max-height: 360px;
   overflow: auto;
@@ -390,8 +369,8 @@ input[type="time"].input {
   padding: var(--space-4);
   background: var(--color-paper-raised);
   border: 1px solid var(--color-ink);
+  border-radius: var(--radius-panel);
   box-shadow: var(--shadow);
-  font-stretch: var(--wdth-standard);
   font-size: var(--type-body);
   letter-spacing: 0;
   animation: pop-in var(--dur-step) var(--ease-out);
@@ -414,12 +393,13 @@ input[type="time"].input {
 .calendar__nav {
   width: 48px;
   height: 48px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
 }
 
 .calendar__nav:hover {
-  background: rgb(22 24 27 / 0.06);
+  background: rgb(23 36 31 / 0.07);
 }
 
 .calendar__grid {
@@ -441,13 +421,14 @@ input[type="time"].input {
 
 .calendar__day {
   width: 100%;
+  border-radius: var(--radius-pill);
   height: 44px;
   font-size: var(--type-small);
   transition: background-color var(--dur-hover) var(--ease-out);
 }
 
 .calendar__day:hover:not(:disabled) {
-  background: rgb(22 24 27 / 0.08);
+  background: rgb(23 36 31 / 0.08);
 }
 
 .calendar__day.is-outside {
@@ -462,7 +443,7 @@ input[type="time"].input {
 }
 
 .calendar__day.is-today {
-  box-shadow: inset 0 -2px 0 var(--color-aurel);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
 }
 
 .calendar__day.is-selected {
@@ -495,6 +476,7 @@ input[type="time"].input {
 }
 
 .check input {
+  border-radius: 6px;
   appearance: none;
   width: 24px;
   height: 24px;

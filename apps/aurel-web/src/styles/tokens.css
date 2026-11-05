@@ -1,47 +1,61 @@
 /*
- * AUREL design tokens. Source: docs/project/DESIGN_DIRECTION.md ("Kept Time").
- * Color, type, space and motion values are taken from that document unchanged.
+ * AUREL design tokens, concept "Standing By".
+ * Source: docs/project/DESIGN_DIRECTION.md. Every colour is taken from the one
+ * hero object, the car (P-021): its paint, the studio ground it stands on, the
+ * chrome, the cabin leather and the tail lamp.
+ * Token names are kept from the first build so the booking components carry
+ * over; their values and roles are this concept's.
  */
 :root {
-  /* Color: grounds */
-  --color-paper: #f1efea;
-  --color-paper-raised: #faf9f7;
-  --color-dawn: #e3e1da;
-  --color-dusk: #2a2c31;
-  --color-night: #0e1012;
+  /* Colour: grounds */
+  --color-paper: #e5dfd4; /* "stone": the studio ground the car stands on */
+  --color-paper-raised: #f2eee7; /* panels, inputs, menus */
+  --color-chrome: #d6d8d2; /* tier ground: First Class */
+  --color-tan: #d9c3a6; /* tier ground: Luxury SUV, pale cabin leather */
+  --color-sage: #c7cfc4; /* tier ground: Luxury Van, paint tint */
+  --color-leather: #b8875a; /* one chapter ground: For business */
+  --color-leather-deep: #8b5b34; /* the ending wordmark, 4.35:1 on stone */
+  --color-night: #17241f; /* dark chapters use the paint itself */
+  --color-dusk: #17241f;
+  --color-dawn: #e5dfd4;
 
-  /* Color: ink and lines */
-  --color-ink: #16181b;
-  --color-ink-2: #565a61;
-  --color-ink-3: #6e727a; /* disabled text only, fails 4.5:1 */
-  --color-field: #86837c;
-  --color-rule: #d3cfc6;
-  --color-on-dark: #f1efea;
-  --color-on-dark-2: #bdbab3;
+  /* Colour: ink and lines */
+  --color-ink: #17241f; /* the paint: text, borders, primary action */
+  --color-ink-2: #424e48; /* secondary text, AA on every light ground */
+  --color-ink-3: #6c7771; /* disabled text only */
+  --color-field: #6c7771; /* input borders at rest, 3:1 on stone and raised */
+  --color-rule: #c9c2b5; /* hairlines, decorative only */
+  --color-on-dark: #e5dfd4;
+  --color-on-dark-2: #a9b3ad;
 
-  /* Color: the one accent and status */
-  --color-aurel: #a24e17;
-  --color-aurel-hover: #954815; /* aurel darkened 8% */
-  --color-aurel-on-dark: #e39b5f;
+  /* Colour: the commit colour, the one signal, and status */
+  --color-aurel: #17241f; /* primary action fill = the paint */
+  --color-aurel-hover: #2a3a33; /* paint lifted, like a highlight on the body */
+  --color-aurel-on-dark: #e5dfd4;
+  --color-lamp: #9b2c22; /* tail lamp: live dot and "now" only */
+  --color-lamp-on-dark: #f08a7e;
   --color-error: #a3271c;
   --color-error-on-dark: #f08a7e;
   --color-success: #2e6a3f;
-  --color-focus: #16181b;
+  --color-focus: #17241f;
 
-  /* Type families. One superfamily; width separates statement from information. */
-  --font: "Archivo Variable", "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --wdth-extended: 125%;
-  --wdth-standard: 100%;
+  /* Type: Barlow Condensed for display, Barlow for text. One superfamily,
+     drawn from road signs and number plates (P-017). */
+  --font: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+  --wdth-extended: normal;
+  --wdth-standard: normal;
 
-  /* Type scale (fluid 390 to 1440) */
-  --type-display: clamp(2.75rem, 0.986rem + 7.238vw, 7.5rem);
-  --type-title: clamp(2rem, 1.071rem + 3.81vw, 4.5rem);
-  --type-input-xl: clamp(1.5rem, 1.129rem + 1.524vw, 2.5rem);
-  --type-step: clamp(1.25rem, 1.157rem + 0.381vw, 1.5rem);
+  /* Type scale (fluid 390 to 1440). Extreme jump: poster or body, little between. */
+  --type-poster: clamp(4.25rem, 0.6rem + 15vw, 15rem);
+  --type-display: clamp(3.25rem, 1.1rem + 8.8vw, 9rem);
+  --type-title: clamp(2.25rem, 1.2rem + 4.3vw, 5rem);
+  --type-input-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --type-step: clamp(1.375rem, 1.25rem + 0.5vw, 1.75rem);
   --type-body: 1rem;
   --type-small: 0.875rem;
-  --type-label: 0.75rem;
-  --type-board: clamp(1.25rem, 0.879rem + 1.524vw, 2.25rem);
+  --type-label: 0.8125rem;
+  --type-board: clamp(1.375rem, 1rem + 1.5vw, 2.25rem);
 
   /* Space (4px base) */
   --space-1: 4px;
@@ -57,25 +71,28 @@
   --space-11: 192px;
 
   /* Grid */
-  --margin: 20px;
+  --margin: 16px;
   --gutter: 16px;
   --cols: 4;
   --content-max: 1312px;
 
-  /* Borders and elevation */
+  /* Shape: round like a tyre. Pills for actions and labels, soft panels. */
+  --radius-pill: 999px;
+  --radius-panel: 20px;
+  --radius-field: 12px;
   --hairline: 1px solid var(--color-rule);
-  --shadow: 0 8px 24px rgb(14 16 18 / 0.14);
+  --shadow: 0 10px 30px rgb(23 36 31 / 0.16);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-scene: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-press: 90ms;
-  --dur-hover: 160ms;
+  --dur-hover: 180ms;
   --dur-chip: 240ms;
   --dur-step: 320ms;
   --dur-panel: 420ms;
   --dur-page: 480ms;
-  --dur-reveal: 640ms;
+  --dur-reveal: 700ms;
   --nudge: 4px;
   --press-shift: 1px;
 

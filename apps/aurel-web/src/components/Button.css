@@ -6,11 +6,10 @@
   min-height: 48px;
   padding: 0 var(--space-5);
   font-size: var(--type-body);
-  font-weight: 500;
-  font-stretch: var(--wdth-standard);
+  font-weight: 600;
   line-height: 1.2;
   text-decoration: none;
-  border-radius: 0;
+  border-radius: var(--radius-pill);
   border: 2px solid transparent;
   transition:
     background-color var(--dur-hover) var(--ease-out),
@@ -39,10 +38,36 @@
   transform: translateY(var(--press-shift));
 }
 
-/* Primary: the one amber commit action per view. */
+/* Primary: the one commit action per view, filled with the car's paint.
+   The arrow sits in a round "hub" at the end of the pill. */
 .btn--primary {
   background: var(--color-aurel);
-  color: #fff;
+  color: var(--color-paper-raised);
+  padding-right: var(--space-2);
+}
+
+.btn--primary .btn__arrow,
+.btn--ink .btn__arrow {
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 50%;
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
+}
+
+.on-dark .btn--primary {
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
+}
+
+.on-dark .btn--primary .btn__arrow {
+  background: var(--color-ink);
+  color: var(--color-paper-raised);
+}
+
+.on-dark .btn--primary:hover {
+  background: #fff;
 }
 
 .btn--primary:hover {
@@ -55,8 +80,12 @@
   color: var(--color-on-dark);
 }
 
+.btn--ink {
+  padding-right: var(--space-2);
+}
+
 .btn--ink:hover {
-  background: #2b2e33;
+  background: var(--color-aurel-hover);
 }
 
 .btn--secondary {
@@ -65,11 +94,11 @@
 }
 
 .btn--secondary:hover {
-  background: rgb(22 24 27 / 0.06);
+  background: rgb(23 36 31 / 0.07);
 }
 
 .on-dark .btn--secondary:hover {
-  background: rgb(241 239 234 / 0.1);
+  background: rgb(229 223 212 / 0.12);
 }
 
 /* Text action: underline at rest so touch users see it is a link; grows on hover. */

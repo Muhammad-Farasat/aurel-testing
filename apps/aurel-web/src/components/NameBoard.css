@@ -1,8 +1,15 @@
+/* The arrivals board: a white card with soft corners and the name set in the
+   display face, as a chauffeur would hold it. A real feature for airport
+   arrivals (Brief §5B), shown at booking and on the booking page. */
 .nameboard {
   position: relative;
-  background: var(--color-paper-raised);
+  background: #fbf9f6;
   color: var(--color-ink);
   padding: var(--space-5);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 rgb(23 36 31 / 0.08),
+    0 14px 30px rgb(23 36 31 / 0.14);
 }
 
 .nameboard--lg {
@@ -10,81 +17,22 @@
 }
 
 .nameboard__edge {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  display: none;
 }
 
-/* 2px ink border. With `draw`, top and bottom grow from the left, then the sides from the top. */
-.nameboard::before,
-.nameboard::after,
-.nameboard__edge::before,
-.nameboard__edge::after {
-  content: "";
-  position: absolute;
-  background: var(--color-ink);
-  pointer-events: none;
+.nameboard--draw {
+  animation: board-up var(--dur-panel) var(--ease-out) both;
 }
 
-.nameboard::before,
-.nameboard::after {
-  left: 0;
-  right: 0;
-  height: 2px;
-  transform-origin: left;
-}
-
-.nameboard::before {
-  top: 0;
-}
-
-.nameboard::after {
-  bottom: 0;
-}
-
-.nameboard__edge::before,
-.nameboard__edge::after {
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  transform-origin: top;
-}
-
-.nameboard__edge::before {
-  left: 0;
-}
-
-.nameboard__edge::after {
-  right: 0;
-}
-
-.nameboard--draw::before,
-.nameboard--draw::after {
-  animation: edge-x var(--dur-panel) var(--ease-out) 80ms both;
-}
-
-.nameboard--draw .nameboard__edge::before,
-.nameboard--draw .nameboard__edge::after {
-  animation: edge-y var(--dur-panel) var(--ease-out) 200ms both;
-}
-
-@keyframes edge-x {
+@keyframes board-up {
   from {
-    transform: scaleX(0);
-  }
-}
-
-@keyframes edge-y {
-  from {
-    transform: scaleY(0);
+    transform: translateY(12px) rotate(-1deg);
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nameboard--draw::before,
-  .nameboard--draw::after,
-  .nameboard--draw .nameboard__edge::before,
-  .nameboard--draw .nameboard__edge::after {
+  .nameboard--draw {
     animation: none;
   }
 }

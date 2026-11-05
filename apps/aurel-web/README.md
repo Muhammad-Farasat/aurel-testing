@@ -1,6 +1,6 @@
 # AUREL web (frontend only)
 
-The AUREL website built from `docs/project/DESIGN_DIRECTION.md` ("Kept Time").
+The AUREL website built from `docs/project/DESIGN_DIRECTION.md` ("Standing By"; the first concept, "Kept Time", lives on branch agent/aurel-frontend-design-1104a).
 There is no backend: search, flight lookup, quotes and bookings are mocks in
 `src/services/` with simulated latency. Bookings and the draft live in
 `localStorage`.
@@ -10,9 +10,9 @@ There is no backend: search, flight lookup, quotes and bookings are mocks in
 ```bash
 cd apps/aurel-web
 npm install
-npm run dev        # http://localhost:5181
+npm run dev        # http://localhost:5191
 npm run build      # type-checks, then builds to dist/
-npm run preview    # serves dist/ on http://localhost:5182
+npm run preview    # serves dist/ on http://localhost:5192
 npm run typecheck
 ```
 
@@ -30,6 +30,7 @@ example data:
 | Places for autocomplete | `src/data/places.ts` |
 | Flights (BA117 lands early; unknown numbers are "not found") | `src/data/flights.ts` |
 | Pages not built yet, with what each will hold | `src/config/sitemap.ts` |
+| Vehicle pictures: AI-generated placeholders, not AUREL's cars | `public/vehicles/`, `src/components/Vehicle.tsx` |
 
 ## Useful test inputs
 
