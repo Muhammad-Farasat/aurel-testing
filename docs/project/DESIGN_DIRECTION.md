@@ -809,3 +809,45 @@ tracking.
 | Date | Feedback (quoted) | Scope | Recorded as | Action |
 |---|---|---|---|---|
 | 2026-11-05 | Kept Time reads too quiet; REF-008 as the model for "how to make your website pop" | project | AP-004, REF-008 (already filed) | This concept |
+
+## Visual QA log
+
+Evidence under `.artifacts/visual/aurel-concept-pop/` (ignored by git):
+`round-1/`, `round-2/`, `round-3/` (pages, booking flows, states, reduced
+motion), `round-3/capture/` (the design-memory capture script at 1440, 834
+and 390), and `scripts/` (the Playwright scripts and the cutout script).
+Every run read the browser console: no errors or warnings on any page or
+flow. No horizontal overflow at any width.
+
+Scores 1 to 5: hierarchy / type / composition / spacing / brand / responsive
+/ interaction / animation / originality, then "pops" against REF-008's rules.
+
+| Round | Page | 1440 | 834 | 390 | Pops | Issues found, then fixed |
+|---|---|---|---|---|---|---|
+| 1 | Home | 4/5/4/4/4/–/4/3/5 | 2 responsive | 3 responsive | 4 | Quick pills over the car roof; hero text still visible while zooming; ending car hid the wordmark; airport chapter had a 300px gap; tablet hero used the desktop layout and broke; phone car covered "CONSIDERED." |
+| 1 | /book steps | 4/4/4/4/4/4/4/4/4 | 4 | 4 | 3 | Summary and review car pictures stretched; step titles too quiet |
+| 1 | /airport-transfers | 4/5/4/4/4/4/4/4/5 | 4 | 3 | 4 | SUV covered "ALS" |
+| 1 | /fleet | 5/5/5/4/5/4/4/4/5 | 4 | 4 | 5 | None |
+| 2 | Home | 5/5/5/4/5/4/5/4/5 | 4 | 4 | 5 | Shadow under the tyres showed a cut edge at 2.35x zoom |
+| 2 | /airport-transfers | 5/5/5/4/5/4/4/4/5 | 4 | 3 | 5 | Phone: the name board covered "ARRIVALS"; first-field placeholder cut off |
+| 2 | /book steps | 4/5/4/4/5/4/5/4/4 | 4 | 4 | 4 | None |
+| 3 | Home | 5/5/5/4/5/4/5/4/5 | 4 | 4 | 5 | Open: phone zoom frame shows mostly glass and roof |
+| 3 | /book steps (all four services) | 4/5/4/4/5/4/5/4/4 | 4 | 4 | 4 | None |
+| 3 | /booking/:ref | 5/5/4/4/5/4/4/4/4 | 4 | 4 | 4 | None |
+| 3 | /airport-transfers | 5/5/5/4/5/4/4/4/5 | 4 | 4 | 5 | Floating Book hidden over the poster (it duplicated the poster's Book) |
+| 3 | /fleet | 5/5/5/4/5/4/5/4/5 | 4 | 4 | 5 | None |
+| 3 | In preparation (/business) | 4/5/4/4/4/4/4/4/4 | 4 | 4 | 3 | None; plain by intent until the page is built |
+
+"Pops" by REF-008 rule, round 3: subject breaks the type (hero, fleet,
+airport, ending), hero object stays (home 1 to 3), colour from the product
+(all tokens), one expanded item (fleet, vehicle step), labels pinned to big
+things (zoom, pull-back, services, airport), one loud thing per scene (home
+plan), section order (home), quiet text passes AA (contrast table).
+
+Keyboard: 12 full bookings (four services at 1440, 834 and 390) driven by
+keyboard for the service switch, place fields, date picker, tier radio group
+and submit, including the empty-submit error summary (focus moves to it)
+and a declined card. Menu opens by keyboard, focus goes to the first link,
+Esc returns it to Menu. Fleet arrows move focus to the next band's head.
+Reduced motion: home, airport and fleet at all three widths, and a full
+airport booking at 390.
