@@ -49,7 +49,7 @@ export function AirportTransfers() {
   return (
     <div className="svc">
       {/* Poster: the SUV, the one with room for bags, crosses the word (P-019). */}
-      <section className="ap-hero" data-ground="light" aria-labelledby="ap-title">
+      <section className="ap-hero" data-ground="light" data-hide-action aria-labelledby="ap-title">
         <div className="wrap ap-hero__inner">
           <p className="t-label ap-hero__kicker">Airport transfers</p>
           <h1 id="ap-title" className="t-poster ap-hero__title">
