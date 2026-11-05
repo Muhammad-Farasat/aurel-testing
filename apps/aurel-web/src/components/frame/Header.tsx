@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { Icon } from "../Icon";
 import { IndexSheet } from "./IndexSheet";
 import "./frame.css";
 
@@ -12,9 +13,17 @@ export function Wordmark({ className }: { className?: string }) {
   );
 }
 
+/** The three pages most visitors ask about after booking (P-024). */
+const barLinks = [
+  { to: "/airport-transfers", label: "Airports" },
+  { to: "/fleet", label: "Fleet" },
+  { to: "/business", label: "Business" },
+];
+
 /**
- * Top frame: wordmark left, Sign in and Index right. Scrolls away on the way
- * down and returns on the way up. Text colour follows the ground under it.
+ * Small top bar: wordmark, three pill links, Menu and one Book action. It
+ * scrolls away on the way down and returns on the way up. Its colours follow
+ * the ground under it.
  */
 export function Header() {
   const [hidden, setHidden] = useState(false);
@@ -67,21 +76,33 @@ export function Header() {
       >
         <div className="frame__inner wrap">
           <Wordmark />
-          <nav className="frame__nav" aria-label="Site">
-            <Link to="/sign-in" className="frame__link frame__signin" viewTransition>
-              Sign in
-            </Link>
+          <nav className="frame__nav" aria-label="Main">
+            {barLinks.map((l) => (
+              <NavLink key={l.to} to={l.to} className="frame__pill" viewTransition>
+                {l.label}
+              </NavLink>
+            ))}
+          </nav>
+          <div className="frame__end">
             <button
               type="button"
-              className="frame__link"
+              className="frame__menu"
               aria-haspopup="dialog"
               aria-expanded={indexOpen}
               onClick={() => setIndexOpen(true)}
               id="index-button"
             >
-              Index
+              <span className="frame__menu-icon" aria-hidden="true">
+                <span />
+                <span />
+              </span>
+              Menu
             </button>
-          </nav>
+            <Link to="/book/journey" className="btn btn--ink frame__book" viewTransition>
+              <span className="btn__label">Book</span>
+              <Icon name="arrow" size={20} className="btn__arrow" />
+            </Link>
+          </div>
         </div>
       </header>
       <IndexSheet open={indexOpen} onClose={() => setIndexOpen(false)} />

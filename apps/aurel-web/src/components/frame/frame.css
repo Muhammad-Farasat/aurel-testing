@@ -1,4 +1,5 @@
-/* Top frame */
+/* Top bar: wordmark, three pill links, Menu, Book. Small, so the page's one
+   loud thing stays loud. */
 .frame {
   position: fixed;
   inset: 0 0 auto;
@@ -24,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-4);
 }
 
 .frame__inner > * {
@@ -35,13 +37,113 @@
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  font-size: clamp(1.125rem, 0.96rem + 0.6vw, 1.5rem);
-  letter-spacing: 0.12em;
+  font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
+  letter-spacing: 0.14em;
 }
 
 .frame__nav {
+  display: none;
+  gap: 2px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: rgb(242 238 231 / 0.72);
+  backdrop-filter: saturate(1.2) blur(8px);
+}
+
+.frame.is-dark .frame__nav {
+  background: rgb(23 36 31 / 0.6);
+}
+
+@media (min-width: 834px) {
+  .frame__nav {
+    display: flex;
+  }
+}
+
+.frame__pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out);
+}
+
+.frame__pill:hover {
+  background: rgb(23 36 31 / 0.08);
+}
+
+.frame.is-dark .frame__pill:hover {
+  background: rgb(229 223 212 / 0.14);
+}
+
+.frame__pill[aria-current="page"] {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.frame.is-dark .frame__pill[aria-current="page"] {
+  background: var(--color-on-dark);
+  color: var(--color-ink);
+}
+
+.frame__end {
   display: flex;
+  align-items: center;
   gap: var(--space-2);
+}
+
+.frame__menu {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  transition: background-color var(--dur-hover) var(--ease-out);
+}
+
+.frame__menu:hover {
+  background: rgb(23 36 31 / 0.08);
+}
+
+.frame.is-dark .frame__menu:hover {
+  background: rgb(229 223 212 / 0.14);
+}
+
+.frame__menu-icon {
+  display: grid;
+  gap: 5px;
+  width: 18px;
+}
+
+.frame__menu-icon span {
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.frame__menu-icon span:last-child {
+  width: 11px;
+}
+
+.frame__book {
+  min-height: 48px;
+}
+
+.frame.is-dark .frame__book {
+  background: var(--color-on-dark);
+  color: var(--color-ink);
+}
+
+.frame.is-dark .frame__book .btn__arrow {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
 }
 
 .frame__link {
@@ -49,40 +151,19 @@
   align-items: center;
   gap: var(--space-2);
   min-height: 48px;
-  padding: 0 var(--space-3);
-  font-weight: 500;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
   text-decoration: none;
-  position: relative;
+  transition: background-color var(--dur-hover) var(--ease-out);
 }
 
-.frame__link::after {
-  content: "";
-  position: absolute;
-  left: var(--space-3);
-  right: var(--space-3);
-  bottom: 10px;
-  height: 1px;
-  background: currentColor;
-  transform-origin: left;
-  transform: scaleX(0.35);
-  transition: transform var(--dur-hover) var(--ease-out);
+.frame__link:hover {
+  background: rgb(229 223 212 / 0.14);
 }
 
-.frame__link:hover::after {
-  transform: scaleX(1);
-}
-
-.frame__nav .frame__link:last-child {
-  margin-right: calc(var(--space-3) * -1);
-}
-
-@media (max-width: 599px) {
-  .frame__signin {
-    display: none;
-  }
-}
-
-/* Index sheet */
+/* Menu: a full-screen sheet on the car's paint. Links are set big and
+   condensed; each carries one small line. */
 .index {
   position: fixed;
   inset: 0;
@@ -93,8 +174,9 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: var(--color-paper-raised);
-  color: var(--color-ink);
+  background: var(--color-night);
+  color: var(--color-on-dark);
+  --focus: var(--color-on-dark);
   overflow: auto;
   display: none;
   flex-direction: column;
@@ -106,12 +188,15 @@
 }
 
 .index::backdrop {
-  background: rgb(14 16 18 / 0.2);
+  background: rgb(23 36 31 / 0.3);
 }
 
 @keyframes index-in {
   from {
-    transform: translateY(-100%);
+    clip-path: inset(0 0 100% 0 round 0 0 40px 40px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0);
   }
 }
 
@@ -120,17 +205,20 @@
   align-items: center;
   justify-content: space-between;
   min-height: var(--frame-h);
-  border-bottom: 1px solid var(--color-rule);
 }
 
 .index__mark {
-  font-size: clamp(1.125rem, 0.96rem + 0.6vw, 1.5rem);
-  letter-spacing: 0.12em;
+  font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
+  letter-spacing: 0.14em;
+}
+
+.index__close {
+  border: 1px solid rgb(229 223 212 / 0.4);
 }
 
 .index__body {
   flex: 1;
-  padding-block: var(--space-7) var(--space-8);
+  padding-block: var(--space-6) var(--space-8);
 }
 
 .index__grid {
@@ -155,53 +243,47 @@
   display: flex;
   gap: var(--space-3);
   padding-bottom: var(--space-3);
-  border-bottom: 2px solid var(--color-ink);
-  margin-bottom: var(--space-2);
+  color: var(--color-on-dark-2);
 }
 
-.index__group-title .tnum {
-  color: var(--color-aurel);
-}
-
-.index__item {
-  border-bottom: 1px solid var(--color-rule);
+.index__item + .index__item {
+  border-top: 1px solid rgb(229 223 212 / 0.16);
 }
 
 .index__link {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  padding: var(--space-4) 0;
+  padding: var(--space-3) 0;
   text-decoration: none;
-  transition: padding var(--dur-hover) var(--ease-out);
+  transition: transform var(--dur-hover) var(--ease-out);
 }
 
 .index__label {
-  font-stretch: var(--wdth-extended);
-  font-weight: 500;
-  font-size: clamp(1.75rem, 1.5rem + 0.9vw, 2.5rem);
-  line-height: 1;
-  letter-spacing: -0.015em;
-}
-
-@media (min-width: 1100px) {
-  .index__label {
-    font-size: clamp(1.5rem, 0.6rem + 1.25vw, 2.5rem);
-  }
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 3.25rem);
+  line-height: 0.95;
 }
 
 .index__line {
-  color: var(--color-ink-2);
+  color: var(--color-on-dark-2);
 }
 
 .index__link:hover {
-  padding-left: var(--space-3);
+  transform: translateX(var(--space-3));
 }
 
-.index__link[aria-current="page"] .index__label {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 6px;
+.index__link[aria-current="page"] .index__label::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: var(--space-3);
+  border-radius: 50%;
+  background: var(--color-lamp-on-dark);
+  vertical-align: middle;
 }
 
 .index__foot {
@@ -209,12 +291,13 @@
   flex-wrap: wrap;
   gap: var(--space-3) var(--space-6);
   padding-block: var(--space-5);
-  border-top: 1px solid var(--color-rule);
-  color: var(--color-ink-2);
+  border-top: 1px solid rgb(229 223 212 / 0.16);
+  color: var(--color-on-dark-2);
 }
 
 .index__legal {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-4);
   margin-left: auto;
 }
@@ -225,11 +308,12 @@
   }
 
   .index__link:hover {
-    padding-left: 0;
+    transform: none;
   }
 }
 
-/* Persistent action */
+/* Persistent action: one pill at the bottom once the booking panel and the
+   top bar's Book are out of view. */
 .paction {
   position: fixed;
   left: 0;
@@ -262,21 +346,22 @@
   gap: var(--space-3);
   min-height: var(--action-h);
   max-width: 100%;
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-2) 0 var(--space-5);
+  border-radius: var(--radius-pill);
   background: var(--color-ink);
   color: var(--color-on-dark);
   box-shadow:
     var(--shadow),
-    inset 0 0 0 1px rgb(241 239 234 / 0.14);
-  font-weight: 500;
-  --focus: var(--color-aurel);
+    inset 0 0 0 1px rgb(229 223 212 / 0.22);
+  font-weight: 600;
+  --focus: var(--color-lamp);
   transition:
     background-color var(--dur-hover) var(--ease-out),
     transform var(--dur-press) var(--ease-out);
 }
 
 .paction__btn:hover {
-  background: #2b2e33;
+  background: var(--color-aurel-hover);
 }
 
 .paction__btn:hover .btn__arrow {
@@ -288,8 +373,18 @@
 }
 
 .paction__btn .btn__arrow {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 50%;
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
   transition: transform var(--dur-hover) var(--ease-out);
   flex: none;
+}
+
+.paction__btn .now-dot {
+  background: var(--color-lamp-on-dark);
 }
 
 .paction__label {
@@ -304,31 +399,18 @@
 }
 
 @media (max-width: 599px) {
-  .paction {
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-inline: 0;
-  }
-
   .paction__btn {
     width: 100%;
     justify-content: space-between;
-    padding-inline: var(--margin);
-    box-shadow: none;
   }
 }
 
-.now-dot {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  background: var(--color-aurel-on-dark);
-}
-
-/* Footer */
+/* Footer: compact index on the paint, with the wordmark set big at the end. */
 .footer {
   background: var(--color-night);
   padding-block: var(--space-8) var(--space-6);
   padding-bottom: calc(var(--space-6) + var(--action-h) + var(--space-4));
+  overflow: hidden;
 }
 
 .footer--bare {
@@ -340,7 +422,6 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-6) var(--gutter);
   padding-bottom: var(--space-7);
-  border-bottom: 1px solid #2f3237;
 }
 
 @media (min-width: 1100px) {
@@ -372,10 +453,12 @@
   align-items: center;
   gap: var(--space-3) var(--space-6);
   padding-top: var(--space-5);
+  border-top: 1px solid rgb(229 223 212 / 0.16);
 }
 
 .footer--bare .footer__base {
   padding-top: 0;
+  border-top: 0;
 }
 
 .footer__tag {
@@ -385,8 +468,8 @@
 }
 
 .footer__mark {
-  font-size: 1rem;
-  letter-spacing: 0.12em;
+  font-size: 1.25rem;
+  letter-spacing: 0.14em;
 }
 
 .footer__legal {
