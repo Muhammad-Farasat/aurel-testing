@@ -80,11 +80,25 @@
   .ap-hero__car {
     width: 125%;
     margin-right: -25%;
+    margin-top: calc(clamp(5.5rem, 0.5rem + 23vw, 22rem) * -0.12);
   }
 
   .ap-hero__board {
-    top: -22%;
-    left: 2%;
+    top: auto;
+    bottom: -10%;
+    left: 4%;
+  }
+
+  .ap-hero__board .nameboard {
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .ap-hero__board .t-board {
+    font-size: 1.125rem;
+  }
+
+  .ap-hero__foot {
+    margin-top: var(--space-7);
   }
 }
 

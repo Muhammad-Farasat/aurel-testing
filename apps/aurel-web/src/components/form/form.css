@@ -61,6 +61,14 @@
   border-radius: var(--radius-pill);
 }
 
+@media (max-width: 599px) {
+  .input--xl {
+    min-height: 60px;
+    padding-inline: var(--space-4);
+    font-size: 1.3125rem;
+  }
+}
+
 .input--area {
   min-height: 112px;
   resize: vertical;
