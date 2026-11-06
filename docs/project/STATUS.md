@@ -14,7 +14,7 @@ States are `planned`, `in_progress`, `verifying`, `done` and `blocked`.
 
 | Phase | State | Branch | PR | Greptile | Notes |
 |---|---|---|---|---|---|
-| 0 Planning | verifying | agent/pharmacy-planning-1107a | - | not installed | Waiting for owner approval |
+| 0 Planning | verifying | agent/pharmacy-planning-1107a | https://github.com/Muhammad-Farasat/aurel-testing/pull/6 | not installed | Waiting for owner approval |
 | 1 Foundation and imagery | planned | - | - | - | - |
 | 2 Marketing pages | planned | - | - | - | - |
 | 3 Apply, utility pages and handover | planned | - | - | - | - |
