@@ -1,3 +1,6 @@
+/* Buttons. One accent fill for the main action per view (P-026); everything
+   else is a hairline or a plain underline. Pills, like the soft edge of a
+   door seal. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -10,7 +13,7 @@
   line-height: 1.2;
   text-decoration: none;
   border-radius: var(--radius-pill);
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   transition:
     background-color var(--dur-hover) var(--ease-out),
     color var(--dur-hover) var(--ease-out),
@@ -38,67 +41,34 @@
   transform: translateY(var(--press-shift));
 }
 
-/* Primary: the one commit action per view, filled with the car's paint.
-   The arrow sits in a round "hub" at the end of the pill. */
+/* Primary: the commit action, filled with the ambient accent. */
 .btn--primary {
-  background: var(--color-aurel);
-  color: var(--color-paper-raised);
-  padding-right: var(--space-2);
-}
-
-.btn--primary .btn__arrow,
-.btn--ink .btn__arrow {
-  width: 36px;
-  height: 36px;
-  padding: 8px;
-  border-radius: 50%;
-  background: var(--color-paper-raised);
-  color: var(--color-ink);
-}
-
-.on-dark .btn--primary {
-  background: var(--color-paper-raised);
-  color: var(--color-ink);
-}
-
-.on-dark .btn--primary .btn__arrow {
-  background: var(--color-ink);
-  color: var(--color-paper-raised);
-}
-
-.on-dark .btn--primary:hover {
-  background: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .btn--primary:hover {
-  background: var(--color-aurel-hover);
+  background: var(--accent-hover);
 }
 
-/* Ink: the persistent action and dark commits that must not compete with amber. */
+/* Ink: a quiet filled action that must not compete with the accent. */
 .btn--ink {
-  background: var(--color-ink);
-  color: var(--color-on-dark);
-}
-
-.btn--ink {
-  padding-right: var(--space-2);
+  background: var(--fg-primary);
+  color: var(--bg-base);
 }
 
 .btn--ink:hover {
-  background: var(--color-aurel-hover);
+  background: color-mix(in srgb, var(--fg-primary) 86%, var(--bg-base));
 }
 
 .btn--secondary {
-  border-color: currentColor;
+  border-color: var(--border-field);
   background: transparent;
 }
 
 .btn--secondary:hover {
-  background: rgb(23 36 31 / 0.07);
-}
-
-.on-dark .btn--secondary:hover {
-  background: rgb(229 223 212 / 0.12);
+  border-color: var(--fg-primary);
+  background: var(--tint);
 }
 
 /* Text action: underline at rest so touch users see it is a link; grows on hover. */
@@ -125,8 +95,8 @@
 
 .btn:disabled,
 .btn[aria-disabled="true"] {
-  background: var(--color-rule);
-  color: var(--color-ink-3);
+  background: var(--bg-field);
+  color: var(--fg-disabled);
   border-color: transparent;
   cursor: not-allowed;
   transform: none;
@@ -138,5 +108,5 @@
 
 .btn--text:disabled {
   background: none;
-  color: var(--color-ink-3);
+  color: var(--fg-disabled);
 }

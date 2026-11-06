@@ -1,17 +1,13 @@
-import { useRef, type CSSProperties } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDraft } from "../../booking/DraftContext";
 import type { Service } from "../../booking/model";
-import { Vehicle } from "../../components/Vehicle";
 import { Icon } from "../../components/Icon";
-import { getTier } from "../../config/tiers";
-import { market } from "../../config/market";
+import { formatMoney, market } from "../../config/market";
 import { serviceRules } from "../../config/serviceRules";
-import { useClock, useMediaQuery, useReducedMotion, useScrollProgress, range } from "../../hooks";
+import { range, useReducedMotion, useScrollProgress } from "../../hooks";
 
-const HERO_TIER = "first" as const;
-
-/** Quick starts under the headline: each opens /book with that service set. */
+/** Quick starts: each opens /book with that service set. */
 export const quickServices: { id: Service; label: string; tag: string }[] = [
   { id: "transfer", label: "Transfer", tag: "A to B" },
   { id: "airport", label: "Airport", tag: "Flight tracked" },
@@ -28,90 +24,153 @@ export function useStartBooking() {
   };
 }
 
-/** Pinned around the car when it pulls back. Draft wording (copy.ts, Open question 6). */
-const pullNotes = ["Flight tracked", "Waiting time included", "Named the evening before", "Price before you confirm"];
+/**
+ * The outside: what booking a car often sounds like (Brief §2, the problems
+ * AUREL answers). Illustrative lines written for this page; no brand named.
+ * Each one is answered on the inside of the door. DRAFT COPY.
+ */
+const pairs = [
+  { noise: "Driver cancelled. Finding you another…", answer: "Your chauffeur's name, the evening before." },
+  { noise: "Fares are higher than usual right now", answer: "One fixed price, shown before you confirm." },
+  { noise: "Where are you? I'm at the other entrance.", answer: "Waiting in arrivals, holding your name." },
+  { noise: "No cars available nearby", answer: "Booked ahead, so the car is already yours." },
+] as const;
 
-interface Pose {
-  x: number; // vw
-  y: number; // vh
-  s: number;
-}
-
-const ease = (t: number) => 1 - Math.pow(1 - t, 3);
-const mix = (a: Pose, b: Pose, t: number): Pose => ({
-  x: a.x + (b.x - a.x) * t,
-  y: a.y + (b.y - a.y) * t,
-  s: a.s + (b.s - a.s) * t,
-});
+const minutes = [4, 6, 9, 12, 15];
 
 /**
- * Scenes 1 to 3: the car stays on screen while the page changes around it
- * (P-020). Hero: the car crosses the headline (P-019). Detail: the camera
- * moves in on the rear seat with small spec labels (P-023). Pull-back: the
- * car shrinks to one side and the first standard takes the stage.
- * Scroll only moves the car; the frames around it swap by phase.
+ * Soft Close. The first screen is a car door, seen from inside, left open
+ * onto the street. Outside: the noise of ordinary booking, loud and loose on
+ * kerb grey. Inside, on the door: AUREL, quiet, with the way to book.
+ * Scrolling swings the door shut over the noise; past the catch the latch
+ * takes over and pulls it home slowly, the way a soft-close door does, and
+ * the seal lights. The problems reappear on the inside, struck and answered.
+ * Scroll only moves the door; text never scrubs.
  */
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
-  const narrow = useMediaQuery("(max-width: 1099px)");
   const p = useScrollProgress(ref, !reduce);
-  const clock = useClock();
   const start = useStartBooking();
-  const tier = getTier(HERO_TIER)!;
+  const navigate = useNavigate();
+  const [latched, setLatched] = useState(false);
+  const [tick, setTick] = useState(0);
 
-  const phase = reduce ? "a" : p < 0.14 ? "a" : p < 0.6 ? "b" : "c";
+  // The latch: past the catch the door finishes on its own; scroll back to reopen.
+  useEffect(() => {
+    if (reduce) return;
+    if (!latched && p >= 0.56) setLatched(true);
+    else if (latched && p < 0.4) setLatched(false);
+  }, [p, latched, reduce]);
 
-  // Poses in viewport units, relative to the car's resting place.
-  const A: Pose = { x: 0, y: 0, s: 1 };
-  const B: Pose = narrow ? { x: -40, y: 4, s: 1.6 } : { x: -22, y: -4, s: 2.35 };
-  const C: Pose = narrow ? { x: 0, y: 6, s: 0.86 } : { x: -21, y: -2, s: 0.6 };
-  const pose = p < 0.42 ? mix(A, B, ease(range(p, 0.15, 0.42))) : mix(B, C, ease(range(p, 0.56, 0.8)));
+  const closed = reduce || latched;
 
-  const carStyle: CSSProperties = reduce
-    ? {}
-    : { transform: `translate3d(${pose.x}vw, ${pose.y}vh, 0) scale(${pose.s})` };
+  // Tell the top frame to re-read the ground under it once the door settles.
+  useEffect(() => {
+    const id = setTimeout(() => window.dispatchEvent(new Event("aurel:ground")), 1000);
+    return () => clearTimeout(id);
+  }, [closed]);
+
+  // Outside keeps talking until the door shuts.
+  useEffect(() => {
+    if (closed) return;
+    const id = setInterval(() => setTick((t) => t + 1), 1400);
+    return () => clearInterval(id);
+  }, [closed]);
+
+  // Door travel: scroll brings it to the catch (86%), the latch does the rest.
+  const d = closed ? 1 : 0.86 * range(p, 0.03, 0.56);
+  const style = { ["--d" as string]: d.toFixed(4) } as CSSProperties;
+  const mins = minutes[tick % minutes.length]!;
+
+  const closeDoor = () => {
+    const el = ref.current;
+    if (!el) return;
+    const span = el.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: el.offsetTop + span * 0.64, behavior: "smooth" });
+  };
 
   return (
     <section
       ref={ref}
-      className={["hero", `is-${phase}`, reduce ? "is-static" : ""].join(" ")}
-      data-ground="light"
+      className={["sc", closed ? "is-closed" : "", reduce ? "is-static" : ""].filter(Boolean).join(" ")}
+      style={style}
       data-hide-action
       aria-labelledby="hero-title"
     >
-      <div className="hero__stage">
-        <h1 id="hero-title" className="hero__title t-poster">
-          <span className="hero__line hero__line--a">Travel,</span>{" "}
-          <span className="hero__line hero__line--b">Considered.</span>
-        </h1>
-
-        <div className="hero__car" style={carStyle}>
-          <Vehicle tier={HERO_TIER} priority sizes="(min-width: 834px) 80vw, 150vw" decorative />
+      <div className="sc__stage">
+        {/* Outside. Decorative: the same lines are read, struck, on the door. */}
+        <div className="sc__out on-light" data-ground="kerb" aria-hidden="true">
+          <p className="sc__side t-label">Outside</p>
+          <p className="sc__n sc__n--mins tnum">
+            <span className="sc__mins" key={mins}>
+              {mins}
+            </span>
+            <span className="sc__mins-unit">min away</span>
+          </p>
+          <p className="sc__n sc__n--toast">{pairs[0].noise}</p>
+          <p className="sc__n sc__n--fare">
+            <span className="tnum sc__fare">
+              {formatMoney(38)}–{formatMoney(71)}
+            </span>
+            <span className="sc__n-small">{pairs[1].noise}</span>
+          </p>
+          <p className="sc__n sc__n--where">{pairs[2].noise}</p>
+          <p className="sc__n sc__n--none">
+            {pairs[3].noise}
+            <span className="sc__dots">
+              <span>.</span>
+              <span>.</span>
+              <span>.</span>
+            </span>
+          </p>
+          <p className="sc__n sc__n--call tnum">Missed call (3)</p>
         </div>
 
-        {/* Frame A: what this is, and the way in. */}
-        <div className="hero__frame hero__frame--a">
-          <p className="hero__kicker t-label">Pre-booked private chauffeurs</p>
-          <p className="hero__clock t-label tnum" aria-label={`${market.city}, ${clock}`}>
-            <span className="now-dot" aria-hidden="true" /> {market.city} {clock}
+        {/* The door. It carries the answers on its inner face. */}
+        <div className="sc__door" data-ground="dark">
+          <span className="sc__seal" aria-hidden="true" />
+          <div className="sc__answers">
+            <p className="sc__side t-label">Inside</p>
+            <ul className="sc__list" aria-label="What AUREL does instead">
+              {pairs.map((x, i) => (
+                <li key={x.answer} style={{ ["--i" as string]: i }}>
+                  <s className="sc__was t-small">
+                    <span className="visually-hidden">Instead of: </span>
+                    {x.noise}
+                  </s>
+                  <span className="sc__ans">{x.answer}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* AUREL itself: on the part of the door that is always shut. It never moves. */}
+        <div className="sc__in">
+          <p className="sc__kicker t-label">Pre-booked private chauffeurs, {market.city}</p>
+          <h1 id="hero-title" className="sc__title t-poster">
+            <span className="visually-hidden">AUREL. </span>
+            Travel, <em>considered.</em>
+          </h1>
+          <p className="sc__lede">
+            Transfers, airports, by the hour or the whole day. A named chauffeur, a car chosen for your party, and one
+            price before you confirm.
           </p>
-          <div className="hero__start">
-            <p className="hero__lede">
-              Transfers, airports, hours or a whole day. A named chauffeur, a car chosen for your party, and the price
-              before you confirm.
-            </p>
-            <ul className="hero__quick" aria-label="Start a booking">
+          <div className="sc__actions">
+            <button
+              type="button"
+              className="btn btn--primary sc__book"
+              onClick={() => navigate("/book/journey", { state: { from: "/" } })}
+            >
+              <span className="btn__label">Book a journey</span>
+              <Icon name="arrow" size={20} className="btn__arrow" />
+            </button>
+            <ul className="sc__quick" aria-label="Or start with a service">
               {quickServices.map((s) => (
                 <li key={s.id}>
-                  <button
-                    type="button"
-                    className="hero__quick-btn"
-                    onClick={() => start(s.id)}
-                    tabIndex={phase === "a" ? 0 : -1}
-                  >
-                    <span>{s.label}</span>
-                    <span className="hero__quick-tag t-small">{s.tag}</span>
+                  <button type="button" className="sc__quick-btn" onClick={() => start(s.id)}>
+                    {s.label}
                   </button>
                 </li>
               ))}
@@ -119,50 +178,21 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Frame B: close on the rear seat. */}
-        <div className="hero__frame hero__frame--b">
-          <p className="hero__chapter t-label tnum">01 / Where you sit</p>
-          <ul className="hero__specs" aria-label={`${tier.name} rear seat`}>
-            {tier.included.slice(1).map((f, i) => (
-              <li key={f} className="pill" style={{ ["--i" as string]: i }}>
-                <span className="pill__dot" aria-hidden="true" />
-                {f}
-              </li>
-            ))}
-            <li className="pill pill--ink" style={{ ["--i" as string]: 3 }}>
-              <span className="tnum">
-                {tier.seats} seats, {tier.bags} bags
-              </span>
-            </li>
-          </ul>
-          <p className="hero__caption t-small">
-            {tier.name}. {tier.similar}. Placeholder image.
-          </p>
-        </div>
+        {/* The ambient strip: it draws across once the door has latched. */}
+        <span className="sc__strip" aria-hidden="true" />
 
-        {/* Frame C: the car pulls back; the first standard takes the stage. */}
-        <div className="hero__frame hero__frame--c">
-          <h2 className="hero__there t-display">
-            There
-            <br />
-            first.
-          </h2>
-          <ul className="hero__notes" aria-label="On every journey">
-            {pullNotes.map((n, i) => (
-              <li key={n} className="pill" style={{ ["--i" as string]: i }}>
-                <span className="pill__dot" aria-hidden="true" />
-                {n}
-              </li>
-            ))}
-          </ul>
-          <p className="hero__there-line">
-            Your chauffeur is at arrivals before you are. You know their name, the car and the plate the evening before.
-          </p>
-          <Link to="/airport-transfers" className="btn btn--text hero__there-link" tabIndex={phase === "c" || reduce ? 0 : -1}>
-            <span className="btn__label">How an airport pickup runs</span>
-            <Icon name="arrow" size={20} className="btn__arrow" />
-          </Link>
-        </div>
+        {!reduce ? (
+          <button
+            type="button"
+            className={closed ? "sc__cue is-done" : "sc__cue"}
+            onClick={closeDoor}
+            tabIndex={closed ? -1 : 0}
+            aria-hidden={closed ? true : undefined}
+          >
+            <span>Close the door</span>
+            <Icon name="chevron" size={18} />
+          </button>
+        ) : null}
       </div>
     </section>
   );

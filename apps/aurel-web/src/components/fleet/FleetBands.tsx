@@ -2,116 +2,108 @@ import { useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDraft } from "../../booking/DraftContext";
 import { fitReason, tiers, type TierId } from "../../config/tiers";
-import { Vehicle } from "../Vehicle";
+import { CabinPlan } from "../Vehicle";
 import { Icon } from "../Icon";
 import "./fleet-bands.css";
 
 /**
- * The fleet as one expanded tier and three collapsed bands (P-022, RJ-002).
- * Each band carries its own ground, taken from the car (P-021). The open band
- * sets the car across a big index numeral (P-019). Native buttons with
- * aria-expanded; the arrows step to the next band.
+ * The fleet as one open tier and three closed rows (P-022, RJ-002), beside
+ * one large cabin plan of the open tier. The party fills the seats and the
+ * boot, so "does it fit" is seen, not read. Rows are native buttons with
+ * aria-expanded.
  */
 export function FleetBands({
   party,
-  initial = "first",
+  initial,
   headingLevel = 3,
 }: {
   party?: { passengers: number; bags: number };
   initial?: TierId;
   headingLevel?: 2 | 3;
 }) {
-  const [open, setOpen] = useState<TierId>(initial);
+  const firstFit = party ? tiers.find((t) => !fitReason(t, party.passengers, party.bags)) : undefined;
+  const [open, setOpen] = useState<TierId>(initial ?? firstFit?.id ?? "business");
   const { update } = useDraft();
   const navigate = useNavigate();
   const uid = useId();
   const H = headingLevel === 2 ? "h2" : "h3";
-  const index = tiers.findIndex((t) => t.id === open);
-
-  const step = (d: number) => {
-    const next = tiers[(index + d + tiers.length) % tiers.length]!;
-    setOpen(next.id);
-    requestAnimationFrame(() => document.getElementById(`${uid}-btn-${next.id}`)?.focus());
-  };
+  const tier = tiers.find((t) => t.id === open)!;
+  const pax = party ? Math.min(party.passengers, tier.seats) : 0;
+  const bags = party ? Math.min(party.bags, tier.bags) : 0;
 
   return (
-    <ol className="bands">
-      {tiers.map((t, i) => {
-        const isOpen = t.id === open;
-        const reason = party ? fitReason(t, party.passengers, party.bags) : null;
-        const n = String(i + 1).padStart(2, "0");
-        return (
-          <li key={t.id} className={["band", `band--${t.id}`, isOpen ? "is-open" : "", reason ? "is-out" : ""].join(" ")}>
-            <H className="band__head">
-              <button
-                type="button"
-                id={`${uid}-btn-${t.id}`}
-                className="band__btn"
-                aria-expanded={isOpen}
-                aria-controls={`${uid}-panel-${t.id}`}
-                onClick={() => setOpen(t.id)}
+    <div className="fleetc">
+      <figure className="fleetc__stage" aria-live="polite">
+        <CabinPlan tier={tier.id} passengers={pax} bags={bags} key={tier.id} className="fleetc__plan" />
+        <figcaption className="fleetc__cap t-small tnum">
+          <span>{tier.name}</span>
+          <span className="muted">
+            {party ? `${pax} of ${tier.seats} seats, ${bags} of ${tier.bags} bag spaces` : `${tier.seats} seats, ${tier.bags} bags`}
+          </span>
+        </figcaption>
+      </figure>
+      <ol className="fleetc__list">
+        {tiers.map((t, i) => {
+          const isOpen = t.id === open;
+          const reason = party ? fitReason(t, party.passengers, party.bags) : null;
+          return (
+            <li key={t.id} className={["fleetc__row", isOpen ? "is-open" : "", reason ? "is-out" : ""].join(" ")}>
+              <H className="fleetc__head">
+                <button
+                  type="button"
+                  id={`${uid}-btn-${t.id}`}
+                  className="fleetc__btn"
+                  aria-expanded={isOpen}
+                  aria-controls={`${uid}-panel-${t.id}`}
+                  onClick={() => setOpen(t.id)}
+                >
+                  <span className="fleetc__n tnum" aria-hidden="true">
+                    0{i + 1}
+                  </span>
+                  <span className="fleetc__name">{t.name}</span>
+                  <span className="fleetc__fit t-small tnum">
+                    {reason ? "Too small for your party" : `${t.seats} seats, ${t.bags} bags`}
+                  </span>
+                </button>
+              </H>
+              <div
+                id={`${uid}-panel-${t.id}`}
+                className="fleetc__panel"
+                role="region"
+                aria-labelledby={`${uid}-btn-${t.id}`}
+                hidden={!isOpen}
               >
-                <span className="band__n tnum">{n}</span>
-                <span className="band__name">{t.name}</span>
-                <span className="band__cap t-small tnum">
-                  {t.seats} seats, {t.bags} bags
-                </span>
-                <span className="band__plus" aria-hidden="true">
-                  <Icon name={isOpen ? "minus" : "plus"} size={18} />
-                </span>
-              </button>
-            </H>
-            <div id={`${uid}-panel-${t.id}`} className="band__panel" role="region" aria-labelledby={`${uid}-btn-${t.id}`} hidden={!isOpen}>
-              <div className="band__stage">
-                <span className="band__numeral tnum" aria-hidden="true" key={t.id}>
-                  {n}
-                </span>
-                <Vehicle tier={t.id} className="band__car" sizes="(min-width: 1100px) 62vw, 100vw" decorative />
-              </div>
-              <div className="band__info">
-                <p className="band__similar t-small">{t.similar}. Placeholder image.</p>
-                <p className="band__summary">{t.summary}</p>
-                <ul className="band__pills" aria-label="Included">
+                <p className="fleetc__summary">{t.summary}</p>
+                <p className="t-small muted">
+                  {t.similar}. Suited to: {t.suitedTo}
+                </p>
+                <ul className="fleetc__incl t-small" aria-label="Included">
                   {t.included.map((f) => (
-                    <li key={f} className="pill">
-                      <span className="pill__dot" aria-hidden="true" />
-                      {f}
-                    </li>
+                    <li key={f}>{f}</li>
                   ))}
                 </ul>
-                <p className="t-small band__suited">Suited to: {t.suitedTo}</p>
                 {reason ? (
-                  <p className="t-small band__reason" role="status">
+                  <p className="t-small fleetc__reason" role="status">
                     <Icon name="error" size={18} /> {reason}
                   </p>
                 ) : null}
-                <div className="band__actions">
-                  <button
-                    type="button"
-                    className="btn btn--primary"
-                    disabled={Boolean(reason)}
-                    onClick={() => {
-                      update({ tier: t.id });
-                      navigate("/book/journey", { state: { from: window.location.pathname } });
-                    }}
-                  >
-                    <span className="btn__label">Book {t.name}</span>
-                    <Icon name="arrow" size={20} className="btn__arrow" />
-                  </button>
-                  <span className="band__arrows">
-                    <button type="button" className="band__arrow" onClick={() => step(-1)} aria-label="Previous car">
-                      <Icon name="arrow-left" size={20} />
-                    </button>
-                    <button type="button" className="band__arrow" onClick={() => step(1)} aria-label="Next car">
-                      <Icon name="arrow" size={20} />
-                    </button>
-                  </span>
-                </div>
+                <button
+                  type="button"
+                  className="btn btn--secondary fleetc__book"
+                  disabled={Boolean(reason)}
+                  onClick={() => {
+                    update({ tier: t.id });
+                    navigate("/book/journey", { state: { from: window.location.pathname } });
+                  }}
+                >
+                  <span className="btn__label">Book {t.name}</span>
+                  <Icon name="arrow" size={20} className="btn__arrow" />
+                </button>
               </div>
-            </div>
-          </li>
-        );
-      })}
-    </ol>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Icon } from "../Icon";
 import { IndexSheet } from "./IndexSheet";
 import "./frame.css";
@@ -13,21 +13,14 @@ export function Wordmark({ className }: { className?: string }) {
   );
 }
 
-/** The three pages most visitors ask about after booking (P-024). */
-const barLinks = [
-  { to: "/airport-transfers", label: "Airports" },
-  { to: "/fleet", label: "Fleet" },
-  { to: "/business", label: "Business" },
-];
-
 /**
- * Small top bar: wordmark, three pill links, Menu and one Book action. It
- * scrolls away on the way down and returns on the way up. Its colours follow
- * the ground under it.
+ * No nav bar (P-010): the wordmark, Menu and one quiet Book. It scrolls away
+ * on the way down and returns on the way up. Over the kerb (light ground) it
+ * switches to the outside colours.
  */
 export function Header() {
   const [hidden, setHidden] = useState(false);
-  const [dark, setDark] = useState(false);
+  const [light, setLight] = useState<[boolean, boolean]>([false, false]);
   const [indexOpen, setIndexOpen] = useState(false);
   const lastY = useRef(0);
   const headerRef = useRef<HTMLElement>(null);
@@ -48,10 +41,12 @@ export function Header() {
       if (h) {
         const prev = h.style.pointerEvents;
         h.style.pointerEvents = "none";
-        const el = document.elementFromPoint(8, 36);
+        // Sample both ends: on the home hero the door splits the bar in two.
+        const at = (x: number) =>
+          document.elementFromPoint(x, 36)?.closest<HTMLElement>("[data-ground]")?.dataset.ground === "kerb";
+        const next: [boolean, boolean] = [at(8), at(window.innerWidth - 8)];
         h.style.pointerEvents = prev;
-        const ground = el?.closest<HTMLElement>("[data-ground]")?.dataset.ground;
-        setDark(ground === "dark");
+        setLight((cur) => (cur[0] === next[0] && cur[1] === next[1] ? cur : next));
       }
     };
     const on = () => {
@@ -60,9 +55,12 @@ export function Header() {
     read();
     window.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
+    // Grounds can also move without a scroll (the hero door's latch).
+    window.addEventListener("aurel:ground", on);
     return () => {
       window.removeEventListener("scroll", on);
       window.removeEventListener("resize", on);
+      window.removeEventListener("aurel:ground", on);
       if (frame) cancelAnimationFrame(frame);
     };
   }, []);
@@ -71,19 +69,12 @@ export function Header() {
     <>
       <header
         ref={headerRef}
-        className={["frame", hidden && !indexOpen ? "is-hidden" : "", dark ? "on-dark is-dark" : ""].filter(Boolean).join(" ")}
+        className={["frame", hidden && !indexOpen ? "is-hidden" : "", ""].filter(Boolean).join(" ")}
         onFocus={() => setHidden(false)}
       >
         <div className="frame__inner wrap">
-          <Wordmark />
-          <nav className="frame__nav" aria-label="Main">
-            {barLinks.map((l) => (
-              <NavLink key={l.to} to={l.to} className="frame__pill" viewTransition>
-                {l.label}
-              </NavLink>
-            ))}
-          </nav>
-          <div className="frame__end">
+          <Wordmark className={light[0] ? "on-light is-light" : ""} />
+          <div className={light[1] ? "frame__end on-light is-light" : "frame__end"}>
             <button
               type="button"
               className="frame__menu"
@@ -98,7 +89,7 @@ export function Header() {
               </span>
               Menu
             </button>
-            <Link to="/book/journey" className="btn btn--ink frame__book" viewTransition>
+            <Link to="/book/journey" className="btn btn--secondary frame__book" viewTransition>
               <span className="btn__label">Book</span>
               <Icon name="arrow" size={20} className="btn__arrow" />
             </Link>

@@ -18,7 +18,7 @@
   padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-field);
   border-radius: var(--radius-field);
-  background: #fbf9f6;
+  background: var(--bg-field);
   font-size: var(--type-body);
   line-height: 1.4;
   color: var(--color-ink);
@@ -154,12 +154,12 @@ input[type="time"].input {
 }
 
 .segments__label:hover {
-  background: rgb(23 36 31 / 0.07);
+  background: var(--tint);
 }
 
 .segments__input:checked + .segments__label {
   background: var(--color-ink);
-  color: var(--color-on-dark);
+  color: var(--bg-base);
   border-color: var(--color-ink);
   position: relative;
   z-index: 1;
@@ -199,7 +199,7 @@ input[type="time"].input {
 
 .stepper__btn:hover:not(:disabled) {
   border-color: var(--color-ink);
-  background: #fff;
+  background: var(--bg-field);
 }
 
 .stepper__btn:active:not(:disabled) {
@@ -298,12 +298,12 @@ input[type="time"].input {
 
 .place__opt.is-active {
   background: var(--color-ink);
-  color: var(--color-on-dark);
+  color: var(--bg-base);
 }
 
 .place__opt.is-active .muted,
 .place__opt.is-active .place__kind {
-  color: var(--color-on-dark-2);
+  color: var(--kerb-ink-2);
 }
 
 .place__kind {
@@ -407,7 +407,7 @@ input[type="time"].input {
 }
 
 .calendar__nav:hover {
-  background: rgb(23 36 31 / 0.07);
+  background: var(--tint);
 }
 
 .calendar__grid {
@@ -436,7 +436,7 @@ input[type="time"].input {
 }
 
 .calendar__day:hover:not(:disabled) {
-  background: rgb(23 36 31 / 0.08);
+  background: var(--tint);
 }
 
 .calendar__day.is-outside {
@@ -456,7 +456,7 @@ input[type="time"].input {
 
 .calendar__day.is-selected {
   background: var(--color-ink);
-  color: var(--color-on-dark);
+  color: var(--bg-base);
 }
 
 .calendar__day:focus-visible {
@@ -511,8 +511,8 @@ input[type="time"].input {
   content: "";
   width: 12px;
   height: 6px;
-  border-left: 2px solid var(--color-on-dark);
-  border-bottom: 2px solid var(--color-on-dark);
+  border-left: 2px solid var(--bg-base);
+  border-bottom: 2px solid var(--bg-base);
   transform: translateY(-2px) rotate(-45deg);
 }
 

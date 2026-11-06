@@ -1,61 +1,62 @@
 /*
- * AUREL design tokens, concept "Standing By".
- * Source: docs/project/DESIGN_DIRECTION.md. Every colour is taken from the one
- * hero object, the car (P-021): its paint, the studio ground it stands on, the
- * chrome, the cabin leather and the tail lamp.
- * Token names are kept from the first build so the booking components carry
- * over; their values and roles are this concept's.
+ * AUREL design tokens, concept C "Soft Close".
+ * Source: docs/project/DESIGN_DIRECTION.md. The palette is taken from one
+ * place (P-021): the rear cabin of a car at night with the door shut.
+ * Plum-black leather, the pale headliner, the ice-blue ambient strip along the
+ * door card, and, outside the glass, the grey of the kerb.
+ *
+ * Tokens are named by role (P-027): bg-*, fg-*, border-*, accent-*. The older
+ * names (--color-paper, --color-ink...) stay as aliases so the booking
+ * components carry over. Inside (dark) is the default; `.on-light` switches a
+ * subtree to the outside, the kerb.
  */
 :root {
-  /* Colour: grounds */
-  --color-paper: #e5dfd4; /* "stone": the studio ground the car stands on */
-  --color-paper-raised: #f2eee7; /* panels, inputs, menus */
-  --color-chrome: #d6d8d2; /* tier ground: First Class */
-  --color-tan: #d9c3a6; /* tier ground: Luxury SUV, pale cabin leather */
-  --color-sage: #c7cfc4; /* tier ground: Luxury Van, paint tint */
-  --color-leather: #b8875a; /* one chapter ground: For business */
-  --color-leather-deep: #8b5b34; /* the ending wordmark, 4.35:1 on stone */
-  --color-night: #17241f; /* dark chapters use the paint itself */
-  --color-dusk: #17241f;
-  --color-dawn: #e5dfd4;
+  /* Inside: the cabin */
+  --bg-base: #141118; /* plum-black leather: page ground */
+  --bg-elevated: #1e1a23; /* the door card: panels, sheets */
+  --bg-field: #26212c; /* inputs, segment tracks */
+  --bg-sunk: #0d0b10; /* footwell: footer, menu */
+  --fg-primary: #ece6dd; /* the headliner: text, 15.07:1 on base */
+  --fg-secondary: #b3aab3; /* 6.97:1 on field, 8.30:1 on base */
+  --fg-disabled: #7d7480; /* disabled only */
+  --border-field: #8a8290; /* control borders, 4.25:1 on field */
+  --border-subtle: #3a3340; /* hairlines, decorative only */
+  --tint: rgb(236 230 221 / 0.07); /* hover wash */
+  --shade: rgb(0 0 0 / 0.45); /* shadows and scrims */
 
-  /* Colour: ink and lines */
-  --color-ink: #17241f; /* the paint: text, borders, primary action */
-  --color-ink-2: #424e48; /* secondary text, AA on every light ground */
-  --color-ink-3: #6c7771; /* disabled text only */
-  --color-field: #6c7771; /* input borders at rest, 3:1 on stone and raised */
-  --color-rule: #c9c2b5; /* hairlines, decorative only */
-  --color-on-dark: #e5dfd4;
-  --color-on-dark-2: #a9b3ad;
+  /* The one accent, kept for action and progress (P-026): the ambient strip. */
+  --accent: #9ec3f0; /* main action fill; dark label on it 10.26:1 */
+  --accent-hover: #bcd6f6;
+  --on-accent: #141118;
 
-  /* Colour: the commit colour, the one signal, and status */
-  --color-aurel: #17241f; /* primary action fill = the paint */
-  --color-aurel-hover: #2a3a33; /* paint lifted, like a highlight on the body */
-  --color-aurel-on-dark: #e5dfd4;
-  --color-lamp: #9b2c22; /* tail lamp: live dot and "now" only */
-  --color-lamp-on-dark: #f08a7e;
-  --color-error: #a3271c;
-  --color-error-on-dark: #f08a7e;
-  --color-success: #2e6a3f;
-  --color-focus: #17241f;
+  /* Status */
+  --error: #ff9b8f; /* 9.20:1 on base */
+  --success: #8fd6a6;
 
-  /* Type: Barlow Condensed for display, Barlow for text. One superfamily,
-     drawn from road signs and number plates (P-017). */
-  --font: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+  /* Outside: the kerb, used by .on-light */
+  --kerb: #d8d5cf;
+  --kerb-ink: #141118; /* 12.77:1 on kerb */
+  --kerb-ink-2: #4e4752; /* 6.11:1 on kerb */
+  --kerb-accent: #24508a; /* action on kerb: 5.54:1; headliner on it 6.54:1 */
+
+  /* Type: Hanken Grotesk, one family. Display is the Light weight, often
+     italic, sentence case: the volume of a voice inside a shut car. */
+  --font: "Hanken Grotesk Variable", "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font);
   --wdth-extended: normal;
   --wdth-standard: normal;
 
-  /* Type scale (fluid 390 to 1440). Extreme jump: poster or body, little between. */
-  --type-poster: clamp(4.25rem, 0.6rem + 15vw, 15rem);
-  --type-display: clamp(3.25rem, 1.1rem + 8.8vw, 9rem);
-  --type-title: clamp(2.25rem, 1.2rem + 4.3vw, 5rem);
-  --type-input-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
-  --type-step: clamp(1.375rem, 1.25rem + 0.5vw, 1.75rem);
+  /* Type scale (fluid 390 to 1440). Display or body, little between (P-002).
+     Line height falls as size rises (P-028): 0.9 display, 1.15 title, 1.55 body. */
+  --type-poster: clamp(3.25rem, 1rem + 9.4vw, 10rem);
+  --type-display: clamp(2.5rem, 1.1rem + 5.6vw, 6.25rem);
+  --type-title: clamp(1.875rem, 1.3rem + 2.5vw, 3.5rem);
+  --type-input-xl: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
+  --type-step: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
   --type-body: 1rem;
   --type-small: 0.875rem;
   --type-label: 0.8125rem;
-  --type-board: clamp(1.375rem, 1rem + 1.5vw, 2.25rem);
+  --type-board: clamp(1.25rem, 1rem + 1vw, 1.875rem);
 
   /* Space (4px base) */
   --space-1: 4px;
@@ -76,16 +77,16 @@
   --cols: 4;
   --content-max: 1312px;
 
-  /* Shape: round like a tyre. Pills for actions and labels, soft panels. */
+  /* Shape: the small radius of a door card's moulding. Buttons are pills. */
   --radius-pill: 999px;
-  --radius-panel: 20px;
-  --radius-field: 12px;
-  --hairline: 1px solid var(--color-rule);
-  --shadow: 0 10px 30px rgb(23 36 31 / 0.16);
+  --radius-panel: 8px;
+  --radius-field: 6px;
+  --shadow: 0 18px 40px rgb(0 0 0 / 0.45);
 
-  /* Motion */
+  /* Motion. The soft-close curve: quick travel, then a slow pull home. */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-scene: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-latch: cubic-bezier(0.3, 0, 0.1, 1);
   --dur-press: 90ms;
   --dur-hover: 180ms;
   --dur-chip: 240ms;
@@ -93,6 +94,7 @@
   --dur-panel: 420ms;
   --dur-page: 480ms;
   --dur-reveal: 700ms;
+  --dur-latch: 900ms;
   --nudge: 4px;
   --press-shift: 1px;
 
@@ -100,6 +102,66 @@
   --frame-h: 72px;
   --action-h: 56px;
   --bar-h: 64px;
+
+  color-scheme: dark;
+}
+
+/* The outside: the same roles, on the kerb. */
+.on-light {
+  --bg-base: var(--kerb);
+  --bg-elevated: #e6e3de;
+  --bg-field: #f3f1ed;
+  --fg-primary: var(--kerb-ink);
+  --fg-secondary: var(--kerb-ink-2);
+  --fg-disabled: #6e6573;
+  --border-field: #6e6573;
+  --border-subtle: #b9b4ad;
+  --tint: rgb(20 17 24 / 0.07);
+  --shade: rgb(20 17 24 / 0.18);
+  --accent: var(--kerb-accent);
+  --accent-hover: #1a3d6b;
+  --on-accent: #ece6dd;
+  --error: #a3271c;
+  --success: #2e6a3f;
+  color: var(--fg-primary);
+  color-scheme: light;
+}
+
+/* Legacy aliases, declared on both so they follow the local theme. */
+:root,
+.on-light {
+  --color-paper: var(--bg-base);
+  --color-paper-raised: var(--bg-elevated);
+  --color-chrome: var(--bg-elevated);
+  --color-tan: var(--bg-elevated);
+  --color-sage: var(--bg-elevated);
+  --color-leather: var(--bg-elevated);
+  --color-leather-deep: var(--fg-secondary);
+  --color-night: var(--bg-sunk);
+  --color-dusk: var(--bg-sunk);
+  --color-dawn: var(--bg-base);
+  --color-ink: var(--fg-primary);
+  --color-ink-2: var(--fg-secondary);
+  --color-ink-3: var(--fg-disabled);
+  --color-field: var(--border-field);
+  --color-field-bg: var(--bg-field);
+  --color-rule: var(--border-subtle);
+  --color-on-dark: var(--fg-primary);
+  --color-on-dark-2: var(--fg-secondary);
+  --color-aurel: var(--accent);
+  --color-aurel-hover: var(--accent-hover);
+  --color-aurel-on-dark: var(--accent);
+  --color-lamp: var(--accent);
+  --color-lamp-on-dark: var(--accent);
+  --color-error: var(--error);
+  --color-error-on-dark: var(--error);
+  --color-success: var(--success);
+  --color-focus: var(--accent);
+  --hairline: 1px solid var(--border-subtle);
+}
+
+.on-light {
+  --color-focus: var(--kerb-ink);
 }
 
 @media (min-width: 600px) {
@@ -124,6 +186,7 @@
     --dur-panel: 0ms;
     --dur-page: 0ms;
     --dur-reveal: 0ms;
+    --dur-latch: 0ms;
     --nudge: 0px;
     --press-shift: 0px;
   }

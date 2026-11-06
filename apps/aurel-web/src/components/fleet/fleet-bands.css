@@ -1,254 +1,166 @@
-/* Fleet bands: one expanded tier, three collapsed (P-022). */
-.bands {
+/* Fleet: one large cabin plan beside four rows, one open (P-022). */
+.fleetc {
   display: grid;
-  gap: 6px;
-}
-
-.band {
-  --band: var(--color-paper-raised);
-  background: var(--band);
-  border-radius: var(--radius-panel);
-  overflow: hidden;
-  transition: background-color var(--dur-panel) var(--ease-out);
-}
-
-.band--first {
-  --band: var(--color-chrome);
-}
-
-.band--suv {
-  --band: var(--color-tan);
-}
-
-.band--van {
-  --band: var(--color-sage);
-}
-
-.band__btn {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 3.5rem 1fr auto 40px;
-  align-items: center;
-  gap: var(--space-4);
-  min-height: 76px;
-  padding: 0 var(--space-4) 0 var(--space-5);
-  text-align: left;
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2.25rem);
-  line-height: 1;
-}
-
-.band__n {
-  font-size: 0.7em;
-  color: var(--color-ink-2);
-}
-
-.band__cap {
-  font-family: var(--font);
-  font-weight: 500;
-  text-transform: none;
-  color: var(--color-ink-2);
-}
-
-.band__plus {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  transition:
-    background-color var(--dur-hover) var(--ease-out),
-    color var(--dur-hover) var(--ease-out);
-}
-
-.band__btn:hover .band__plus {
-  background: var(--color-ink);
-  color: var(--color-paper-raised);
-}
-
-.band.is-open .band__plus {
-  background: var(--color-ink);
-  color: var(--color-paper-raised);
-}
-
-.band.is-out:not(.is-open) .band__name {
-  text-decoration: line-through;
-  text-decoration-thickness: 2px;
-}
-
-.band__panel {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-5);
-  padding: 0 var(--space-5) var(--space-6);
-  animation: band-in var(--dur-panel) var(--ease-out);
-}
-
-@keyframes band-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-}
-
-.band__stage {
-  position: relative;
-  display: grid;
-  align-items: end;
-  min-height: clamp(200px, 30vw, 440px);
-  overflow: hidden;
-}
-
-/* The numeral sits behind the car; the car crosses it (P-019). */
-.band__numeral {
-  position: absolute;
-  right: -0.04em;
-  top: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(9rem, 3rem + 24vw, 26rem);
-  line-height: 0.78;
-  letter-spacing: -0.03em;
-  color: var(--color-ink);
-  animation: numeral-roll 560ms var(--ease-out);
-}
-
-@keyframes numeral-roll {
-  from {
-    transform: translateY(40%);
-    opacity: 0;
-  }
-}
-
-.band__car {
-  position: relative;
-  width: min(100%, 920px);
-  height: auto;
-  margin-bottom: var(--space-2);
-  animation: car-in 640ms var(--ease-scene);
-}
-
-@keyframes car-in {
-  from {
-    transform: translateX(-8%);
-    opacity: 0;
-  }
-}
-
-.band__info {
-  display: grid;
-  align-content: start;
-  gap: var(--space-4);
-}
-
-.band__similar {
-  color: var(--color-ink-2);
-}
-
-.band__summary {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 1.2rem + 0.9vw, 2rem);
-  line-height: 1.05;
-  max-width: 22ch;
-}
-
-.band__pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.band__pills .pill {
-  white-space: normal;
-  min-height: 32px;
-  padding-block: 6px;
-}
-
-.band__suited {
-  color: var(--color-ink-2);
-}
-
-.band__reason {
-  display: flex;
-  gap: var(--space-2);
-  color: var(--color-error);
-  font-weight: 500;
-}
-
-.band__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  margin-top: var(--space-2);
-}
-
-.band__arrows {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.band__arrow {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid var(--color-ink);
-  transition: background-color var(--dur-hover) var(--ease-out);
-}
-
-.band__arrow:hover {
-  background: rgb(23 36 31 / 0.08);
-}
-
-@media (max-width: 599px) {
-  .band__btn {
-    grid-template-columns: 2.25rem 1fr 40px;
-    padding-left: var(--space-4);
-    gap: var(--space-3);
-  }
-
-  .band__cap {
-    display: none;
-  }
-
-  .band__panel {
-    padding-inline: var(--space-4);
-  }
-
-  .band__car {
-    width: 118%;
-    max-width: none;
-  }
+  gap: var(--space-6);
 }
 
 @media (min-width: 1100px) {
-  .band__panel {
-    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-    gap: var(--space-6);
-    align-items: end;
+  .fleetc {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.fleetc__stage {
+  margin: 0;
+  padding: var(--space-6) var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+@media (min-width: 1100px) {
+  .fleetc__stage {
+    position: sticky;
+    top: calc(var(--frame-h) + var(--space-5));
+    padding: var(--space-8) var(--space-5);
+  }
+}
+
+.fleetc__plan {
+  animation: plan-in var(--dur-panel) var(--ease-out) both;
+}
+
+@keyframes plan-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+}
+
+.fleetc__cap {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.fleetc__row {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.fleetc__row:last-child {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.fleetc__head {
+  margin: 0;
+  font: inherit;
+}
+
+.fleetc__btn {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--space-4) 0;
+  text-align: left;
+  transition: color var(--dur-hover) var(--ease-out);
+}
+
+.fleetc__n {
+  font-size: var(--type-small);
+  color: var(--fg-secondary);
+}
+
+.fleetc__name {
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.fleetc__fit {
+  grid-column: 2;
+  color: var(--fg-secondary);
+}
+
+.fleetc__btn:hover .fleetc__name,
+.fleetc__row.is-open .fleetc__name {
+  font-style: italic;
+}
+
+.fleetc__row.is-out .fleetc__name {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  color: var(--fg-secondary);
+}
+
+.fleetc__panel {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0 0 var(--space-6) calc(2.5rem + var(--space-3));
+  animation: panel-in var(--dur-panel) var(--ease-out) both;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.fleetc__summary {
+  font-size: 1.125rem;
+  line-height: 1.45;
+}
+
+.fleetc__incl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  color: var(--fg-secondary);
+}
+
+.fleetc__incl li::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: var(--space-2);
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
+}
+
+.fleetc__reason {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  color: var(--error);
+}
+
+.fleetc__book {
+  justify-self: start;
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 599px) {
+  .fleetc__panel {
+    padding-left: 0;
   }
 
-  .band__stage {
-    min-height: 460px;
-  }
-
-  .band__numeral {
-    right: auto;
-    left: 18%;
+  .fleetc__book {
+    justify-self: stretch;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .band__panel,
-  .band__numeral,
-  .band__car {
+  .fleetc__plan,
+  .fleetc__panel {
     animation: none;
   }
 }

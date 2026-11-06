@@ -1,4 +1,4 @@
-/* Top bar: wordmark, three pill links, Menu, Book. Small, so the page's one
+/* Top frame: wordmark, Menu, Book. No link bar (P-010), so the page's one
    loud thing stays loud. */
 .frame {
   position: fixed;
@@ -16,8 +16,8 @@
   transform: translateY(-100%);
 }
 
-.frame.is-dark {
-  color: var(--color-on-dark);
+.frame.is-light {
+  color: var(--kerb-ink);
 }
 
 .frame__inner {
@@ -37,58 +37,9 @@
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
-  letter-spacing: 0.14em;
-}
-
-.frame__nav {
-  display: none;
-  gap: 2px;
-  padding: 4px;
-  border-radius: var(--radius-pill);
-  background: rgb(242 238 231 / 0.72);
-  backdrop-filter: saturate(1.2) blur(8px);
-}
-
-.frame.is-dark .frame__nav {
-  background: rgb(23 36 31 / 0.6);
-}
-
-@media (min-width: 834px) {
-  .frame__nav {
-    display: flex;
-  }
-}
-
-.frame__pill {
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  padding: 0 var(--space-4);
-  border-radius: var(--radius-pill);
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
   font-weight: 500;
-  text-decoration: none;
-  transition:
-    background-color var(--dur-hover) var(--ease-out),
-    color var(--dur-hover) var(--ease-out);
-}
-
-.frame__pill:hover {
-  background: rgb(23 36 31 / 0.08);
-}
-
-.frame.is-dark .frame__pill:hover {
-  background: rgb(229 223 212 / 0.14);
-}
-
-.frame__pill[aria-current="page"] {
-  background: var(--color-ink);
-  color: var(--color-on-dark);
-}
-
-.frame.is-dark .frame__pill[aria-current="page"] {
-  background: var(--color-on-dark);
-  color: var(--color-ink);
+  letter-spacing: 0.32em;
 }
 
 .frame__end {
@@ -109,11 +60,7 @@
 }
 
 .frame__menu:hover {
-  background: rgb(23 36 31 / 0.08);
-}
-
-.frame.is-dark .frame__menu:hover {
-  background: rgb(229 223 212 / 0.14);
+  background: var(--tint);
 }
 
 .frame__menu-icon {
@@ -136,14 +83,9 @@
   min-height: 48px;
 }
 
-.frame.is-dark .frame__book {
-  background: var(--color-on-dark);
-  color: var(--color-ink);
-}
-
-.frame.is-dark .frame__book .btn__arrow {
-  background: var(--color-ink);
-  color: var(--color-on-dark);
+.frame__book {
+  background: color-mix(in srgb, var(--bg-base) 70%, transparent);
+  backdrop-filter: blur(6px);
 }
 
 .frame__link {
@@ -159,11 +101,11 @@
 }
 
 .frame__link:hover {
-  background: rgb(229 223 212 / 0.14);
+  background: var(--tint);
 }
 
-/* Menu: a full-screen sheet on the car's paint. Links are set big and
-   condensed; each carries one small line. */
+/* Menu: a full-screen sheet on the footwell dark. Links in the light
+   display weight; each carries one small line. */
 .index {
   position: fixed;
   inset: 0;
@@ -188,7 +130,7 @@
 }
 
 .index::backdrop {
-  background: rgb(23 36 31 / 0.3);
+  background: rgb(0 0 0 / 0.55);
 }
 
 @keyframes index-in {
@@ -208,12 +150,13 @@
 }
 
 .index__mark {
-  font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
-  letter-spacing: 0.14em;
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+  font-weight: 500;
+  letter-spacing: 0.32em;
 }
 
 .index__close {
-  border: 1px solid rgb(229 223 212 / 0.4);
+  border: 1px solid var(--border-subtle);
 }
 
 .index__body {
@@ -247,7 +190,7 @@
 }
 
 .index__item + .index__item {
-  border-top: 1px solid rgb(229 223 212 / 0.16);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .index__link {
@@ -261,10 +204,10 @@
 
 .index__label {
   font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: -0.03em;
   font-size: clamp(2rem, 1.6rem + 1.6vw, 3.25rem);
-  line-height: 0.95;
+  line-height: 1;
 }
 
 .index__line {
@@ -282,7 +225,7 @@
   height: 10px;
   margin-left: var(--space-3);
   border-radius: 50%;
-  background: var(--color-lamp-on-dark);
+  background: var(--accent);
   vertical-align: middle;
 }
 
@@ -291,7 +234,7 @@
   flex-wrap: wrap;
   gap: var(--space-3) var(--space-6);
   padding-block: var(--space-5);
-  border-top: 1px solid rgb(229 223 212 / 0.16);
+  border-top: 1px solid var(--border-subtle);
   color: var(--color-on-dark-2);
 }
 
@@ -312,8 +255,8 @@
   }
 }
 
-/* Persistent action: one pill at the bottom once the booking panel and the
-   top bar's Book are out of view. */
+/* Persistent action: one accent pill in thumb reach (P-029) once the booking
+   panel, the hero and the ending are out of view. */
 .paction {
   position: fixed;
   left: 0;
@@ -346,22 +289,20 @@
   gap: var(--space-3);
   min-height: var(--action-h);
   max-width: 100%;
-  padding: 0 var(--space-2) 0 var(--space-5);
+  padding: 0 var(--space-5) 0 var(--space-5);
   border-radius: var(--radius-pill);
-  background: var(--color-ink);
-  color: var(--color-on-dark);
-  box-shadow:
-    var(--shadow),
-    inset 0 0 0 1px rgb(229 223 212 / 0.22);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow);
   font-weight: 600;
-  --focus: var(--color-lamp);
+  --focus: var(--fg-primary);
   transition:
     background-color var(--dur-hover) var(--ease-out),
     transform var(--dur-press) var(--ease-out);
 }
 
 .paction__btn:hover {
-  background: var(--color-aurel-hover);
+  background: var(--accent-hover);
 }
 
 .paction__btn:hover .btn__arrow {
@@ -373,18 +314,13 @@
 }
 
 .paction__btn .btn__arrow {
-  width: 40px;
-  height: 40px;
-  padding: 10px;
-  border-radius: 50%;
-  background: var(--color-paper-raised);
-  color: var(--color-ink);
   transition: transform var(--dur-hover) var(--ease-out);
   flex: none;
 }
 
 .paction__btn .now-dot {
-  background: var(--color-lamp-on-dark);
+  background: var(--on-accent);
+  box-shadow: none;
 }
 
 .paction__label {
@@ -395,7 +331,7 @@
 }
 
 .paction__verb {
-  color: var(--color-on-dark-2);
+  font-weight: 400;
 }
 
 @media (max-width: 599px) {
@@ -405,7 +341,14 @@
   }
 }
 
-/* Footer: compact index on the paint, with the wordmark set big at the end. */
+/* Wider screens: out of the reading line, in the bottom-right corner. */
+@media (min-width: 900px) {
+  .paction {
+    justify-content: flex-end;
+  }
+}
+
+/* Footer: compact index on the footwell dark. */
 .footer {
   background: var(--color-night);
   padding-block: var(--space-8) var(--space-6);
@@ -453,7 +396,7 @@
   align-items: center;
   gap: var(--space-3) var(--space-6);
   padding-top: var(--space-5);
-  border-top: 1px solid rgb(229 223 212 / 0.16);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .footer--bare .footer__base {
@@ -468,8 +411,9 @@
 }
 
 .footer__mark {
-  font-size: 1.25rem;
-  letter-spacing: 0.14em;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
 }
 
 .footer__legal {

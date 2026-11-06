@@ -1,8 +1,5 @@
-@import "@fontsource/barlow/400.css";
-@import "@fontsource/barlow/500.css";
-@import "@fontsource/barlow/600.css";
-@import "@fontsource/barlow-condensed/600.css";
-@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource-variable/hanken-grotesk/wght.css";
+@import "@fontsource-variable/hanken-grotesk/wght-italic.css";
 
 *,
 *::before,
@@ -21,7 +18,7 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font);
-    font-size: var(--type-body);
+  font-size: var(--type-body);
   line-height: 1.55;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -103,35 +100,44 @@ legend {
   color: var(--color-on-dark);
 }
 
-/* Type styles. Display is Barlow Condensed in capitals, set tight (P-002,
-   P-003, P-004); text is Barlow. */
+/* Type styles. Display is Hanken Grotesk Light in sentence case, set tight
+   (P-002, P-003); italics mark the moving word. Text is the same family. */
 .t-poster,
 .t-display,
 .t-title {
   font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.t-poster em,
+.t-display em,
+.t-title em {
+  font-style: italic;
+  font-weight: 300;
 }
 
 .t-poster {
   font-size: var(--type-poster);
-  line-height: 0.82;
+  line-height: 0.9;
 }
 
 .t-display {
   font-size: var(--type-display);
-  line-height: 0.86;
+  line-height: 0.95;
 }
 
 .t-title {
   font-size: var(--type-title);
-  line-height: 0.9;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 .t-input-xl {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: -0.02em;
   font-size: var(--type-input-xl);
   line-height: 1.1;
 }
@@ -149,31 +155,32 @@ legend {
 }
 
 .t-label {
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--type-label);
   line-height: 1.3;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .t-board {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: var(--type-board);
   line-height: 1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-/* Small label pinned to a big thing (P-023). */
+/* Small label pinned to a big thing (P-023): a hairline tag, no fill. */
 .pill {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 32px;
+  min-height: 30px;
   padding: 0 var(--space-3);
   border-radius: var(--radius-pill);
-  background: var(--color-paper-raised);
+  border: 1px solid var(--border-subtle);
+  background: transparent;
   color: var(--color-ink);
   font-size: var(--type-small);
   font-weight: 500;
@@ -182,8 +189,9 @@ legend {
 }
 
 .pill--ink {
-  background: var(--color-ink);
-  color: var(--color-on-dark);
+  background: var(--bg-elevated);
+  border-color: var(--bg-elevated);
+  color: var(--fg-primary);
 }
 
 .pill__dot {
@@ -199,12 +207,9 @@ legend {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--color-lamp);
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
   flex: none;
-}
-
-.on-dark .now-dot {
-  background: var(--color-lamp-on-dark);
 }
 
 .tnum {
@@ -255,14 +260,14 @@ legend {
   top: var(--space-4);
   z-index: 100;
   padding: var(--space-3) var(--space-4);
-  background: var(--color-ink);
-  color: var(--color-on-dark);
+  background: var(--accent);
+  color: var(--on-accent);
   transform: translateY(-200%);
 }
 
 .skip-link:focus-visible {
   transform: none;
-  --focus: var(--color-on-dark);
+  --focus: var(--fg-primary);
 }
 
 /* Page transitions (View Transitions API where supported) */
@@ -276,7 +281,8 @@ legend {
 
 @keyframes page-in {
   from {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translateY(24px);
   }
 }
 
@@ -290,8 +296,82 @@ legend {
   }
 }
 
-/* Vehicle pictures keep their aspect ratio wherever they sit. */
-.vehicle {
+/* The cabin plan (components/Vehicle.tsx). Line drawing in the text colours;
+   a taken seat or bag fills with the headliner. The chauffeur's seat is
+   always shown, set apart by a dashed edge. */
+.cabin {
+  display: block;
+  width: 100%;
   height: auto;
+  overflow: visible;
   user-select: none;
+}
+
+.cabin__body {
+  fill: var(--bg-elevated);
+  stroke: var(--fg-secondary);
+  stroke-width: 1.5;
+}
+
+.cabin__glass {
+  fill: var(--bg-base);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+
+.cabin__screen {
+  stroke: var(--fg-secondary);
+  stroke-width: 1.5;
+}
+
+.cabin__seat rect {
+  fill: transparent;
+  stroke: var(--fg-secondary);
+  stroke-width: 1.5;
+  transition:
+    fill var(--dur-chip) var(--ease-out),
+    stroke var(--dur-chip) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 40ms);
+}
+
+.cabin__seat .cabin__back {
+  fill: var(--border-subtle);
+  stroke: none;
+}
+
+.cabin__seat.is-front rect:first-child {
+  stroke-dasharray: 3 4;
+  stroke: var(--border-field);
+}
+
+.cabin__seat.is-chauffeur rect:first-child {
+  fill: var(--border-subtle);
+  stroke: var(--border-field);
+}
+
+.cabin__wheel {
+  fill: var(--fg-secondary);
+}
+
+.cabin__seat.is-taken rect:first-child {
+  fill: var(--fg-primary);
+  stroke: var(--fg-primary);
+}
+
+.cabin__seat.is-taken .cabin__back {
+  fill: var(--fg-secondary);
+}
+
+.cabin__bag {
+  fill: transparent;
+  stroke: var(--fg-secondary);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 3;
+  transition: fill var(--dur-chip) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 40ms);
+}
+
+.cabin__bag.is-taken {
+  fill: var(--fg-secondary);
+  stroke-dasharray: none;
 }

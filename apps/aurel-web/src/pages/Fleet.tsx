@@ -23,15 +23,15 @@ export function Fleet() {
       <section className="fleet__head" data-ground="light" aria-labelledby="fleet-title">
         <div className="wrap fleet__head-inner">
           <h1 id="fleet-title" className="t-poster fleet__title">
-            Fleet
+            Fleet, <em>from above.</em>
           </h1>
           <p className="fleet__lede">
-            Four cars, chosen by what you're carrying. Set your party and the cars that can't take it are struck out.
+            Four cars, drawn as cabins from above. Set your party: the seats and bag spaces fill, and the cars that can't take it are struck out.
           </p>
           <div className="fleet__counter" aria-label="Your party">
             <Stepper id="fleet-pax" label="Passengers" value={draft.passengers} min={1} max={MAX_PARTY} onChange={(n) => update({ passengers: n })} />
             <Stepper id="fleet-bags" label="Bags" value={draft.bags} min={0} max={MAX_BAGS} onChange={(n) => update({ bags: n })} />
-            <p className="pill pill--ink fleet__fits tnum" aria-live="polite">
+            <p className="pill fleet__fits tnum" aria-live="polite">
               {fits} of 4 cars fit
             </p>
           </div>

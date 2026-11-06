@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BookingScene } from "../components/booking/BookingScene";
-import { BoardName, NameBoard } from "../components/NameBoard";
-import { Vehicle } from "../components/Vehicle";
+import { CabinPlan } from "../components/Vehicle";
 import { ButtonLink } from "../components/Button";
 import { Icon } from "../components/Icon";
 import { useInView } from "../hooks";
-import { sampleBoardName } from "../config/copy";
 import { serviceRules } from "../config/serviceRules";
 import { formatMoney } from "../config/market";
 import "./pages.css";
@@ -48,21 +46,17 @@ export function AirportTransfers() {
   }, []);
   return (
     <div className="svc">
-      {/* Poster: the SUV, the one with room for bags, crosses the word (P-019). */}
-      <section className="ap-hero" data-ground="light" data-hide-action aria-labelledby="ap-title">
+      {/* Poster: the word, and the SUV's cabin from above with a party of two and three bags. */}
+      <section className="ap-hero" data-hide-action aria-labelledby="ap-title">
         <div className="wrap ap-hero__inner">
           <p className="t-label ap-hero__kicker">Airport transfers</p>
           <h1 id="ap-title" className="t-poster ap-hero__title">
-            Arrivals
+            Arrivals, <em>met.</em>
           </h1>
-          <div className="ap-hero__car">
-            <Vehicle tier="suv" priority sizes="(min-width: 834px) 70vw, 120vw" decorative />
-            <div className="ap-hero__board" aria-hidden="true">
-              <NameBoard>
-                <BoardName name={sampleBoardName} />
-              </NameBoard>
-            </div>
-          </div>
+          <figure className="ap-hero__car">
+            <CabinPlan tier="suv" passengers={2} bags={3} decorative />
+            <figcaption className="t-small muted">Luxury SUV from above: two passengers, three bags. Schematic.</figcaption>
+          </figure>
           <div className="ap-hero__foot">
             <p className="ap-hero__lede">
               Met in the arrivals hall with your name on a board. The pickup follows your flight, early or late.
@@ -138,7 +132,7 @@ export function AirportTransfers() {
         </div>
       </section>
 
-      <section className="svc-close on-dark" data-ground="dark" aria-labelledby="close-title">
+      <section className="svc-close on-light" data-ground="kerb" aria-labelledby="close-title">
         <div className="wrap svc-close__inner">
           <h2 id="close-title" className="t-display">
             Landing soon?

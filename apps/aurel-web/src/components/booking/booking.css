@@ -251,7 +251,7 @@
 
 .stops__remove:hover {
   color: var(--color-ink);
-  background: rgb(23 36 31 / 0.07);
+  background: var(--tint);
 }
 
 /* Flight lookup */
@@ -367,7 +367,7 @@
 
 .steps-ind__tick.is-current {
   width: 40px;
-  background: var(--color-ink);
+  background: var(--accent);
 }
 
 .book__exit {
@@ -384,7 +384,7 @@
 }
 
 .book__exit:hover {
-  background: rgb(23 36 31 / 0.07);
+  background: var(--tint);
 }
 
 .book__body {
@@ -545,7 +545,7 @@
     padding: var(--space-2) var(--margin) calc(var(--space-2) + env(safe-area-inset-bottom));
     background: var(--color-paper-raised);
     border-radius: var(--radius-panel) var(--radius-panel) 0 0;
-    box-shadow: 0 -6px 24px rgb(23 36 31 / 0.12);
+    box-shadow: 0 -6px 24px var(--shade);
   }
 
   .stepbar__total {
@@ -678,7 +678,7 @@
 
 .chip:hover {
   border-color: var(--color-ink);
-  background: #fff;
+  background: var(--bg-field);
 }
 
 .chip svg {
@@ -771,7 +771,7 @@
   align-items: center;
   padding: var(--space-4) var(--space-5);
   border-radius: var(--radius-panel);
-  background: rgb(242 238 231 / 0.55);
+  background: color-mix(in srgb, var(--bg-base) 82%, transparent);
   cursor: pointer;
   transition:
     background-color var(--dur-hover) var(--ease-out),

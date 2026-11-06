@@ -1,15 +1,13 @@
-/* The arrivals board: a white card with soft corners and the name set in the
+/* The arrivals board: a white card with the name set in the
    display face, as a chauffeur would hold it. A real feature for airport
    arrivals (Brief §5B), shown at booking and on the booking page. */
 .nameboard {
   position: relative;
-  background: #fbf9f6;
-  color: var(--color-ink);
+  background: #f3f1ed;
+  color: #141118;
   padding: var(--space-5);
-  border-radius: 14px;
-  box-shadow:
-    0 1px 0 rgb(23 36 31 / 0.08),
-    0 14px 30px rgb(23 36 31 / 0.14);
+  border-radius: 4px;
+  box-shadow: 0 14px 30px rgb(0 0 0 / 0.4);
 }
 
 .nameboard--lg {
@@ -43,5 +41,5 @@
 }
 
 .nameboard__name.is-empty {
-  color: var(--color-ink-2);
+  color: #4e4752;
 }
