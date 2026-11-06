@@ -131,7 +131,7 @@
 
 .tt__time {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 300;
   font-size: 1.75rem;
   line-height: 1;
 }
@@ -333,10 +333,9 @@
 
 .compare thead th {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.375rem;
-  text-transform: uppercase;
-  border-bottom: 2px solid var(--color-ink);
+  font-weight: 500;
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--color-ink);
 }
 
 .compare tbody th {

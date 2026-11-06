@@ -218,8 +218,6 @@
   top: calc(var(--frame-h) + var(--space-4));
   left: var(--margin);
   width: calc(var(--open-x) - var(--margin) - 4vw);
-  opacity: calc((var(--d, 0) - 0.8) * 5);
-  transition: opacity 600ms var(--ease-out) 200ms;
   pointer-events: none;
 }
 
@@ -233,9 +231,35 @@
   margin-top: var(--space-7);
 }
 
+/* The answers arrive one by one once the door has latched. */
+.sc__answers .sc__side,
 .sc__list li {
   display: grid;
   gap: var(--space-1);
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.sc__answers .sc__side {
+  display: block;
+}
+
+.sc.is-closed .sc__answers .sc__side,
+.sc.is-closed .sc__list li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-scene);
+  transition-delay: calc(500ms + var(--i, -1) * 110ms + 110ms);
+}
+
+.sc.is-static .sc__answers .sc__side,
+.sc.is-static .sc__list li {
+  transition: none;
 }
 
 .sc__was {
@@ -364,7 +388,7 @@
   .sc__out {
     inset: 0 0 auto 0;
     width: auto;
-    height: calc(var(--open-y) + 4svh);
+    height: var(--open-y);
   }
 
   .sc__n--mins {
